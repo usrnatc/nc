@@ -1,0 +1,1547 @@
+ main
+
+ Timestamp is 69ca8348 (Tue Mar 31 00:06:00 2026)
+
+ Preferred load address is 0000000140000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00000ec0H .rdata                  CODE
+ 0001:00000ec0 000001f0H .rdata$                 CODE
+ 0001:000010b0 00000128H .rdata$voltmd           CODE
+ 0001:000011d8 000001d8H .rdata$zzzdbg           CODE
+ 0001:000013b0 00026870H .text$mn                CODE
+ 0001:00027c20 00000018H .text$x                 CODE
+ 0001:00027c38 00000008H .tls$XAA                CODE
+ 0001:00027c40 00000010H .tls$XCC                CODE
+ 0001:00027c50 00000004H .tls$XZZ                CODE
+ 0001:00027c54 00000e5cH .xdata                  CODE
+ 0001:00028ab0 00000000H .edata                  CODE
+ 0002:00000000 00000080H .data                   DATA
+ 0002:00000080 000001e4H .bss                    DATA
+ 0003:00000000 000011acH .pdata                  DATA
+ 0004:00000000 000003f8H .idata$5                DATA
+ 0004:000003f8 00000078H .idata$2                DATA
+ 0004:00000470 00000018H .idata$3                DATA
+ 0004:00000488 000003f8H .idata$4                DATA
+ 0004:00000880 0000083eH .idata$6                DATA
+ 0005:00000000 00000060H .rsrc$01                DATA
+ 0005:00000060 00000280H .rsrc$02                DATA
+
+  Address         Publics by Value              Rva+Base               Lib:Object
+
+ 0000:00000000       __AbsoluteZero             0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       __arm64x_extra_rfe_table   0000000000000000     <absolute>
+ 0000:00000000       __arm64x_extra_rfe_table_size 0000000000000000     <absolute>
+ 0000:00000000       __arm64x_native_entrypoint 0000000000000000     <absolute>
+ 0000:00000000       __arm64x_redirection_metadata 0000000000000000     <absolute>
+ 0000:00000000       __arm64x_redirection_metadata_count 0000000000000000     <absolute>
+ 0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
+ 0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       __guard_check_icall_a64n_fptr 0000000000000000     <absolute>
+ 0000:00000000       __guard_eh_cont_count      0000000000000000     <absolute>
+ 0000:00000000       __guard_eh_cont_table      0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_count         0000000000000000     <absolute>
+ 0000:00000000       __guard_fids_table         0000000000000000     <absolute>
+ 0000:00000000       __guard_flags              0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_count          0000000000000000     <absolute>
+ 0000:00000000       __guard_iat_table          0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
+ 0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_delayload_iat 0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_delayload_iat_copy 0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_iat     0000000000000000     <absolute>
+ 0000:00000000       __hybrid_auxiliary_iat_copy 0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
+ 0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
+ 0000:00000000       __hybrid_image_info_bitfield 0000000000000000     <absolute>
+ 0000:00000000       __x64_code_ranges_to_entry_points 0000000000000000     <absolute>
+ 0000:00000000       __x64_code_ranges_to_entry_points_count 0000000000000000     <absolute>
+ 0000:00000000       __ImageBase                0000000140000000     <linker-defined>
+ 0001:00000be0       ??_C@_0BL@KDCLKGGE@H?3?2C?$CL?$CL?2nc?2cli?2nc_arena?4cpp@ 0000000140000ee0     main.obj
+ 0001:00000bfb       ??_C@_00CNPNBAHC@@         0000000140000efb     main.obj
+ 0001:00000bfc       ??_C@_01KMDKNFGN@?1@       0000000140000efc     main.obj
+ 0001:00000c00       ??_C@_01IHBHIGKO@?0@       0000000140000f00     main.obj
+ 0001:00000c04       ??_C@_02BAABKJLB@?9?9@     0000000140000f04     main.obj
+ 0001:00000c08       ??_C@_01JOAMLHOP@?9@       0000000140000f08     main.obj
+ 0001:00000c0c       ??_C@_01JLIPDDHJ@?3@       0000000140000f0c     main.obj
+ 0001:00000c10       ??_C@_01NEMOKFLO@?$DN@     0000000140000f10     main.obj
+ 0001:00000c18       ??_C@_0BM@FDKJPANE@H?3?2C?$CL?$CL?2nc?2cli?2nc_thread?4cpp@ 0000000140000f18     main.obj
+ 0001:00000c38       ??_C@_0CI@KMJCNIMJ@H?3?2C?$CL?$CL?2nc?2cli?2cache?2nc_object_c@ 0000000140000f38     main.obj
+ 0001:00000c60       ??_C@_0CD@KODCDHFL@H?3?2C?$CL?$CL?2nc?2cli?2cache?2nc_content?4@ 0000000140000f60     main.obj
+ 0001:00000c88       ??_C@_0CH@KKFCKBGD@H?3?2C?$CL?$CL?2nc?2cli?2cache?2nc_file_str@ 0000000140000f88     main.obj
+ 0001:00000cb0       ??_C@_0CO@HINNEIJB@H?3?2C?$CL?$CL?2nc?2cli?2internal?2win32?2wi@ 0000000140000fb0     main.obj
+ 0001:00000ce0       ??_C@_0CM@GBGFHKEJ@H?3?2C?$CL?$CL?2nc?2cli?2internal?2win32?2wi@ 0000000140000fe0     main.obj
+ 0001:00000d10       ??_C@_0CN@BNNJNNPA@H?3?2C?$CL?$CL?2nc?2cli?2internal?2win32?2wi@ 0000000140001010     main.obj
+ 0001:00000d40       __real@4024000000000000    0000000140001040     main.obj
+ 0001:00000d48       __real@408f400000000000    0000000140001048     main.obj
+ 0001:00000d50       __real@412e848000000000    0000000140001050     main.obj
+ 0001:00000d60       __ymm@0000000000000000b9b9bfbf041300000000000000000000b9b9bfbf04130000 0000000140001060     main.obj
+ 0001:00000d80       __ymm@0001100000011000000110000001100000011000000110000001100000011000 0000000140001080     main.obj
+ 0001:00000da0       __ymm@0140014001400140014001400140014001400140014001400140014001400140 00000001400010a0     main.obj
+ 0001:00000dc0       __ymm@0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f 00000001400010c0     main.obj
+ 0001:00000de0       __ymm@1010101010101010101010101010101010101010101010101010101010101010 00000001400010e0     main.obj
+ 0001:00000e00       __ymm@2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f 0000000140001100     main.obj
+ 0001:00000e20       __ymm@9e3779b19e3779b19e3779b19e3779b19e3779b19e3779b19e3779b19e3779b1 0000000140001120     main.obj
+ 0001:00000e40       __ymm@ffffffff0c0d0e08090a040506000102ffffffff0c0d0e08090a040506000102 0000000140001140     main.obj
+ 0001:00001090       ?UTF8_CLASS@@3QBEB         0000000140001390     main.obj
+ 0001:000010b0       __volatile_metadata        00000001400013b0     <linker-defined>
+ 0001:000014a0       ?GetSystemProperties@@YAPEAUSystemProperties@@XZ 00000001400017a0 f   main.obj
+ 0001:000014b0       ?GetProcessProperties@@YAPEAUProcessProperties@@XZ 00000001400017b0 f   main.obj
+ 0001:00002310       ?ArenaPushStrFmtV@@YA?AUStr8@@PEAUArena@@PEBDPEAD@Z 0000000140002610 f   main.obj
+ 0001:00002430       ?ArenaPushStrFmt@@YA?AUStr8@@PEAUArena@@PEADZZ 0000000140002730 f   main.obj
+ 0001:000024e0       ?ArenaPushStrFmtV@@YA?AUStr16@@PEAUArena@@PEBGPEAD@Z 00000001400027e0 f   main.obj
+ 0001:000025c0       ?ArenaPushStrFmt@@YA?AUStr16@@PEAUArena@@PEAGZZ 00000001400028c0 f   main.obj
+ 0001:00002670       ?ListPushFmt@@YAXPEAUArena@@PEAUStr8List@@PEADZZ 0000000140002970 f   main.obj
+ 0001:00002730       ?Str8TextPointPairFromStr@@YA?AUStr8TextPointPair@@UStr8@@@Z 0000000140002a30 f   main.obj
+ 0001:00002c00       ?SerialPop@@YA_KUStr8@@_KPEAX11@Z 0000000140002f00 f   main.obj
+ 0001:00002ce0       ?SerialFindFirstMatch@@YA_KUStr8@@_KG@Z 0000000140002fe0 f   main.obj
+ 0001:00002d80       ?SerialPopRawPtr@@YAPEAXUStr8@@_K1@Z 0000000140003080 f   main.obj
+ 0001:00002de0       ?SerialPopCStr@@YA_KUStr8@@_KPEAU1@@Z 00000001400030e0 f   main.obj
+ 0001:00002eb0       ?SerialPopStr16@@YA_KUStr8@@_KPEAUStr16@@@Z 00000001400031b0 f   main.obj
+ 0001:00002fc0       ?SerialPopBlock@@YA_KUStr8@@_K1PEAU1@@Z 00000001400032c0 f   main.obj
+ 0001:000030c0       ?TxtPt@@YA?AUTextPoint@@_J0@Z 00000001400033c0 f   main.obj
+ 0001:00003120       ?TxtRng@@YA?AUTextRange@@UTextPoint@@0@Z 0000000140003420 f   main.obj
+ 0001:000031a0       ?FuzzyFind@@YA?AUFMRangeList@@PEAUArena@@UStr8@@1@Z 00000001400034a0 f   main.obj
+ 0001:00003570       ?ToLower@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140003870 f   main.obj
+ 0001:00003780       ?MainThreadBaseEntryPoint@@YAXHPEAPEAD@Z 0000000140003a80 f   main.obj
+ 0001:00003d20       ?EntityAlloc@@YAPEAUOSEntity@@W4EntityKind@@@Z 0000000140004020 f   main.obj
+ 0001:00003dd0       ?EntityDestroy@@YAXPEAUOSEntity@@@Z 00000001400040d0 f   main.obj
+ 0001:00003e30       ?SharedMemoryAlloc@@YA?AUHandle@@_KUStr8@@@Z 0000000140004130 f   main.obj
+ 0001:00003fa0       ?SharedMemoryOpen@@YA?AUHandle@@UStr8@@@Z 00000001400042a0 f   main.obj
+ 0001:000040c0       ?SharedMemoryClose@@YAXUHandle@@@Z 00000001400043c0 f   main.obj
+ 0001:00004100       ?SharedMemoryViewOpen@@YAPEAXUHandle@@Tr1u64@@@Z 0000000140004400 f   main.obj
+ 0001:000041c0       ?SharedMemoryViewClose@@YAXUHandle@@PEAXTr1u64@@@Z 00000001400044c0 f   main.obj
+ 0001:000041f0       ?GetUSecsResolution@@YA_KXZ 00000001400044f0 f   main.obj
+ 0001:00004200       ?TimeNow@@YA_KXZ           0000000140004500 f   main.obj
+ 0001:00004250       ?SleepMSecsFromEndTimeUSecs@@YAI_K@Z 0000000140004550 f   main.obj
+ 0001:000042f0       ?Abort@@YAXI@Z             00000001400045f0 f   main.obj
+ 0001:00004310       ?SysInit@@YAXXZ            0000000140004610 f   main.obj
+ 0001:00004360       ?EntryPoint@@YAXPEAUCommandLine@@@Z 0000000140004660 f   main.obj
+ 0001:000043d0       ?GetCurrentPath@@YA?AUStr8@@PEAUArena@@@Z 00000001400046d0 f   main.obj
+ 0001:000045a0       ?MemInit@@YAXXZ            00000001400048a0 f   main.obj
+ 0001:000045d0       ?MemReserve@@YAPEAX_K@Z    00000001400048d0 f   main.obj
+ 0001:00004600       ?MemReserveLarge@@YAPEAX_K@Z 0000000140004900 f   main.obj
+ 0001:00004630       ?MemCommit@@YAIPEAX_K@Z    0000000140004930 f   main.obj
+ 0001:00004680       ?MemCommitLarge@@YAIPEAX_K@Z 0000000140004980 f   main.obj
+ 0001:000046a0       ?MemDeCommit@@YAXPEAX_K@Z  00000001400049a0 f   main.obj
+ 0001:000046d0       ?MemRelease@@YAXPEAX_K@Z   00000001400049d0 f   main.obj
+ 0001:00004700       ?EnableMaxMemorySpace@@YAXXZ 0000000140004a00 f   main.obj
+ 0001:00004760       ?TimeInit@@YAXXZ           0000000140004a60 f   main.obj
+ 0001:000047a0       ?SleepMSecs@@YAXI@Z        0000000140004aa0 f   main.obj
+ 0001:000047c0       ?TimeGetTimestamp@@YA_KXZ  0000000140004ac0 f   main.obj
+ 0001:000047e0       ?TimeElapsedSec@@YAN_K0@Z  0000000140004ae0 f   main.obj
+ 0001:00004840       ?TimeElapsedMSec@@YAN_K0@Z 0000000140004b40 f   main.obj
+ 0001:00004870       ?TimeElapsedUSec@@YAN_K0@Z 0000000140004b70 f   main.obj
+ 0001:000048a0       ?TimeGetWallClockUTC@@YA_KXZ 0000000140004ba0 f   main.obj
+ 0001:000048d0       ?TimeWallClockToDateTime@@YAX_KPEAUDateTime@@@Z 0000000140004bd0 f   main.obj
+ 0001:000049c0       ?TimeDateTimeToWallClock@@YA_KPEAUDateTime@@@Z 0000000140004cc0 f   main.obj
+ 0001:00004ab0       ?PrintInit@@YAXXZ          0000000140004db0 f   main.obj
+ 0001:00004bb0       ?PrintRelease@@YAXXZ       0000000140004eb0 f   main.obj
+ 0001:00004bc0       ?PrintOut@@YAXUStr8@@@Z    0000000140004ec0 f   main.obj
+ 0001:00004c40       ?PrintOut@@YAXPEADZZ       0000000140004f40 f   main.obj
+ 0001:00004d60       ?PrintErr@@YAXUStr8@@@Z    0000000140005060 f   main.obj
+ 0001:00004de0       ?PrintErr@@YAXPEADZZ       00000001400050e0 f   main.obj
+ 0001:00004f00       ?UserIn@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140005200 f   main.obj
+ 0001:00005050       ?UserIn@@YA?AUStr8@@PEAUArena@@@Z 0000000140005350 f   main.obj
+ 0001:000050e0       ?SetStdOut@@YAXH@Z         00000001400053e0 f   main.obj
+ 0001:00005100       ?SetStdErr@@YAXH@Z         0000000140005400 f   main.obj
+ 0001:00005120       ?SetStdIn@@YAXH@Z          0000000140005420 f   main.obj
+ 0001:00005140       ?GetStdOut@@YA?AUHandle@@XZ 0000000140005440 f   main.obj
+ 0001:00005190       ?GetStdErr@@YA?AUHandle@@XZ 0000000140005490 f   main.obj
+ 0001:000051e0       ?GetStdIn@@YA?AUHandle@@XZ 00000001400054e0 f   main.obj
+ 0001:00005230       ?__LogBase@@YAXPEBDHEUStr8@@@Z 0000000140005530 f   main.obj
+ 0001:00005470       ?__LogBase@@YAXPEBDHEPEADZZ 0000000140005770 f   main.obj
+ 0001:000055a0       ?__LogBase@@YAXPEBDHEUStr16@@@Z 00000001400058a0 f   main.obj
+ 0001:000056d0       ?__LogBase@@YAXPEBDHEPEAGZZ 00000001400059d0 f   main.obj
+ 0001:00005800       ?ProfileLoopEnd@@YAIPEAUProfileState@@@Z 0000000140005b00 f   main.obj
+ 0001:00005880       ?SystemOpenFile@@YA?AUHandle@@IUStr8@@@Z 0000000140005b80 f   main.obj
+ 0001:00005b00       ?SystemCloseFile@@YAXUHandle@@@Z 0000000140005e00 f   main.obj
+ 0001:00005b50       ?SystemReadFile@@YA_KUHandle@@Tr1u64@@PEAX@Z 0000000140005e50 f   main.obj
+ 0001:00005dc0       ?SystemWriteFile@@YA_KUHandle@@Tr1u64@@PEAX@Z 00000001400060c0 f   main.obj
+ 0001:00005f80       ?SystemSetFileTimes@@YAIUHandle@@UDateTime@@@Z 0000000140006280 f   main.obj
+ 0001:00006030       ?SystemGetFileProperties@@YA?AUFileProperties@@UHandle@@@Z 0000000140006330 f   main.obj
+ 0001:00006130       ?SystemGetFileProperties@@YA?AUFileProperties@@UStr8@@@Z 0000000140006430 f   main.obj
+ 0001:000062f0       ?SystemGetFileID@@YA?AUFileID@@UHandle@@@Z 00000001400065f0 f   main.obj
+ 0001:000063f0       ?SystemReserveFileSize@@YAIUHandle@@_K@Z 00000001400066f0 f   main.obj
+ 0001:00006490       ?SystemDeleteFile@@YAIUStr8@@@Z 0000000140006790 f   main.obj
+ 0001:00006590       ?SystemGetFullFilePath@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140006890 f   main.obj
+ 0001:00006830       ?SystemFileExists@@YAIUStr8@@@Z 0000000140006b30 f   main.obj
+ 0001:00006960       ?SystemDirExists@@YAIUStr8@@@Z 0000000140006c60 f   main.obj
+ 0001:00006a90       ?SystemOpenFileMap@@YA?AUHandle@@IU1@@Z 0000000140006d90 f   main.obj
+ 0001:00006b90       ?SystemCloseFileMap@@YAXUHandle@@@Z 0000000140006e90 f   main.obj
+ 0001:00006bd0       ?SystemOpenFileMapView@@YAPEAXUHandle@@ITr1u64@@@Z 0000000140006ed0 f   main.obj
+ 0001:00006d20       ?SystemCloseFileMapView@@YAXUHandle@@PEAXTr1u64@@@Z 0000000140007020 f   main.obj
+ 0001:00006d50       ?SystemFileIterBegin@@YAPEAUFileIter@@PEAUArena@@UStr8@@I@Z 0000000140007050 f   main.obj
+ 0001:000071d0       ?SystemFileIterNext@@YAIPEAUArena@@PEAUFileIter@@PEAUFileInfo@@@Z 00000001400074d0 f   main.obj
+ 0001:00007570       ?SystemFileIterEnd@@YAXPEAUFileIter@@@Z 0000000140007870 f   main.obj
+ 0001:000075e0       ?SystemOpenLibrary@@YA?AUHandle@@UStr8@@@Z 00000001400078e0 f   main.obj
+ 0001:00007700       ?SystemCloseLibrary@@YAXUHandle@@@Z 0000000140007a00 f   main.obj
+ 0001:00007740       ?SystemLibraryLoadProc@@YAP6AXXZUHandle@@UStr8@@@Z 0000000140007a40 f   main.obj
+ 0001:00007790       ?SystemCreateDirectory@@YAIUStr8@@@Z 0000000140007a90 f   main.obj
+ 0001:000078e0       ?SystemMoveFile@@YAIUStr8@@0@Z 0000000140007be0 f   main.obj
+ 0001:00007a50       ?RingWrite@@YA_KPEAE_K1PEAX1@Z 0000000140007d50 f   main.obj
+ 0001:00007b70       ?RingRead@@YA_KPEAE_K1PEAX1@Z 0000000140007e70 f   main.obj
+ 0001:00007c70       ?ProcessLaunch@@YA?AUHandle@@PEAUProcessLaunchProperties@@@Z 0000000140007f70 f   main.obj
+ 0001:000083e0       ?ProcessJoin@@YAIUHandle@@_K@Z 00000001400086e0 f   main.obj
+ 0001:00008470       ?ProcessJoinExitCode@@YAIUHandle@@_KPEAH@Z 0000000140008770 f   main.obj
+ 0001:00008530       ?ProcessDetach@@YAXUHandle@@@Z 0000000140008830 f   main.obj
+ 0001:00008570       ?ProcessKill@@YAIUHandle@@@Z 0000000140008870 f   main.obj
+ 0001:000085b0       ?MutexAlloc@@YA?AUHandle@@XZ 00000001400088b0 f   main.obj
+ 0001:00008610       ?MutexUnlock@@YAXUHandle@@@Z 0000000140008910 f   main.obj
+ 0001:00008650       ?MutexLock@@YAXUHandle@@@Z 0000000140008950 f   main.obj
+ 0001:00008690       ?MutexDestroy@@YAXUHandle@@@Z 0000000140008990 f   main.obj
+ 0001:000086d0       ?RWMutexAlloc@@YA?AUHandle@@XZ 00000001400089d0 f   main.obj
+ 0001:00008730       ?RWMutexDestroy@@YAXUHandle@@@Z 0000000140008a30 f   main.obj
+ 0001:00008770       ?RWMutexLockR@@YAXUHandle@@@Z 0000000140008a70 f   main.obj
+ 0001:000087b0       ?RWMutexUnlockR@@YAXUHandle@@@Z 0000000140008ab0 f   main.obj
+ 0001:000087f0       ?RWMutexLockW@@YAXUHandle@@@Z 0000000140008af0 f   main.obj
+ 0001:00008830       ?RWMutexUnlockW@@YAXUHandle@@@Z 0000000140008b30 f   main.obj
+ 0001:00008870       ?RWMutexLock@@YAXUHandle@@I@Z 0000000140008b70 f   main.obj
+ 0001:000088b0       ?RWMutexUnlock@@YAXUHandle@@I@Z 0000000140008bb0 f   main.obj
+ 0001:000088f0       ?CondVarAlloc@@YA?AUHandle@@XZ 0000000140008bf0 f   main.obj
+ 0001:00008950       ?CondVarDestroy@@YAXUHandle@@@Z 0000000140008c50 f   main.obj
+ 0001:00008990       ?CondVarWait@@YAIUHandle@@0_K@Z 0000000140008c90 f   main.obj
+ 0001:00008a20       ?CondVarWaitR@@YAIUHandle@@0_K@Z 0000000140008d20 f   main.obj
+ 0001:00008ab0       ?CondVarWaitW@@YAIUHandle@@0_K@Z 0000000140008db0 f   main.obj
+ 0001:00008b40       ?CondVarSignal@@YAXUHandle@@@Z 0000000140008e40 f   main.obj
+ 0001:00008b80       ?CondVarBroadcast@@YAXUHandle@@@Z 0000000140008e80 f   main.obj
+ 0001:00008bc0       ?SemaphoreAlloc@@YA?AUHandle@@IIUStr8@@@Z 0000000140008ec0 f   main.obj
+ 0001:00008cf0       ?SemaphoreDestroy@@YAXUHandle@@UStr8@@@Z 0000000140008ff0 f   main.obj
+ 0001:00008d30       ?SemaphoreOpen@@YA?AUHandle@@UStr8@@@Z 0000000140009030 f   main.obj
+ 0001:00008e50       ?SemaphoreClose@@YAXUHandle@@@Z 0000000140009150 f   main.obj
+ 0001:00008e90       ?SemaphoreLock@@YAIUHandle@@_K@Z 0000000140009190 f   main.obj
+ 0001:00008f00       ?SemaphoreUnlock@@YAXUHandle@@@Z 0000000140009200 f   main.obj
+ 0001:00008f40       ?BarrierAlloc@@YA?AUHandle@@_K@Z 0000000140009240 f   main.obj
+ 0001:00008fa0       ?BarrierRelease@@YAXUHandle@@@Z 00000001400092a0 f   main.obj
+ 0001:00008ff0       ?BarrierWait@@YAXUHandle@@@Z 00000001400092f0 f   main.obj
+ 0001:00009040       ?StripeArrayAlloc@@YA?AUStripeArray@@PEAUArena@@@Z 0000000140009340 f   main.obj
+ 0001:00009150       ?StripeArrayRelease@@YAXPEAUStripeArray@@@Z 0000000140009450 f   main.obj
+ 0001:000091e0       ?StripeFromSlotIndex@@YAPEAUStripe@@PEAUStripeArray@@_K@Z 00000001400094e0 f   main.obj
+ 0001:00009220       ?ThreadGetID@@YAIXZ        0000000140009520 f   main.obj
+ 0001:00009250       ?ThreadSetName@@YAXUStr8@@@Z 0000000140009550 f   main.obj
+ 0001:00009410       ?ThreadSetName@@YAXPEADZZ  0000000140009710 f   main.obj
+ 0001:00009530       ?ThreadLaunch@@YA?AUHandle@@P6AXPEAX@Z00@Z 0000000140009830 f   main.obj
+ 0001:000095e0       ?ThreadLaunch@@YA?AUHandle@@P6AXPEAX@Z0@Z 00000001400098e0 f   main.obj
+ 0001:00009690       ?ThreadJoin@@YAIUHandle@@_K@Z 0000000140009990 f   main.obj
+ 0001:00009730       ?ThreadDetach@@YAXUHandle@@@Z 0000000140009a30 f   main.obj
+ 0001:00009780       ?ThreadContextSetThreadName@@YAXUStr8@@@Z 0000000140009a80 f   main.obj
+ 0001:00009800       ?ThreadContextGetThreadName@@YA?AUStr8@@XZ 0000000140009b00 f   main.obj
+ 0001:00009890       ?ThreadContextWriteSrcLoc@@YAXPEAD_K@Z 0000000140009b90 f   main.obj
+ 0001:000098d0       ?ThreadContextReadSrcLoc@@YAXPEAPEADPEA_K@Z 0000000140009bd0 f   main.obj
+ 0001:00009920       ?ThreadContextAlloc@@YAPEAUThreadContext@@XZ 0000000140009c20 f   main.obj
+ 0001:000099d0       ?ThreadContextRelease@@YAXPEAUThreadContext@@@Z 0000000140009cd0 f   main.obj
+ 0001:00009a20       ?ThreadContextSelect@@YAXPEAUThreadContext@@@Z 0000000140009d20 f   main.obj
+ 0001:00009a50       ?ThreadContextSelected@@YAPEAUThreadContext@@XZ 0000000140009d50 f   main.obj
+ 0001:00009a70       ?ThreadContextSetLaneContext@@YA?AULaneContext@@U1@@Z 0000000140009d70 f   main.obj
+ 0001:00009ae0       ?ThreadContextBarrierWait@@YAXPEAX_K1@Z 0000000140009de0 f   main.obj
+ 0001:00009bc0       ?AccessOpen@@YAPEAUAccess@@XZ 0000000140009ec0 f   main.obj
+ 0001:00009c80       ?AccessClose@@YAXPEAUAccess@@@Z 0000000140009f80 f   main.obj
+ 0001:00009d60       ?AccessTouch@@YAXPEAUAccess@@PEAUAccessPoint@@UHandle@@@Z 000000014000a060 f   main.obj
+ 0001:00009e60       ?__AccessPointIsExpired@@YAIPEAUAccessPoint@@PEAUAccessPointExpireParams@@@Z 000000014000a160 f   main.obj
+ 0001:00009f70       ?OCInit@@YAXXZ             000000014000a270 f   main.obj
+ 0001:0000a150       ?__OCObjectFromKey@@YA?AUOCObject@@PEAUAccess@@UStr8@@PEAUOCObjectParams@@_K@Z 000000014000a450 f   main.obj
+ 0001:0000af80       ?OCAsyncTick@@YAXXZ        000000014000b280 f   main.obj
+ 0001:0000ce70       ?OCCancelThreadEntryPoint@@YAXPEAX@Z 000000014000d170 f   main.obj
+ 0001:0000d200       ?CIDAlloc@@YA?AUCID@@_K0@Z 000000014000d500 f   main.obj
+ 0001:0000d290       ?CKeyAlloc@@YA?AUCKey@@UCRoot@@UCID@@@Z 000000014000d590 f   main.obj
+ 0001:0000d2f0       ??8@YAIUCID@@0@Z           000000014000d5f0 f   main.obj
+ 0001:0000d320       ??9@YAIUCID@@0@Z           000000014000d620 f   main.obj
+ 0001:0000d390       ??8@YAIUCKey@@0@Z          000000014000d690 f   main.obj
+ 0001:0000d420       ??9@YAIUCKey@@0@Z          000000014000d720 f   main.obj
+ 0001:0000d4a0       ?CInit@@YAXXZ              000000014000d7a0 f   main.obj
+ 0001:0000d9b0       ?CRootAlloc@@YA?AUCRoot@@XZ 000000014000dcb0 f   main.obj
+ 0001:0000dcb0       ?CRootRelease@@YAXUCRoot@@@Z 000000014000dfb0 f   main.obj
+ 0001:0000e000       ?CSubmitData@@YA?ATu128@@UCKey@@PEAPEAUArena@@UStr8@@@Z 000000014000e300 f   main.obj
+ 0001:0000edf0       ?CCloseKey@@YAXUCKey@@@Z   000000014000f0f0 f   main.obj
+ 0001:0000f220       ?CHashDownstreamInc@@YAXTu128@@@Z 000000014000f520 f   main.obj
+ 0001:0000f370       ?CHashDownstreamDec@@YAXTu128@@@Z 000000014000f670 f   main.obj
+ 0001:0000f4c0       ?CHashFromKey@@YA?ATu128@@UCKey@@_K@Z 000000014000f7c0 f   main.obj
+ 0001:0000f700       ?CDataFromHash@@YA?AUStr8@@PEAUAccess@@Tu128@@@Z 000000014000fa00 f   main.obj
+ 0001:0000f8c0       ?CAsyncTick@@YAXXZ         000000014000fbc0 f   main.obj
+ 0001:0000fd00       ?FSInit@@YAXXZ             0000000140010000 f   main.obj
+ 0001:0000fdf0       ?FSChangeGeneration@@YA_KXZ 00000001400100f0 f   main.obj
+ 0001:0000fe20       ?FSObjectAlloc@@YA?AUOCObject@@UStr8@@PEAI1PEA_K@Z 0000000140010120 f   main.obj
+ 0001:00010a30       ?FSObjectRelease@@YAXUOCObject@@@Z 0000000140010d30 f   main.obj
+ 0001:00010aa0       ?FSKeyFromPathRange@@YA?AUCKey@@UStr8@@Tr1u64@@_K@Z 0000000140010da0 f   main.obj
+ 0001:00010e90       ?FSHashFromPathRange@@YA?ATu128@@UStr8@@Tr1u64@@_K@Z 0000000140011190 f   main.obj
+ 0001:00011060       ?FSAsyncTick@@YAXXZ        0000000140011360 f   main.obj
+ 0001:00011350       ?SockInit@@YAIXZ           0000000140011650 f   main.obj
+ 0001:000113b0       ?SockShutdown@@YAXXZ       00000001400116b0 f   main.obj
+ 0001:000113d0       ?SocketOpen@@YA?AUHandle@@II@Z 00000001400116d0 f   main.obj
+ 0001:00011480       ?SocketClose@@YAXUHandle@@@Z 0000000140011780 f   main.obj
+ 0001:000114c0       ?SocketSetFlag@@YAIUHandle@@I@Z 00000001400117c0 f   main.obj
+ 0001:00011640       ?SocketBind@@YAIUHandle@@USocketAddress@@@Z 0000000140011940 f   main.obj
+ 0001:00011710       ?SocketListen@@YAIUHandle@@I@Z 0000000140011a10 f   main.obj
+ 0001:00011780       ?SocketAccept@@YA?AUHandle@@U1@PEAUSocketAddress@@@Z 0000000140011a80 f   main.obj
+ 0001:00011870       ?SocketConnect@@YAIUHandle@@USocketAddress@@@Z 0000000140011b70 f   main.obj
+ 0001:00011940       ?SocketShutdown@@YAXUHandle@@I@Z 0000000140011c40 f   main.obj
+ 0001:000119d0       ?SocketSend@@YA_KUHandle@@PEAX_K@Z 0000000140011cd0 f   main.obj
+ 0001:00011ae0       ?SocketRecv@@YA_KUHandle@@PEAX_K@Z 0000000140011de0 f   main.obj
+ 0001:00011b90       ?SocketSendTo@@YA_KUHandle@@PEAX_KUSocketAddress@@@Z 0000000140011e90 f   main.obj
+ 0001:00011cb0       ?SocketRecvFrom@@YA?AUSocketRecvResult@@UHandle@@PEAX_K@Z 0000000140011fb0 f   main.obj
+ 0001:00011e40       ?SockAddrIPv4@@YA?AUSocketAddress@@EEEEG@Z 0000000140012140 f   main.obj
+ 0001:00011ed0       ?SockAddrAny@@YA?AUSocketAddress@@G@Z 00000001400121d0 f   main.obj
+ 0001:00011f20       ?SockAddrLocal@@YA?AUSocketAddress@@G@Z 0000000140012220 f   main.obj
+ 0001:00011fa0       ?SocketResolveAddr@@YAIPEAUArena@@UStr8@@GPEAUSocketAddress@@@Z 00000001400122a0 f   main.obj
+ 0001:0001bba0       ?B64Decode@@YA?AUStr8@@PEAUArena@@U1@@Z 000000014001bea0 f   main.obj
+ 0001:0001bdb0       tls_callback               000000014001c0b0 f   main.obj
+ 0001:0001c1d0       ?WinThreadEntryFunc@@YAKPEAX@Z 000000014001c4d0 f   main.obj
+ 0001:0001da60       wmain                      000000014001dd60 f   main.obj
+ 0001:0001daa0       wmainCRTStartup            000000014001dda0 f   main.obj
+ 0001:0001db90       ?rr_lzb_simple_encode_fast@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 000000014001de90 f   main.obj
+ 0001:0001dc10       ?rr_lzb_simple_encode_veryfast@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 000000014001df10 f   main.obj
+ 0001:0001dc90       ?rr_lzb_simple_decode@@YA_JPEBX_JPEAX1@Z 000000014001df90 f   main.obj
+ 0001:00020c00       ?AsyncThreadEntryPoint@@YAXPEAX@Z 0000000140020f00 f   main.obj
+ 0001:00020e10       ?ArenaPushStrCat@@YA?AUStr8@@PEAUArena@@U1@1@Z 0000000140021110 f i main.obj
+ 0001:00020f40       ?ArenaPushStrCpy@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140021240 f i main.obj
+ 0001:00021060       ?B64GetOutputSize@@YA_K_K0@Z 0000000140021360 f i main.obj
+ 0001:000210a0       ?B64GetPaddingSize@@YA_KUStr8@@@Z 00000001400213a0 f i main.obj
+ 0001:00021150       ?BigHash@@YA?ATu128@@UStr8@@@Z 0000000140021450 f i main.obj
+ 0001:000211e0       ?BigHash@@YA?ATu128@@_KUStr8@@@Z 00000001400214e0 f i main.obj
+ 0001:000212a0       ?CommandLineFromStrList@@YA?AUCommandLine@@PEAUArena@@UStr8List@@@Z 00000001400215a0 f i main.obj
+ 0001:00021e80       ?CommandLineInsertOption@@YAPEAUCommandLineOption@@PEAUArena@@PEAUCommandLine@@UStr8@@UStr8List@@@Z 0000000140022180 f i main.obj
+ 0001:00022130       ?CommandLineOptionFromSlot@@YAPEAUCommandLineOption@@PEAPEAU1@UStr8@@@Z 0000000140022430 f i main.obj
+ 0001:000221d0       ?CommandLineOptionFromStr@@YAPEAUCommandLineOption@@PEAUCommandLine@@UStr8@@@Z 00000001400224d0 f i main.obj
+ 0001:00022230       ?CommandLinePushOption@@YAXPEAUCommandLineOptionList@@PEAUCommandLineOption@@@Z 0000000140022530 f i main.obj
+ 0001:000222c0       ?CommandLineSlotFromStr@@YAPEAPEAUCommandLineOption@@PEAUCommandLine@@UStr8@@@Z 00000001400225c0 f i main.obj
+ 0001:00022350       ?CommandLineString@@YA?AUStr8@@PEAUCommandLine@@U1@@Z 0000000140022650 f i main.obj
+ 0001:000223f0       ?Hash@@YA_KUStr8@@@Z       00000001400226f0 f i main.obj
+ 0001:00022430       ?Hash@@YA_K_KUStr8@@@Z     0000000140022730 f i main.obj
+ 0001:00022470       ?IsDigit@@YAIEI@Z          0000000140022770 f i main.obj
+ 0001:000224c0       ?IsUpper@@YAIE@Z           00000001400227c0 f i main.obj
+ 0001:00022500       ?Length@@YA_KTr1u64@@@Z    0000000140022800 f i main.obj
+ 0001:00022550       ?ListPush@@YAXPEAUArena@@PEAUStr8List@@UStr8@@@Z 0000000140022850 f i main.obj
+ 0001:000225c0       ?MemCmp@@YAIPEBX0_K@Z      00000001400228c0 f i main.obj
+ 0001:00022650       ?MemCpy@@YAPEAXPEAXPEBX_K@Z 0000000140022950 f i main.obj
+ 0001:00022690       ?MemSet@@YAPEAXPEAXE_K@Z   0000000140022990 f i main.obj
+ 0001:00022a10       ?Rng@@YA?ATr1u64@@_K0@Z    0000000140022d10 f i main.obj
+ 0001:00022a90       ?Shift@@YA?ATr1u64@@T1@_K@Z 0000000140022d90 f i main.obj
+ 0001:00022b00       ?Str16FromStr8@@YA?AUStr16@@PEAUArena@@UStr8@@@Z 0000000140022e00 f i main.obj
+ 0001:00022d10       ?Str8FromStr16@@YA?AUStr8@@PEAUArena@@UStr16@@@Z 0000000140023010 f i main.obj
+ 0001:00022f20       ?Str@@YA?AUStr16@@PEAG_K@Z 0000000140023220 f i main.obj
+ 0001:00022f80       ?Str@@YA?AUStr8@@PEAD@Z    0000000140023280 f i main.obj
+ 0001:00022fe0       ?Str@@YA?AUStr8@@PEAE0@Z   00000001400232e0 f i main.obj
+ 0001:00023080       ?Str@@YA?AUStr8@@PEAE_K@Z  0000000140023380 f i main.obj
+ 0001:000230e0       ?StrArrayFromList@@YA?AUStr8Array@@PEAUArena@@PEAUStr8List@@@Z 00000001400233e0 f i main.obj
+ 0001:000231b0       ?StrChopLastSlash@@YA?AUStr8@@U1@@Z 00000001400234b0 f i main.obj
+ 0001:00023280       ?StrFindSubStr@@YA_KUStr8@@0_KI@Z 0000000140023580 f i main.obj
+ 0001:00023440       ?StrLen@@YA_KPEAD@Z        0000000140023740 f i main.obj
+ 0001:00023480       ?StrLen@@YA_KPEAG@Z        0000000140023780 f i main.obj
+ 0001:000234d0       ?StrListFromCLIArgs@@YA?AUStr8List@@PEAUArena@@HPEAPEAD@Z 00000001400237d0 f i main.obj
+ 0001:000235c0       ?StrListJoin@@YA?AUStr8@@PEAUArena@@PEAUStr8List@@PEBUStr8JoinPart@@@Z 00000001400238c0 f i main.obj
+ 0001:00023800       ?StrMatch@@YAIUStr8@@0I@Z  0000000140023b00 f i main.obj
+ 0001:000239c0       ?StrPostfix@@YA?AUStr8@@U1@_K@Z 0000000140023cc0 f i main.obj
+ 0001:00023a50       ?StrPrefix@@YA?AUStr8@@U1@_K@Z 0000000140023d50 f i main.obj
+ 0001:00023b10       ?StrRange@@YA?AUStr8@@PEAEPEBE@Z 0000000140023e10 f i main.obj
+ 0001:00023bb0       ?StrSkip@@YA?AUStr8@@U1@_K@Z 0000000140023eb0 f i main.obj
+ 0001:00023c80       ?StrSkipLastSlash@@YA?AUStr8@@U1@@Z 0000000140023f80 f i main.obj
+ 0001:00023d60       ?StrSplit@@YA?AUStr8List@@PEAUArena@@UStr8@@PEBEII@Z 0000000140024060 f i main.obj
+ 0001:00023f30       ?StrSub@@YA?AUStr8@@U1@Tr1u64@@@Z 0000000140024230 f i main.obj
+ 0001:00024010       ?ToForwardSlash@@YAEE@Z    0000000140024310 f i main.obj
+ 0001:00024030       ?ToLower@@YAEE@Z           0000000140024330 f i main.obj
+ 0001:00024060       ?U64FromStr@@YA_KUStr8@@I@Z 0000000140024360 f i main.obj
+ 0001:000241b0       ?UTF16Decode@@YA?AUUnicodeDecode@@PEBG_K@Z 00000001400244b0 f i main.obj
+ 0001:000242a0       ?UTF16Encode@@YAIPEAGI@Z   00000001400245a0 f i main.obj
+ 0001:00024370       ?UTF8Decode@@YA?AUUnicodeDecode@@PEBE_K@Z 0000000140024670 f i main.obj
+ 0001:00024670       ?UTF8Encode@@YAIPEAEI@Z    0000000140024970 f i main.obj
+ 0001:00024830       __chkstk                   0000000140024b30 f   win32_chkstk.obj
+ 0001:00024890       _byteswap_ulong            0000000140024b90 f   win32_bswap.obj
+ 0001:00024896       _byteswap_uint64           0000000140024b96 f   win32_bswap.obj
+ 0001:0002489e       _byteswap_ushort           0000000140024b9e f   win32_bswap.obj
+ 0001:000248b0       Abs16                      0000000140024bb0 f   win32_math.obj
+ 0001:000248c0       Abs32                      0000000140024bc0 f   win32_math.obj
+ 0001:000248d0       Max32                      0000000140024bd0 f   win32_math.obj
+ 0001:000248e0       FMAdd32                    0000000140024be0 f   win32_math.obj
+ 0001:00024900       FMAddF32                   0000000140024c00 f   win32_math.obj
+ 0001:00024910       PowF32                     0000000140024c10 f   win32_math.obj
+ 0001:00024950       ExpF32                     0000000140024c50 f   win32_math.obj
+ 0001:00024980       LnF32                      0000000140024c80 f   win32_math.obj
+ 0001:000249a0       Log10F32                   0000000140024ca0 f   win32_math.obj
+ 0001:000249c0       Log2F32                    0000000140024cc0 f   win32_math.obj
+ 0001:000249e0       AbsF32                     0000000140024ce0 f   win32_math.obj
+ 0001:000249f0       SqrtF32                    0000000140024cf0 f   win32_math.obj
+ 0001:00024a00       InvSqrtF32                 0000000140024d00 f   win32_math.obj
+ 0001:00024a10       LerpF32                    0000000140024d10 f   win32_math.obj
+ 0001:00024a20       RoundF32                   0000000140024d20 f   win32_math.obj
+ 0001:00024a30       FloorF32                   0000000140024d30 f   win32_math.obj
+ 0001:00024a40       CeilF32                    0000000140024d40 f   win32_math.obj
+ 0001:00024a50       SinF32                     0000000140024d50 f   win32_math.obj
+ 0001:00024a70       CosF32                     0000000140024d70 f   win32_math.obj
+ 0001:00024a90       SinCosF32                  0000000140024d90 f   win32_math.obj
+ 0001:00024ab0       TanF32                     0000000140024db0 f   win32_math.obj
+ 0001:00024ad0       ArcSinF32                  0000000140024dd0 f   win32_math.obj
+ 0001:00024b00       ArcCosF32                  0000000140024e00 f   win32_math.obj
+ 0001:00024b30       ArcTanF32                  0000000140024e30 f   win32_math.obj
+ 0001:00024b50       ArcTan2F32                 0000000140024e50 f   win32_math.obj
+ 0001:00024b80       Abs64                      0000000140024e80 f   win32_math.obj
+ 0001:00024b90       Max64                      0000000140024e90 f   win32_math.obj
+ 0001:00024ba0       FMAdd64                    0000000140024ea0 f   win32_math.obj
+ 0001:00024bc0       FMAddF64                   0000000140024ec0 f   win32_math.obj
+ 0001:00024bd0       PowF64                     0000000140024ed0 f   win32_math.obj
+ 0001:00024c10       ExpF64                     0000000140024f10 f   win32_math.obj
+ 0001:00024c40       LnF64                      0000000140024f40 f   win32_math.obj
+ 0001:00024c60       Log10F64                   0000000140024f60 f   win32_math.obj
+ 0001:00024c80       Log2F64                    0000000140024f80 f   win32_math.obj
+ 0001:00024ca0       SinF64                     0000000140024fa0 f   win32_math.obj
+ 0001:00024cc0       CosF64                     0000000140024fc0 f   win32_math.obj
+ 0001:00024ce0       SinCosF64                  0000000140024fe0 f   win32_math.obj
+ 0001:00024d00       TanF64                     0000000140025000 f   win32_math.obj
+ 0001:00024d20       ArcSinF64                  0000000140025020 f   win32_math.obj
+ 0001:00024d50       ArcCosF64                  0000000140025050 f   win32_math.obj
+ 0001:00024d80       ArcTanF64                  0000000140025080 f   win32_math.obj
+ 0001:00024da0       ArcTan2F64                 00000001400250a0 f   win32_math.obj
+ 0001:00024dd0       Round64NextPow2            00000001400250d0 f   win32_math.obj
+ 0001:00024df0       Pow64                      00000001400250f0 f   win32_math.obj
+ 0001:00024e20       AbsF64                     0000000140025120 f   win32_math.obj
+ 0001:00024e30       SqrtF64                    0000000140025130 f   win32_math.obj
+ 0001:00024e40       InvSqrtF64                 0000000140025140 f   win32_math.obj
+ 0001:00024e60       RoundF64                   0000000140025160 f   win32_math.obj
+ 0001:00024e70       FloorF64                   0000000140025170 f   win32_math.obj
+ 0001:00024e80       CeilF64                    0000000140025180 f   win32_math.obj
+ 0001:00024e90       LerpF64                    0000000140025190 f   win32_math.obj
+ 0001:00024ea0       LerpV2I64                  00000001400251a0 f   win32_math.obj
+ 0001:00024ef0       LerpV2I32                  00000001400251f0 f   win32_math.obj
+ 0001:00024f20       LerpV2I16                  0000000140025220 f   win32_math.obj
+ 0001:00024f60       LerpV4I32                  0000000140025260 f   win32_math.obj
+ 0001:00024f90       SSEPowF32                  0000000140025290 f   win32_math.obj
+ 0001:000250a0       SSEExpF32                  00000001400253a0 f   win32_math.obj
+ 0001:00025130       SSELnF32                   0000000140025430 f   win32_math.obj
+ 0001:000251d0       SSELog10F32                00000001400254d0 f   win32_math.obj
+ 0001:00025270       SSELog2F32                 0000000140025570 f   win32_math.obj
+ 0001:00025300       SSESinF32                  0000000140025600 f   win32_math.obj
+ 0001:00025410       SSECosF32                  0000000140025710 f   win32_math.obj
+ 0001:00025510       SSETanF32                  0000000140025810 f   win32_math.obj
+ 0001:00025550       SSEArcSinF32               0000000140025850 f   win32_math.obj
+ 0001:00025660       SSEArcCosF32               0000000140025960 f   win32_math.obj
+ 0001:00025680       SSEArcTanF32               0000000140025980 f   win32_math.obj
+ 0001:00025780       SSEArcTan2F32              0000000140025a80 f   win32_math.obj
+ 0001:00025900       SSEInvSqrtF64              0000000140025c00 f   win32_math.obj
+ 0001:00025920       SSEPowF64                  0000000140025c20 f   win32_math.obj
+ 0001:00025950       SSEExpF64                  0000000140025c50 f   win32_math.obj
+ 0001:00025a40       SSELnF64                   0000000140025d40 f   win32_math.obj
+ 0001:00025b40       SSELog10F64                0000000140025e40 f   win32_math.obj
+ 0001:00025b60       SSELog2F64                 0000000140025e60 f   win32_math.obj
+ 0001:00025c50       SSESinF64                  0000000140025f50 f   win32_math.obj
+ 0001:00025e10       SSECosF64                  0000000140026110 f   win32_math.obj
+ 0001:00025fa0       SSETanF64                  00000001400262a0 f   win32_math.obj
+ 0001:00025fe0       SSEArcSinF64               00000001400262e0 f   win32_math.obj
+ 0001:00026190       SSEArcCosF64               0000000140026490 f   win32_math.obj
+ 0001:000261b0       SSEArcTanF64               00000001400264b0 f   win32_math.obj
+ 0001:00026350       SSEArcTan2F64              0000000140026650 f   win32_math.obj
+ 0001:00026420       AVXPowF32                  0000000140026720 f   win32_math.obj
+ 0001:00026450       AVXExpF32                  0000000140026750 f   win32_math.obj
+ 0001:000264d0       AVXLnF32                   00000001400267d0 f   win32_math.obj
+ 0001:00026560       AVXLog10F32                0000000140026860 f   win32_math.obj
+ 0001:000265f0       AVXLog2F32                 00000001400268f0 f   win32_math.obj
+ 0001:00026670       AVXSinF32                  0000000140026970 f   win32_math.obj
+ 0001:00026760       AVXCosF32                  0000000140026a60 f   win32_math.obj
+ 0001:00026850       AVXTanF32                  0000000140026b50 f   win32_math.obj
+ 0001:00026880       AVXArcSinF32               0000000140026b80 f   win32_math.obj
+ 0001:00026970       AVXArcCosF32               0000000140026c70 f   win32_math.obj
+ 0001:00026990       AVXArcTanF32               0000000140026c90 f   win32_math.obj
+ 0001:00026a90       AVXArcTan2F32              0000000140026d90 f   win32_math.obj
+ 0001:00026c00       AVXInvSqrtF64              0000000140026f00 f   win32_math.obj
+ 0001:00026c20       AVXPowF64                  0000000140026f20 f   win32_math.obj
+ 0001:00026c50       AVXExpF64                  0000000140026f50 f   win32_math.obj
+ 0001:00026d30       AVXLnF64                   0000000140027030 f   win32_math.obj
+ 0001:00026e20       AVXLog10F64                0000000140027120 f   win32_math.obj
+ 0001:00026e40       AVXLog2F64                 0000000140027140 f   win32_math.obj
+ 0001:00026f20       AVXSinF64                  0000000140027220 f   win32_math.obj
+ 0001:000270b0       AVXCosF64                  00000001400273b0 f   win32_math.obj
+ 0001:00027220       AVXTanF64                  0000000140027520 f   win32_math.obj
+ 0001:00027250       AVXArcSinF64               0000000140027550 f   win32_math.obj
+ 0001:000273c0       AVXArcCosF64               00000001400276c0 f   win32_math.obj
+ 0001:000273e0       AVXArcTanF64               00000001400276e0 f   win32_math.obj
+ 0001:00027570       AVXArcTan2F64              0000000140027870 f   win32_math.obj
+ 0001:00027650       AVXExpF256                 0000000140027950 f   win32_math.obj
+ 0001:00027700       AVXLnF256                  0000000140027a00 f   win32_math.obj
+ 0001:000277b9       AVXSinF256                 0000000140027ab9 f   win32_math.obj
+ 0001:000278e5       AVXCosF256                 0000000140027be5 f   win32_math.obj
+ 0001:00027900       BitScanForward64           0000000140027c00 f   win32_intrin.obj
+ 0001:00027910       BitScanReverse64           0000000140027c10 f   win32_intrin.obj
+ 0001:00027920       PopCount64                 0000000140027c20 f   win32_intrin.obj
+ 0001:00027930       MemZero                    0000000140027c30 f   win32_intrin.obj
+ 0001:0002793e       TlsGetValue                0000000140027c3e f   kernel32:KERNEL32.dll
+ 0001:00027944       GetSystemInfo              0000000140027c44 f   kernel32:KERNEL32.dll
+ 0001:0002794a       VirtualAlloc               0000000140027c4a f   kernel32:KERNEL32.dll
+ 0001:00027950       VirtualFree                0000000140027c50 f   kernel32:KERNEL32.dll
+ 0001:00027956       Sleep                      0000000140027c56 f   kernel32:KERNEL32.dll
+ 0001:0002795c       InitializeCriticalSection  0000000140027c5c f   kernel32:KERNEL32.dll
+ 0001:00027962       EnterCriticalSection       0000000140027c62 f   kernel32:KERNEL32.dll
+ 0001:00027968       LeaveCriticalSection       0000000140027c68 f   kernel32:KERNEL32.dll
+ 0001:0002796e       CreateFileMappingW         0000000140027c6e f   kernel32:KERNEL32.dll
+ 0001:00027974       OpenFileMappingW           0000000140027c74 f   kernel32:KERNEL32.dll
+ 0001:0002797a       CloseHandle                0000000140027c7a f   kernel32:KERNEL32.dll
+ 0001:00027980       MapViewOfFile              0000000140027c80 f   kernel32:KERNEL32.dll
+ 0001:00027986       UnmapViewOfFile            0000000140027c86 f   kernel32:KERNEL32.dll
+ 0001:0002798c       QueryPerformanceFrequency  0000000140027c8c f   kernel32:KERNEL32.dll
+ 0001:00027992       QueryPerformanceCounter    0000000140027c92 f   kernel32:KERNEL32.dll
+ 0001:00027998       ExitProcess                0000000140027c98 f   kernel32:KERNEL32.dll
+ 0001:0002799e       GetCurrentDirectoryW       0000000140027c9e f   kernel32:KERNEL32.dll
+ 0001:000279a4       FileTimeToSystemTime       0000000140027ca4 f   kernel32:KERNEL32.dll
+ 0001:000279aa       CreateFileW                0000000140027caa f   kernel32:KERNEL32.dll
+ 0001:000279b0       GetFileSizeEx              0000000140027cb0 f   kernel32:KERNEL32.dll
+ 0001:000279b6       ReadFile                   0000000140027cb6 f   kernel32:KERNEL32.dll
+ 0001:000279bc       WriteFile                  0000000140027cbc f   kernel32:KERNEL32.dll
+ 0001:000279c2       SystemTimeToFileTime       0000000140027cc2 f   kernel32:KERNEL32.dll
+ 0001:000279c8       SetFileTime                0000000140027cc8 f   kernel32:KERNEL32.dll
+ 0001:000279ce       GetFileInformationByHandle 0000000140027cce f   kernel32:KERNEL32.dll
+ 0001:000279d4       FindFirstFileW             0000000140027cd4 f   kernel32:KERNEL32.dll
+ 0001:000279da       GetLogicalDriveStringsW    0000000140027cda f   kernel32:KERNEL32.dll
+ 0001:000279e0       FindClose                  0000000140027ce0 f   kernel32:KERNEL32.dll
+ 0001:000279e6       SetFileInformationByHandle 0000000140027ce6 f   kernel32:KERNEL32.dll
+ 0001:000279ec       DeleteFileW                0000000140027cec f   kernel32:KERNEL32.dll
+ 0001:000279f2       GetFullPathNameW           0000000140027cf2 f   kernel32:KERNEL32.dll
+ 0001:000279f8       GetFileAttributesW         0000000140027cf8 f   kernel32:KERNEL32.dll
+ 0001:000279fe       GetFileAttributesExW       0000000140027cfe f   kernel32:KERNEL32.dll
+ 0001:00027a04       FindFirstFileExW           0000000140027d04 f   kernel32:KERNEL32.dll
+ 0001:00027a0a       FindNextFileW              0000000140027d0a f   kernel32:KERNEL32.dll
+ 0001:00027a10       LoadLibraryW               0000000140027d10 f   kernel32:KERNEL32.dll
+ 0001:00027a16       LoadLibraryA               0000000140027d16 f   kernel32:KERNEL32.dll
+ 0001:00027a1c       FreeLibrary                0000000140027d1c f   kernel32:KERNEL32.dll
+ 0001:00027a22       GetProcAddress             0000000140027d22 f   kernel32:KERNEL32.dll
+ 0001:00027a28       CreateDirectoryW           0000000140027d28 f   kernel32:KERNEL32.dll
+ 0001:00027a2e       CopyFileW                  0000000140027d2e f   kernel32:KERNEL32.dll
+ 0001:00027a34       GetCurrentThread           0000000140027d34 f   kernel32:KERNEL32.dll
+ 0001:00027a3a       RaiseException             0000000140027d3a f   kernel32:KERNEL32.dll
+ 0001:00027a40       CreateThread               0000000140027d40 f   kernel32:KERNEL32.dll
+ 0001:00027a46       WaitForSingleObject        0000000140027d46 f   kernel32:KERNEL32.dll
+ 0001:00027a4c       InitializeSRWLock          0000000140027d4c f   kernel32:KERNEL32.dll
+ 0001:00027a52       AcquireSRWLockShared       0000000140027d52 f   kernel32:KERNEL32.dll
+ 0001:00027a58       ReleaseSRWLockShared       0000000140027d58 f   kernel32:KERNEL32.dll
+ 0001:00027a5e       AcquireSRWLockExclusive    0000000140027d5e f   kernel32:KERNEL32.dll
+ 0001:00027a64       ReleaseSRWLockExclusive    0000000140027d64 f   kernel32:KERNEL32.dll
+ 0001:00027a6a       InitializeConditionVariable 0000000140027d6a f   kernel32:KERNEL32.dll
+ 0001:00027a70       SleepConditionVariableCS   0000000140027d70 f   kernel32:KERNEL32.dll
+ 0001:00027a76       SleepConditionVariableSRW  0000000140027d76 f   kernel32:KERNEL32.dll
+ 0001:00027a7c       WakeConditionVariable      0000000140027d7c f   kernel32:KERNEL32.dll
+ 0001:00027a82       WakeAllConditionVariable   0000000140027d82 f   kernel32:KERNEL32.dll
+ 0001:00027a88       CreateSemaphoreW           0000000140027d88 f   kernel32:KERNEL32.dll
+ 0001:00027a8e       OpenSemaphoreW             0000000140027d8e f   kernel32:KERNEL32.dll
+ 0001:00027a94       ReleaseSemaphore           0000000140027d94 f   kernel32:KERNEL32.dll
+ 0001:00027a9a       CreateProcessW             0000000140027d9a f   kernel32:KERNEL32.dll
+ 0001:00027aa0       GetExitCodeProcess         0000000140027da0 f   kernel32:KERNEL32.dll
+ 0001:00027aa6       TerminateProcess           0000000140027da6 f   kernel32:KERNEL32.dll
+ 0001:00027aac       GetLargePageMinimum        0000000140027dac f   kernel32:KERNEL32.dll
+ 0001:00027ab2       GetCurrentProcessId        0000000140027db2 f   kernel32:KERNEL32.dll
+ 0001:00027ab8       GetComputerNameA           0000000140027db8 f   kernel32:KERNEL32.dll
+ 0001:00027abe       GetModuleFileNameW         0000000140027dbe f   kernel32:KERNEL32.dll
+ 0001:00027ac4       GetEnvironmentStringsW     0000000140027dc4 f   kernel32:KERNEL32.dll
+ 0001:00027aca       GetStdHandle               0000000140027dca f   kernel32:KERNEL32.dll
+ 0001:00027ad0       TlsAlloc                   0000000140027dd0 f   kernel32:KERNEL32.dll
+ 0001:00027ad6       TlsFree                    0000000140027dd6 f   kernel32:KERNEL32.dll
+ 0001:00027adc       TlsSetValue                0000000140027ddc f   kernel32:KERNEL32.dll
+ 0001:00027ae2       GetCommandLineW            0000000140027de2 f   kernel32:KERNEL32.dll
+ 0001:00027ae8       GetCurrentProcess          0000000140027de8 f   kernel32:KERNEL32.dll
+ 0001:00027aee       SetUnhandledExceptionFilter 0000000140027dee f   kernel32:KERNEL32.dll
+ 0001:00027af4       GetLastError               0000000140027df4 f   kernel32:KERNEL32.dll
+ 0001:00027afa       GetSystemTimeAsFileTime    0000000140027dfa f   kernel32:KERNEL32.dll
+ 0001:00027b00       SetConsoleMode             0000000140027e00 f   kernel32:KERNEL32.dll
+ 0001:00027b06       GetConsoleMode             0000000140027e06 f   kernel32:KERNEL32.dll
+ 0001:00027b0c       GetProcessHeap             0000000140027e0c f   kernel32:KERNEL32.dll
+ 0001:00027b12       HeapAlloc                  0000000140027e12 f   kernel32:KERNEL32.dll
+ 0001:00027b18       HeapFree                   0000000140027e18 f   kernel32:KERNEL32.dll
+ 0001:00027b1e       InitializeSynchronizationBarrier 0000000140027e1e f   kernel32:KERNEL32.dll
+ 0001:00027b24       EnterSynchronizationBarrier 0000000140027e24 f   kernel32:KERNEL32.dll
+ 0001:00027b2a       DeleteSynchronizationBarrier 0000000140027e2a f   kernel32:KERNEL32.dll
+ 0001:00027b30       SetProcessWorkingSetSize   0000000140027e30 f   kernel32:KERNEL32.dll
+ 0001:00027b36       SetConsoleOutputCP         0000000140027e36 f   kernel32:KERNEL32.dll
+ 0001:00027b3c       SetConsoleCP               0000000140027e3c f   kernel32:KERNEL32.dll
+ 0001:00027b42       ReadConsoleA               0000000140027e42 f   kernel32:KERNEL32.dll
+ 0001:00027b48       SHGetFolderPathW           0000000140027e48 f   shell32:SHELL32.dll
+ 0001:00027b4e       CommandLineToArgvW         0000000140027e4e f   shell32:SHELL32.dll
+ 0001:00027b54       _rotl                      0000000140027e54 f   msvcrt:msvcrt.dll
+ 0001:00027b5a       _rotl64                    0000000140027e5a f   msvcrt:msvcrt.dll
+ 0001:00027b60       memcpy                     0000000140027e60 f   msvcrt:msvcrt.dll
+ 0001:00027b66       memmove                    0000000140027e66 f   msvcrt:msvcrt.dll
+ 0001:00027b6c       memset                     0000000140027e6c f   msvcrt:msvcrt.dll
+ 0001:00027b72       __C_specific_handler       0000000140027e72 f   msvcrt:msvcrt.dll
+ 0001:00027b78       WSAStartup                 0000000140027e78 f   ws2_32:WS2_32.dll
+ 0001:00027b7e       socket                     0000000140027e7e f   ws2_32:WS2_32.dll
+ 0001:00027b84       WSAIoctl                   0000000140027e84 f   ws2_32:WS2_32.dll
+ 0001:00027b8a       closesocket                0000000140027e8a f   ws2_32:WS2_32.dll
+ 0001:00027b90       freeaddrinfo               0000000140027e90 f   ws2_32:WS2_32.dll
+ 0001:00027b96       getaddrinfo                0000000140027e96 f   ws2_32:WS2_32.dll
+ 0001:00027b9c       recvfrom                   0000000140027e9c f   ws2_32:WS2_32.dll
+ 0001:00027ba2       recv                       0000000140027ea2 f   ws2_32:WS2_32.dll
+ 0001:00027ba8       sendto                     0000000140027ea8 f   ws2_32:WS2_32.dll
+ 0001:00027bae       send                       0000000140027eae f   ws2_32:WS2_32.dll
+ 0001:00027bb4       shutdown                   0000000140027eb4 f   ws2_32:WS2_32.dll
+ 0001:00027bba       connect                    0000000140027eba f   ws2_32:WS2_32.dll
+ 0001:00027bc0       accept                     0000000140027ec0 f   ws2_32:WS2_32.dll
+ 0001:00027bc6       listen                     0000000140027ec6 f   ws2_32:WS2_32.dll
+ 0001:00027bcc       bind                       0000000140027ecc f   ws2_32:WS2_32.dll
+ 0001:00027bd2       setsockopt                 0000000140027ed2 f   ws2_32:WS2_32.dll
+ 0001:00027bd8       htons                      0000000140027ed8 f   ws2_32:WS2_32.dll
+ 0001:00027bde       ntohs                      0000000140027ede f   ws2_32:WS2_32.dll
+ 0001:00027be4       WSACleanup                 0000000140027ee4 f   ws2_32:WS2_32.dll
+ 0001:00027bea       ioctlsocket                0000000140027eea f   ws2_32:WS2_32.dll
+ 0001:00027bf0       OpenProcessToken           0000000140027ef0 f   advapi32:ADVAPI32.dll
+ 0001:00027bf6       LookupPrivilegeValueW      0000000140027ef6 f   advapi32:ADVAPI32.dll
+ 0001:00027bfc       AdjustTokenPrivileges      0000000140027efc f   advapi32:ADVAPI32.dll
+ 0001:00027c02       PathRemoveFileSpecW        0000000140027f02 f   shlwapi:SHLWAPI.dll
+ 0001:00027c08       PathFindFileNameW          0000000140027f08 f   shlwapi:SHLWAPI.dll
+ 0001:00027c0e       wnsprintfW                 0000000140027f0e f   shlwapi:SHLWAPI.dll
+ 0001:00027c38       _tls_start                 0000000140027f38     main.obj
+ 0001:00027c40       p_thread_callback          0000000140027f40     main.obj
+ 0001:00027c50       _tls_end                   0000000140027f50     main.obj
+ 0002:00000000       _fltused                   0000000140028dc0     main.obj
+ 0002:00000004       ?PRINT_STDOUT_FILENO@@3IA  0000000140028dc4     main.obj
+ 0002:00000008       _tls_used                  0000000140028dc8     main.obj
+ 0002:00000030       ?MessageFormats@@3PAPEBDA  0000000140028df0     main.obj
+ 0002:00000060       ?PRINT_STDERR_FILENO@@3IA  0000000140028e20     main.obj
+ 0002:00000064       ?PRINT_STDIN_FILENO@@3IA   0000000140028e24     main.obj
+ 0002:00000080       ?OC_SHARED@@3PEAUOCShared@@EA 0000000140028e40     main.obj
+ 0002:00000088       ?C_SHARED@@3PEAUCShared@@EA 0000000140028e48     main.obj
+ 0002:00000090       ?FS_SHARED@@3PEAUFSShared@@EA 0000000140028e50     main.obj
+ 0002:00000098       ?ASYNC_LOOP_REPEAT@@3IA    0000000140028e58     main.obj
+ 0002:0000009c       ?ASYNC_LOOP_REPEAT_HIGH_PRIORITY@@3IA 0000000140028e5c     main.obj
+ 0002:000000a0       ?OS_STATE@@3UOSState@@A    0000000140028e60     main.obj
+ 0002:00000190       ?GLOBAL_UPDATE_TICK_INDEX@@3_KA 0000000140028f50     main.obj
+ 0002:00000198       ?ASYNC_THREADS_COUNT@@3_KA 0000000140028f58     main.obj
+ 0002:000001a0       ?ASYNC_TICK_BEGIN_COND_VAR@@3UHandle@@A 0000000140028f60     main.obj
+ 0002:000001a8       ?ASYNC_TICK_BEGIN_MTX@@3UHandle@@A 0000000140028f68     main.obj
+ 0002:000001b0       ?ASYNC_TICK_END_MTX@@3UHandle@@A 0000000140028f70     main.obj
+ 0002:000001b8       ?GLOBAL_ASYNC_EXIT@@3IA    0000000140028f78     main.obj
+ 0002:000001bc       _tls_index                 0000000140028f7c     main.obj
+ 0002:000001c0       ?MEM_INFO@@3UMemInfo@@A    0000000140028f80     main.obj
+ 0002:000001c8       ?TIME_INFO@@3UTIME_INFORMATION@@A 0000000140028f88     main.obj
+ 0002:000001d0       ?IO_HANDLES@@3UIOHandles@@A 0000000140028f90     main.obj
+ 0004:00000000       __imp_OpenProcessToken     000000014002a200     advapi32:ADVAPI32.dll
+ 0004:00000008       __imp_AdjustTokenPrivileges 000000014002a208     advapi32:ADVAPI32.dll
+ 0004:00000010       __imp_LookupPrivilegeValueW 000000014002a210     advapi32:ADVAPI32.dll
+ 0004:00000018       \177ADVAPI32_NULL_THUNK_DATA 000000014002a218     advapi32:ADVAPI32.dll
+ 0004:00000020       __imp_Sleep                000000014002a220     kernel32:KERNEL32.dll
+ 0004:00000028       __imp_InitializeCriticalSection 000000014002a228     kernel32:KERNEL32.dll
+ 0004:00000030       __imp_EnterCriticalSection 000000014002a230     kernel32:KERNEL32.dll
+ 0004:00000038       __imp_LeaveCriticalSection 000000014002a238     kernel32:KERNEL32.dll
+ 0004:00000040       __imp_CreateFileMappingW   000000014002a240     kernel32:KERNEL32.dll
+ 0004:00000048       __imp_OpenFileMappingW     000000014002a248     kernel32:KERNEL32.dll
+ 0004:00000050       __imp_CloseHandle          000000014002a250     kernel32:KERNEL32.dll
+ 0004:00000058       __imp_MapViewOfFile        000000014002a258     kernel32:KERNEL32.dll
+ 0004:00000060       __imp_UnmapViewOfFile      000000014002a260     kernel32:KERNEL32.dll
+ 0004:00000068       __imp_QueryPerformanceFrequency 000000014002a268     kernel32:KERNEL32.dll
+ 0004:00000070       __imp_QueryPerformanceCounter 000000014002a270     kernel32:KERNEL32.dll
+ 0004:00000078       __imp_ExitProcess          000000014002a278     kernel32:KERNEL32.dll
+ 0004:00000080       __imp_GetCurrentDirectoryW 000000014002a280     kernel32:KERNEL32.dll
+ 0004:00000088       __imp_FileTimeToSystemTime 000000014002a288     kernel32:KERNEL32.dll
+ 0004:00000090       __imp_CreateFileW          000000014002a290     kernel32:KERNEL32.dll
+ 0004:00000098       __imp_GetFileSizeEx        000000014002a298     kernel32:KERNEL32.dll
+ 0004:000000a0       __imp_ReadFile             000000014002a2a0     kernel32:KERNEL32.dll
+ 0004:000000a8       __imp_WriteFile            000000014002a2a8     kernel32:KERNEL32.dll
+ 0004:000000b0       __imp_SystemTimeToFileTime 000000014002a2b0     kernel32:KERNEL32.dll
+ 0004:000000b8       __imp_SetFileTime          000000014002a2b8     kernel32:KERNEL32.dll
+ 0004:000000c0       __imp_GetFileInformationByHandle 000000014002a2c0     kernel32:KERNEL32.dll
+ 0004:000000c8       __imp_FindFirstFileW       000000014002a2c8     kernel32:KERNEL32.dll
+ 0004:000000d0       __imp_GetLogicalDriveStringsW 000000014002a2d0     kernel32:KERNEL32.dll
+ 0004:000000d8       __imp_FindClose            000000014002a2d8     kernel32:KERNEL32.dll
+ 0004:000000e0       __imp_SetFileInformationByHandle 000000014002a2e0     kernel32:KERNEL32.dll
+ 0004:000000e8       __imp_DeleteFileW          000000014002a2e8     kernel32:KERNEL32.dll
+ 0004:000000f0       __imp_GetFullPathNameW     000000014002a2f0     kernel32:KERNEL32.dll
+ 0004:000000f8       __imp_GetFileAttributesW   000000014002a2f8     kernel32:KERNEL32.dll
+ 0004:00000100       __imp_GetFileAttributesExW 000000014002a300     kernel32:KERNEL32.dll
+ 0004:00000108       __imp_FindFirstFileExW     000000014002a308     kernel32:KERNEL32.dll
+ 0004:00000110       __imp_FindNextFileW        000000014002a310     kernel32:KERNEL32.dll
+ 0004:00000118       __imp_LoadLibraryW         000000014002a318     kernel32:KERNEL32.dll
+ 0004:00000120       __imp_LoadLibraryA         000000014002a320     kernel32:KERNEL32.dll
+ 0004:00000128       __imp_FreeLibrary          000000014002a328     kernel32:KERNEL32.dll
+ 0004:00000130       __imp_GetProcAddress       000000014002a330     kernel32:KERNEL32.dll
+ 0004:00000138       __imp_CreateDirectoryW     000000014002a338     kernel32:KERNEL32.dll
+ 0004:00000140       __imp_CopyFileW            000000014002a340     kernel32:KERNEL32.dll
+ 0004:00000148       __imp_GetCurrentThread     000000014002a348     kernel32:KERNEL32.dll
+ 0004:00000150       __imp_RaiseException       000000014002a350     kernel32:KERNEL32.dll
+ 0004:00000158       __imp_CreateThread         000000014002a358     kernel32:KERNEL32.dll
+ 0004:00000160       __imp_WaitForSingleObject  000000014002a360     kernel32:KERNEL32.dll
+ 0004:00000168       __imp_VirtualAlloc         000000014002a368     kernel32:KERNEL32.dll
+ 0004:00000170       __imp_AcquireSRWLockShared 000000014002a370     kernel32:KERNEL32.dll
+ 0004:00000178       __imp_ReleaseSRWLockShared 000000014002a378     kernel32:KERNEL32.dll
+ 0004:00000180       __imp_AcquireSRWLockExclusive 000000014002a380     kernel32:KERNEL32.dll
+ 0004:00000188       __imp_ReleaseSRWLockExclusive 000000014002a388     kernel32:KERNEL32.dll
+ 0004:00000190       __imp_InitializeConditionVariable 000000014002a390     kernel32:KERNEL32.dll
+ 0004:00000198       __imp_SleepConditionVariableCS 000000014002a398     kernel32:KERNEL32.dll
+ 0004:000001a0       __imp_SleepConditionVariableSRW 000000014002a3a0     kernel32:KERNEL32.dll
+ 0004:000001a8       __imp_WakeConditionVariable 000000014002a3a8     kernel32:KERNEL32.dll
+ 0004:000001b0       __imp_WakeAllConditionVariable 000000014002a3b0     kernel32:KERNEL32.dll
+ 0004:000001b8       __imp_CreateSemaphoreW     000000014002a3b8     kernel32:KERNEL32.dll
+ 0004:000001c0       __imp_OpenSemaphoreW       000000014002a3c0     kernel32:KERNEL32.dll
+ 0004:000001c8       __imp_ReleaseSemaphore     000000014002a3c8     kernel32:KERNEL32.dll
+ 0004:000001d0       __imp_CreateProcessW       000000014002a3d0     kernel32:KERNEL32.dll
+ 0004:000001d8       __imp_GetExitCodeProcess   000000014002a3d8     kernel32:KERNEL32.dll
+ 0004:000001e0       __imp_TerminateProcess     000000014002a3e0     kernel32:KERNEL32.dll
+ 0004:000001e8       __imp_GetLargePageMinimum  000000014002a3e8     kernel32:KERNEL32.dll
+ 0004:000001f0       __imp_GetCurrentProcessId  000000014002a3f0     kernel32:KERNEL32.dll
+ 0004:000001f8       __imp_GetComputerNameA     000000014002a3f8     kernel32:KERNEL32.dll
+ 0004:00000200       __imp_GetModuleFileNameW   000000014002a400     kernel32:KERNEL32.dll
+ 0004:00000208       __imp_GetEnvironmentStringsW 000000014002a408     kernel32:KERNEL32.dll
+ 0004:00000210       __imp_GetStdHandle         000000014002a410     kernel32:KERNEL32.dll
+ 0004:00000218       __imp_TlsAlloc             000000014002a418     kernel32:KERNEL32.dll
+ 0004:00000220       __imp_TlsFree              000000014002a420     kernel32:KERNEL32.dll
+ 0004:00000228       __imp_TlsSetValue          000000014002a428     kernel32:KERNEL32.dll
+ 0004:00000230       __imp_GetCommandLineW      000000014002a430     kernel32:KERNEL32.dll
+ 0004:00000238       __imp_GetCurrentProcess    000000014002a438     kernel32:KERNEL32.dll
+ 0004:00000240       __imp_SetUnhandledExceptionFilter 000000014002a440     kernel32:KERNEL32.dll
+ 0004:00000248       __imp_GetLastError         000000014002a448     kernel32:KERNEL32.dll
+ 0004:00000250       __imp_GetSystemTimeAsFileTime 000000014002a450     kernel32:KERNEL32.dll
+ 0004:00000258       __imp_SetConsoleMode       000000014002a458     kernel32:KERNEL32.dll
+ 0004:00000260       __imp_GetConsoleMode       000000014002a460     kernel32:KERNEL32.dll
+ 0004:00000268       __imp_GetProcessHeap       000000014002a468     kernel32:KERNEL32.dll
+ 0004:00000270       __imp_HeapAlloc            000000014002a470     kernel32:KERNEL32.dll
+ 0004:00000278       __imp_HeapFree             000000014002a478     kernel32:KERNEL32.dll
+ 0004:00000280       __imp_InitializeSynchronizationBarrier 000000014002a480     kernel32:KERNEL32.dll
+ 0004:00000288       __imp_EnterSynchronizationBarrier 000000014002a488     kernel32:KERNEL32.dll
+ 0004:00000290       __imp_DeleteSynchronizationBarrier 000000014002a490     kernel32:KERNEL32.dll
+ 0004:00000298       __imp_SetProcessWorkingSetSize 000000014002a498     kernel32:KERNEL32.dll
+ 0004:000002a0       __imp_SetConsoleOutputCP   000000014002a4a0     kernel32:KERNEL32.dll
+ 0004:000002a8       __imp_SetConsoleCP         000000014002a4a8     kernel32:KERNEL32.dll
+ 0004:000002b0       __imp_ReadConsoleA         000000014002a4b0     kernel32:KERNEL32.dll
+ 0004:000002b8       __imp_VirtualFree          000000014002a4b8     kernel32:KERNEL32.dll
+ 0004:000002c0       __imp_GetSystemInfo        000000014002a4c0     kernel32:KERNEL32.dll
+ 0004:000002c8       __imp_InitializeSRWLock    000000014002a4c8     kernel32:KERNEL32.dll
+ 0004:000002d0       __imp_TlsGetValue          000000014002a4d0     kernel32:KERNEL32.dll
+ 0004:000002d8       \177KERNEL32_NULL_THUNK_DATA 000000014002a4d8     kernel32:KERNEL32.dll
+ 0004:000002e0       __imp_SHGetFolderPathW     000000014002a4e0     shell32:SHELL32.dll
+ 0004:000002e8       __imp_CommandLineToArgvW   000000014002a4e8     shell32:SHELL32.dll
+ 0004:000002f0       \177SHELL32_NULL_THUNK_DATA 000000014002a4f0     shell32:SHELL32.dll
+ 0004:000002f8       __imp_PathRemoveFileSpecW  000000014002a4f8     shlwapi:SHLWAPI.dll
+ 0004:00000300       __imp_PathFindFileNameW    000000014002a500     shlwapi:SHLWAPI.dll
+ 0004:00000308       __imp_wnsprintfW           000000014002a508     shlwapi:SHLWAPI.dll
+ 0004:00000310       \177SHLWAPI_NULL_THUNK_DATA 000000014002a510     shlwapi:SHLWAPI.dll
+ 0004:00000318       __imp_socket               000000014002a518     ws2_32:WS2_32.dll
+ 0004:00000320       __imp_WSAIoctl             000000014002a520     ws2_32:WS2_32.dll
+ 0004:00000328       __imp_closesocket          000000014002a528     ws2_32:WS2_32.dll
+ 0004:00000330       __imp_freeaddrinfo         000000014002a530     ws2_32:WS2_32.dll
+ 0004:00000338       __imp_getaddrinfo          000000014002a538     ws2_32:WS2_32.dll
+ 0004:00000340       __imp_recvfrom             000000014002a540     ws2_32:WS2_32.dll
+ 0004:00000348       __imp_WSAStartup           000000014002a548     ws2_32:WS2_32.dll
+ 0004:00000350       __imp_sendto               000000014002a550     ws2_32:WS2_32.dll
+ 0004:00000358       __imp_send                 000000014002a558     ws2_32:WS2_32.dll
+ 0004:00000360       __imp_shutdown             000000014002a560     ws2_32:WS2_32.dll
+ 0004:00000368       __imp_connect              000000014002a568     ws2_32:WS2_32.dll
+ 0004:00000370       __imp_accept               000000014002a570     ws2_32:WS2_32.dll
+ 0004:00000378       __imp_listen               000000014002a578     ws2_32:WS2_32.dll
+ 0004:00000380       __imp_bind                 000000014002a580     ws2_32:WS2_32.dll
+ 0004:00000388       __imp_setsockopt           000000014002a588     ws2_32:WS2_32.dll
+ 0004:00000390       __imp_htons                000000014002a590     ws2_32:WS2_32.dll
+ 0004:00000398       __imp_ntohs                000000014002a598     ws2_32:WS2_32.dll
+ 0004:000003a0       __imp_WSACleanup           000000014002a5a0     ws2_32:WS2_32.dll
+ 0004:000003a8       __imp_ioctlsocket          000000014002a5a8     ws2_32:WS2_32.dll
+ 0004:000003b0       __imp_recv                 000000014002a5b0     ws2_32:WS2_32.dll
+ 0004:000003b8       \177WS2_32_NULL_THUNK_DATA 000000014002a5b8     ws2_32:WS2_32.dll
+ 0004:000003c0       __imp___C_specific_handler 000000014002a5c0     msvcrt:msvcrt.dll
+ 0004:000003c8       __imp_memset               000000014002a5c8     msvcrt:msvcrt.dll
+ 0004:000003d0       __imp_memmove              000000014002a5d0     msvcrt:msvcrt.dll
+ 0004:000003d8       __imp_memcpy               000000014002a5d8     msvcrt:msvcrt.dll
+ 0004:000003e0       __imp__rotl64              000000014002a5e0     msvcrt:msvcrt.dll
+ 0004:000003e8       __imp__rotl                000000014002a5e8     msvcrt:msvcrt.dll
+ 0004:000003f0       \177msvcrt_NULL_THUNK_DATA 000000014002a5f0     msvcrt:msvcrt.dll
+ 0004:000003f8       __IMPORT_DESCRIPTOR_KERNEL32 000000014002a5f8     kernel32:KERNEL32.dll
+ 0004:0000040c       __IMPORT_DESCRIPTOR_SHELL32 000000014002a60c     shell32:SHELL32.dll
+ 0004:00000420       __IMPORT_DESCRIPTOR_msvcrt 000000014002a620     msvcrt:msvcrt.dll
+ 0004:00000434       __IMPORT_DESCRIPTOR_WS2_32 000000014002a634     ws2_32:WS2_32.dll
+ 0004:00000448       __IMPORT_DESCRIPTOR_ADVAPI32 000000014002a648     advapi32:ADVAPI32.dll
+ 0004:0000045c       __IMPORT_DESCRIPTOR_SHLWAPI 000000014002a65c     shlwapi:SHLWAPI.dll
+ 0004:00000470       __NULL_IMPORT_DESCRIPTOR   000000014002a670     kernel32:KERNEL32.dll
+
+ entry point at        0001:0001daa0
+
+ Static symbols
+
+ 0000:00000000       _volmd                     0000000140000000     main.obj
+ 0000:fffd4940       .debug$S                   0000000140000000     advapi32:ADVAPI32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     advapi32:ADVAPI32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     advapi32:ADVAPI32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     kernel32:KERNEL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     shell32:SHELL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     shell32:SHELL32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     shlwapi:SHLWAPI.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     shlwapi:SHLWAPI.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     shlwapi:SHLWAPI.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     ws2_32:WS2_32.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     msvcrt:msvcrt.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     msvcrt:msvcrt.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     msvcrt:msvcrt.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     msvcrt:msvcrt.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     msvcrt:msvcrt.dll
+ 0000:fffd4940       .debug$S                   0000000140000000     msvcrt:msvcrt.dll
+ 0000:0000000c       _volmd                     000000014000000c     main.obj
+ 0000:00000018       _volmd                     0000000140000018     main.obj
+ 0000:00000024       _volmd                     0000000140000024     main.obj
+ 0000:00000030       _volmd                     0000000140000030     main.obj
+ 0000:0000003c       _volmd                     000000014000003c     main.obj
+ 0000:00000048       _volmd                     0000000140000048     main.obj
+ 0000:00000054       _volmd                     0000000140000054     main.obj
+ 0000:00000060       _volmd                     0000000140000060     main.obj
+ 0000:0000006c       _volmd                     000000014000006c     main.obj
+ 0000:00000078       _volmd                     0000000140000078     main.obj
+ 0000:00000084       _volmd                     0000000140000084     main.obj
+ 0000:00000090       _volmd                     0000000140000090     main.obj
+ 0000:000000a0       _volmd                     00000001400000a0     main.obj
+ 0000:000000b0       _volmd                     00000001400000b0     main.obj
+ 0000:000000c0       _volmd                     00000001400000c0     main.obj
+ 0000:000000d0       _volmd                     00000001400000d0     main.obj
+ 0000:000000e0       _volmd                     00000001400000e0     main.obj
+ 0000:000000f0       _volmd                     00000001400000f0     main.obj
+ 0000:00000100       _volmd                     0000000140000100     main.obj
+ 0000:00000110       _volmd                     0000000140000110     main.obj
+ 0000:00000124       _volmd                     0000000140000124     main.obj
+ 0000:00000138       _volmd                     0000000140000138     main.obj
+ 0000:00000150       _volmd                     0000000140000150     main.obj
+ 0000:00000170       _volmd                     0000000140000170     main.obj
+ 0001:00000000       XXH3_kSecret               0000000140000300     main.obj
+ 0001:000000c0       $SG51061                   00000001400003c0     main.obj
+ 0001:000000c1       $SG52985                   00000001400003c1     main.obj
+ 0001:000000c8       $SG51062                   00000001400003c8     main.obj
+ 0001:000000d8       $SG51063                   00000001400003d8     main.obj
+ 0001:000000e0       $SG51064                   00000001400003e0     main.obj
+ 0001:000000e8       $SG51065                   00000001400003e8     main.obj
+ 0001:000000f0       $SG52230                   00000001400003f0     main.obj
+ 0001:00000104       $SG52321                   0000000140000404     main.obj
+ 0001:0000010c       $SG52330                   000000014000040c     main.obj
+ 0001:00000118       $SG52377                   0000000140000418     main.obj
+ 0001:00000130       $SG52378                   0000000140000430     main.obj
+ 0001:00000148       ?WSAID_MULTIPLE_RIO@@3TGuID@@B 0000000140000448     main.obj
+ 0001:00000158       $SG52801                   0000000140000458     main.obj
+ 0001:00000180       $SG52892                   0000000140000480     main.obj
+ 0001:00000190       $SG52901                   0000000140000490     main.obj
+ 0001:000001a0       $SG52947                   00000001400004a0     main.obj
+ 0001:000001c8       $SG52948                   00000001400004c8     main.obj
+ 0001:000001ec       $SG61558                   00000001400004ec     main.obj
+ 0001:000001f0       $SG61747                   00000001400004f0     main.obj
+ 0001:000001f4       $SG61748                   00000001400004f4     main.obj
+ 0001:000001f8       $SG61749                   00000001400004f8     main.obj
+ 0001:000001fc       $SG61750                   00000001400004fc     main.obj
+ 0001:00000200       $SG61751                   0000000140000500     main.obj
+ 0001:00000204       $SG53576                   0000000140000504     main.obj
+ 0001:00000208       $SG53987                   0000000140000508     main.obj
+ 0001:00000210       $SG62192                   0000000140000510     main.obj
+ 0001:00000238       $SG54103                   0000000140000538     main.obj
+ 0001:00000260       $SG54104                   0000000140000560     main.obj
+ 0001:00000288       $SG54105                   0000000140000588     main.obj
+ 0001:000002b0       $SG54106                   00000001400005b0     main.obj
+ 0001:000002d8       $SG54107                   00000001400005d8     main.obj
+ 0001:00000300       $SG54108                   0000000140000600     main.obj
+ 0001:00000324       $SG62333                   0000000140000624     main.obj
+ 0001:00000328       $SG62334                   0000000140000628     main.obj
+ 0001:00000330       $SG54190                   0000000140000630     main.obj
+ 0001:00000348       $SG54191                   0000000140000648     main.obj
+ 0001:00000370       $SG62776                   0000000140000670     main.obj
+ 0001:000003f8       $SG62777                   00000001400006f8     main.obj
+ 0001:00000408       $SG62779                   0000000140000708     main.obj
+ 0001:00000418       $SG62780                   0000000140000718     main.obj
+ 0001:00000428       $SG62781                   0000000140000728     main.obj
+ 0001:00000438       $SG62782                   0000000140000738     main.obj
+ 0001:00000458       $SG62783                   0000000140000758     main.obj
+ 0001:00000470       $SG62784                   0000000140000770     main.obj
+ 0001:00000480       $SG62785                   0000000140000780     main.obj
+ 0001:00000498       $SG62786                   0000000140000798     main.obj
+ 0001:000004b0       $SG62787                   00000001400007b0     main.obj
+ 0001:000004d0       $SG62793                   00000001400007d0     main.obj
+ 0001:000005d0       $SG62795                   00000001400008d0     main.obj
+ 0001:000005d8       $SG62798                   00000001400008d8     main.obj
+ 0001:000005f8       $SG62799                   00000001400008f8     main.obj
+ 0001:00000618       $SG62802                   0000000140000918     main.obj
+ 0001:00000628       $SG62804                   0000000140000928     main.obj
+ 0001:00000648       $SG62806                   0000000140000948     main.obj
+ 0001:00000650       $SG62807                   0000000140000950     main.obj
+ 0001:00000658       $SG62808                   0000000140000958     main.obj
+ 0001:00000688       $SG62809                   0000000140000988     main.obj
+ 0001:000006b8       $SG62810                   00000001400009b8     main.obj
+ 0001:000006c0       $SG62811                   00000001400009c0     main.obj
+ 0001:000006f0       $SG62813                   00000001400009f0     main.obj
+ 0001:00000720       $SG62983                   0000000140000a20     main.obj
+ 0001:00000730       $SG62984                   0000000140000a30     main.obj
+ 0001:00000748       $SG62987                   0000000140000a48     main.obj
+ 0001:00000778       $SG63026                   0000000140000a78     main.obj
+ 0001:00000790       $SG63027                   0000000140000a90     main.obj
+ 0001:000007c0       $SG63031                   0000000140000ac0     main.obj
+ 0001:000007d8       $SG63032                   0000000140000ad8     main.obj
+ 0001:00000808       $SG63036                   0000000140000b08     main.obj
+ 0001:00000820       $SG63037                   0000000140000b20     main.obj
+ 0001:00000850       ?EMPTY_HANDLE_VALUE@@3UHandle@@B 0000000140000b50     main.obj
+ 0001:00000858       $SG63936                   0000000140000b58     main.obj
+ 0001:00000868       $SG63980                   0000000140000b68     main.obj
+ 0001:00000870       $SG63981                   0000000140000b70     main.obj
+ 0001:00000878       $SG63983                   0000000140000b78     main.obj
+ 0001:00000898       $SG63984                   0000000140000b98     main.obj
+ 0001:000008b0       $SG63989                   0000000140000bb0     main.obj
+ 0001:000008c0       $SG48153                   0000000140000bc0     main.obj
+ 0001:000008d8       $SG48154                   0000000140000bd8     main.obj
+ 0001:000008f8       $SG48155                   0000000140000bf8     main.obj
+ 0001:00000920       $SG48156                   0000000140000c20     main.obj
+ 0001:00000940       $SG48240                   0000000140000c40     main.obj
+ 0001:00000978       $SG48241                   0000000140000c78     main.obj
+ 0001:00000998       $SG48242                   0000000140000c98     main.obj
+ 0001:000009b0       $SG48243                   0000000140000cb0     main.obj
+ 0001:000009d0       $SG48245                   0000000140000cd0     main.obj
+ 0001:00000a08       $SG48246                   0000000140000d08     main.obj
+ 0001:00000a28       $SG48247                   0000000140000d28     main.obj
+ 0001:00000a40       $SG48248                   0000000140000d40     main.obj
+ 0001:00000a60       $SG48250                   0000000140000d60     main.obj
+ 0001:00000a78       $SG48251                   0000000140000d78     main.obj
+ 0001:00000a98       $SG48252                   0000000140000d98     main.obj
+ 0001:00000ac0       $SG48253                   0000000140000dc0     main.obj
+ 0001:00000ae0       ?B64_LUT@@3QBEB            0000000140000de0     main.obj
+ 0001:00000ec0       ?STRING_PATH_STYLE_MAP@@3PAU__StringPathStyleMapNode@@A 00000001400011c0     main.obj
+ 0001:00000f38       ?INTEGER_SYMBOLS@@3PAEA    0000000140001238     main.obj
+ 0001:00000f50       ?INTEGER_SYMBOL_REVERSE@@3PAEA 0000000140001250     main.obj
+ 0001:00000fd0       ?BASE64@@3PAEA             00000001400012d0     main.obj
+ 0001:00001010       ?BASE64_REVERSE@@3PAEA     0000000140001310     main.obj
+ 0001:000013b0       ??8@YAITu128@@0@Z          00000001400016b0 f   main.obj
+ 0001:00001430       ??9@YAITu128@@0@Z          0000000140001730 f   main.obj
+ 0001:000014c0       ?ArenaInit@@YAXXZ          00000001400017c0 f   main.obj
+ 0001:00001540       ?__ArenaAlloc@@YAPEAUArena@@PEAUArenaParams@@@Z 0000000140001840 f   main.obj
+ 0001:000019b0       ?ArenaRelease@@YAXPEAUArena@@@Z 0000000140001cb0 f   main.obj
+ 0001:00001a20       ?ArenaPushSize@@YAPEAXPEAUArena@@_K1I@Z 0000000140001d20 f   main.obj
+ 0001:00001f40       ?ArenaGetPosition@@YA_KPEAUArena@@@Z 0000000140002240 f   main.obj
+ 0001:00001f70       ?ArenaPopTo@@YAXPEAUArena@@_K@Z 0000000140002270 f   main.obj
+ 0001:00002070       ?ArenaPop@@YAXPEAUArena@@_K@Z 0000000140002370 f   main.obj
+ 0001:000020e0       ?ArenaClear@@YAXPEAUArena@@@Z 00000001400023e0 f   main.obj
+ 0001:00002110       ?ArenaBeginTemp@@YA?AUTempArena@@PEAUArena@@@Z 0000000140002410 f   main.obj
+ 0001:00002170       ?ArenaEndTemp@@YAXUTempArena@@@Z 0000000140002470 f   main.obj
+ 0001:000021a0       ?__GetScratch@@YAPEAUArena@@PEAPEAU1@_K@Z 00000001400024a0 f   main.obj
+ 0001:000022b0       ?SafeTruncateU64@@YAI_K@Z  00000001400025b0 f   main.obj
+ 0001:000022e0       ?SafeTruncateU32@@YAGI@Z   00000001400025e0 f   main.obj
+ 0001:00003680       ??__K_s8@@YA?AUStr8@@PEBD_K@Z 0000000140003980 f   main.obj
+ 0001:00003700       ??__K_s16@@YA?AUStr16@@PEBD_K@Z 0000000140003a00 f   main.obj
+ 0001:00003c80       ??8@YAIUHandle@@0@Z        0000000140003f80 f   main.obj
+ 0001:00003cd0       ??9@YAIUHandle@@0@Z        0000000140003fd0 f   main.obj
+ 0001:00004560       ?UpdateTickIndex@@YA_KXZ   0000000140004860 f   main.obj
+ 0001:00004740       ?GetTLS@@YAPEAUThreadLocalStorage@@XZ 0000000140004a40 f   main.obj
+ 0001:00006b6c       $LN13                      0000000140006e6c     main.obj
+ 0001:00006cf0       $LN13                      0000000140006ff0     main.obj
+ 0001:000121c0       ??R<lambda_e6c8ec0dacc65a831648c0435a04629d>@@QEBAPEAUArena@@XZ 00000001400124c0 f   main.obj
+ 0001:00012220       ??R<lambda_d250f64fe5e2db70a82c732296d24a33>@@QEBAPEAUArena@@XZ 0000000140012520 f   main.obj
+ 0001:000122e0       ??0<lambda_d250f64fe5e2db70a82c732296d24a33>@@QEAA@AEA_K0AEAPEAUArena@@@Z 00000001400125e0 f   main.obj
+ 0001:00012330       XXH_INLINE_XXH3_64bits_withSeed 0000000140012630 f   main.obj
+ 0001:00012380       XXH_INLINE_XXH3_128bits_withSeed 0000000140012680 f   main.obj
+ 0001:00012420       XXH_read32                 0000000140012720 f   main.obj
+ 0001:00012450       XXH_readLE32               0000000140012750 f   main.obj
+ 0001:000124a0       XXH_read64                 00000001400127a0 f   main.obj
+ 0001:000124d0       XXH_readLE64               00000001400127d0 f   main.obj
+ 0001:00012520       XXH64_avalanche            0000000140012820 f   main.obj
+ 0001:000125c0       XXH_mult64to128            00000001400128c0 f   main.obj
+ 0001:00012640       XXH3_mul128_fold64         0000000140012940 f   main.obj
+ 0001:000126b0       XXH_xorshift64             00000001400129b0 f   main.obj
+ 0001:000126e0       XXH3_avalanche             00000001400129e0 f   main.obj
+ 0001:00012740       XXH3_rrmxmx                0000000140012a40 f   main.obj
+ 0001:00012800       XXH3_len_1to3_64b          0000000140012b00 f   main.obj
+ 0001:000128e0       XXH3_len_4to8_64b          0000000140012be0 f   main.obj
+ 0001:000129c0       XXH3_len_9to16_64b         0000000140012cc0 f   main.obj
+ 0001:00012af0       XXH3_len_0to16_64b         0000000140012df0 f   main.obj
+ 0001:00012bd0       XXH3_mix16B                0000000140012ed0 f   main.obj
+ 0001:00012c70       XXH3_len_17to128_64b       0000000140012f70 f   main.obj
+ 0001:00012e60       XXH3_len_129to240_64b      0000000140013160 f   main.obj
+ 0001:00012fd0       XXH3_accumulate_512_avx2   00000001400132d0 f   main.obj
+ 0001:00013190       XXH3_accumulate_avx2       0000000140013490 f   main.obj
+ 0001:00013220       XXH3_scrambleAcc_avx2      0000000140013520 f   main.obj
+ 0001:00013410       XXH3_initCustomSecret_avx2 0000000140013710 f   main.obj
+ 0001:00013660       XXH3_hashLong_internal_loop 0000000140013960 f   main.obj
+ 0001:000137e0       XXH3_mix2Accs              0000000140013ae0 f   main.obj
+ 0001:00013870       XXH3_mergeAccs             0000000140013b70 f   main.obj
+ 0001:00013910       XXH3_finalizeLong_64b      0000000140013c10 f   main.obj
+ 0001:00013960       XXH3_hashLong_64b_internal 0000000140013c60 f   main.obj
+ 0001:00013a60       XXH3_hashLong_64b_withSeed_internal 0000000140013d60 f   main.obj
+ 0001:00013b30       XXH3_hashLong_64b_withSeed 0000000140013e30 f   main.obj
+ 0001:00013b90       XXH3_64bits_internal       0000000140013e90 f   main.obj
+ 0001:00013c60       XXH3_len_1to3_128b         0000000140013f60 f   main.obj
+ 0001:00013df0       XXH3_len_4to8_128b         00000001400140f0 f   main.obj
+ 0001:00013fd0       XXH3_len_9to16_128b        00000001400142d0 f   main.obj
+ 0001:00014270       XXH3_len_0to16_128b        0000000140014570 f   main.obj
+ 0001:000144d0       XXH128_mix32B              00000001400147d0 f   main.obj
+ 0001:000145e0       XXH3_len_17to128_128b      00000001400148e0 f   main.obj
+ 0001:000149b0       XXH3_len_129to240_128b     0000000140014cb0 f   main.obj
+ 0001:00014d50       XXH3_finalizeLong_128b     0000000140015050 f   main.obj
+ 0001:00014df0       XXH3_hashLong_128b_internal 00000001400150f0 f   main.obj
+ 0001:00014f40       XXH3_hashLong_128b_withSeed_internal 0000000140015240 f   main.obj
+ 0001:00015080       XXH3_hashLong_128b_withSeed 0000000140015380 f   main.obj
+ 0001:00015120       XXH3_128bits_internal      0000000140015420 f   main.obj
+ 0001:00015340       ?StrListPushNodeSetStr@@YAPEAUStr8Node@@PEAUStr8List@@PEAU1@UStr8@@@Z 0000000140015640 f   main.obj
+ 0001:00015410       ?FindChar@@YAPEBDPEBDE@Z   0000000140015710 f   main.obj
+ 0001:00015560       ?U64ToCStr@@YAPEAD_KPEAD@Z 0000000140015860 f   main.obj
+ 0001:00015600       ?U64ToCWStr@@YAPEAG_KPEAG@Z 0000000140015900 f   main.obj
+ 0001:000156b0       ?__VSNPrintf@@YAHPEAD_KPEBD0@Z 00000001400159b0 f   main.obj
+ 0001:00017ba4       $LN342                     0000000140017ea4     main.obj
+ 0001:00017bdc       $LN341                     0000000140017edc     main.obj
+ 0001:00017c60       ?__VSNPrintfW@@YAHPEAG_KPEBGPEAD@Z 0000000140017f60 f   main.obj
+ 0001:00019fc4       $LN328                     000000014001a2c4     main.obj
+ 0001:00019ffc       $LN327                     000000014001a2fc     main.obj
+ 0001:0001a080       ??R<lambda_c922ba5709d57fb0ebb44dfec33bc1dd>@@QEBAPEAUArena@@XZ 000000014001a380 f   main.obj
+ 0001:0001a0e0       ??R<lambda_5063d37ffdabe184d5391b6722749c86>@@QEBAPEAUArena@@XZ 000000014001a3e0 f   main.obj
+ 0001:0001a140       ??R<lambda_e4a37e0a03adfec4cf3152bf3f7e1175>@@QEBAPEAUArena@@XZ 000000014001a440 f   main.obj
+ 0001:0001a1a0       ??R<lambda_c52114deafd210ed7c3e9df63066b549>@@QEBAPEAUArena@@XZ 000000014001a4a0 f   main.obj
+ 0001:0001a200       ??R<lambda_dcd17211030ba58c101809666613bd72>@@QEBAPEAUArena@@XZ 000000014001a500 f   main.obj
+ 0001:0001a260       ??R<lambda_4d25408b59739b734ba7151573c95e51>@@QEBA?ATr1u64@@XZ 000000014001a560 f   main.obj
+ 0001:0001a490       ??0<lambda_4d25408b59739b734ba7151573c95e51>@@QEAA@AEAPEAUOCCache@@@Z 000000014001a790 f   main.obj
+ 0001:0001a4c0       ??R<lambda_9a7bdddb616723f2f7b96c907d12c748>@@QEBAIXZ 000000014001a7c0 f   main.obj
+ 0001:0001a520       ??0<lambda_9a7bdddb616723f2f7b96c907d12c748>@@QEAA@AEAPEAUOCNode@@@Z 000000014001a820 f   main.obj
+ 0001:0001a550       ??R<lambda_4e855bfdac0b56084b2bf31f325d2f47>@@QEBAIXZ 000000014001a850 f   main.obj
+ 0001:0001a5b0       ??0<lambda_4e855bfdac0b56084b2bf31f325d2f47>@@QEAA@AEAPEAUOCNode@@@Z 000000014001a8b0 f   main.obj
+ 0001:0001a5e0       ??R<lambda_7c62116ecbd1cb059d644e27093a57a8>@@QEBAIXZ 000000014001a8e0 f   main.obj
+ 0001:0001a610       ??R<lambda_011dee37dbdcb36d46cd7fdd74dccbba>@@QEBAIXZ 000000014001a910 f   main.obj
+ 0001:0001a650       ??0<lambda_011dee37dbdcb36d46cd7fdd74dccbba>@@QEAA@AEAPEAUOCRequest@@@Z 000000014001a950 f   main.obj
+ 0001:0001a680       ??R<lambda_4d026e455542e16d91738ea6017227b9>@@QEBAIXZ 000000014001a980 f   main.obj
+ 0001:0001a6b0       ??R<lambda_165751dc7a52c4fb90e745a46fcdac0c>@@QEBAIXZ 000000014001a9b0 f   main.obj
+ 0001:0001a6f0       ??0<lambda_165751dc7a52c4fb90e745a46fcdac0c>@@QEAA@AEAPEAUOCRequest@@@Z 000000014001a9f0 f   main.obj
+ 0001:0001a720       ??R<lambda_ea348c28c3adddf988ea051931f9ed36>@@QEBA?ATr1u64@@XZ 000000014001aa20 f   main.obj
+ 0001:0001a950       ??0<lambda_ea348c28c3adddf988ea051931f9ed36>@@QEAA@AEAPEAUOCCache@@@Z 000000014001ac50 f   main.obj
+ 0001:0001a980       ??R<lambda_0449ada13dca88ea2c58da6c665f9f4a>@@QEBAIXZ 000000014001ac80 f   main.obj
+ 0001:0001a9e0       ??0<lambda_0449ada13dca88ea2c58da6c665f9f4a>@@QEAA@AEAPEAUOCNode@@@Z 000000014001ace0 f   main.obj
+ 0001:0001aa10       ??R<lambda_9e06ee8bdf49fbdcfc2cabf790a6d5f3>@@QEBAIXZ 000000014001ad10 f   main.obj
+ 0001:0001aa70       ??0<lambda_9e06ee8bdf49fbdcfc2cabf790a6d5f3>@@QEAA@AEAPEAUOCNode@@@Z 000000014001ad70 f   main.obj
+ 0001:0001aaa0       ??R<lambda_dfcaf771d04e9dcb16f0904d425d0634>@@QEBAPEAUArena@@XZ 000000014001ada0 f   main.obj
+ 0001:0001ab00       ??R<lambda_bbae845beb3f87964b7f1ba54920de42>@@QEBAPEAUArena@@XZ 000000014001ae00 f   main.obj
+ 0001:0001ab60       ??R<lambda_726e5bb897ead3f51d80863e94a21a28>@@QEBAPEAUArena@@XZ 000000014001ae60 f   main.obj
+ 0001:0001abc0       ??R<lambda_31572061269f8569ee7ef4050f66c504>@@QEBAPEAUArena@@XZ 000000014001aec0 f   main.obj
+ 0001:0001ac20       ??R<lambda_97a43a577a90225da7b58a753c8ac09a>@@QEBAPEAUArena@@XZ 000000014001af20 f   main.obj
+ 0001:0001ac80       ??R<lambda_b426083c85131939ed268ea48beb6163>@@QEBA?ATr1u64@@XZ 000000014001af80 f   main.obj
+ 0001:0001ae60       ??R<lambda_763be10cc47e0a8bda18e0723cb53e8e>@@QEBAIXZ 000000014001b160 f   main.obj
+ 0001:0001aeb0       ??0<lambda_763be10cc47e0a8bda18e0723cb53e8e>@@QEAA@AEAPEAUCBlobNode@@@Z 000000014001b1b0 f   main.obj
+ 0001:0001aee0       ??R<lambda_4e517aefb2a5c99207ac9cb6e45f4f53>@@QEBAIXZ 000000014001b1e0 f   main.obj
+ 0001:0001af30       ??0<lambda_4e517aefb2a5c99207ac9cb6e45f4f53>@@QEAA@AEAPEAUCBlobNode@@@Z 000000014001b230 f   main.obj
+ 0001:0001af60       ??R<lambda_5afdcdd8ee77b9c400f21bce8a713edc>@@QEBAPEAUArena@@XZ 000000014001b260 f   main.obj
+ 0001:0001afc0       ??R<lambda_202a85c4477781a17acca7c7ae6e3bab>@@QEBAPEAUArena@@XZ 000000014001b2c0 f   main.obj
+ 0001:0001b040       ??0<lambda_202a85c4477781a17acca7c7ae6e3bab>@@QEAA@AEA_K@Z 000000014001b340 f   main.obj
+ 0001:0001b070       ??R<lambda_278e2b8505d61ef9060f4c01bfabdb8c>@@QEBA?ATr1u64@@XZ 000000014001b370 f   main.obj
+ 0001:0001b280       ??0<lambda_278e2b8505d61ef9060f4c01bfabdb8c>@@QEAA@AEA_K@Z 000000014001b580 f   main.obj
+ 0001:0001b2b0       ??R<lambda_1e0396191e21e36462d73a81622d8a4c>@@QEBA?AUOCObject@@XZ 000000014001b5b0 f   main.obj
+ 0001:0001b390       ??0<lambda_1e0396191e21e36462d73a81622d8a4c>@@QEAA@AEAPEAUAccess@@AEAUStr8@@AEA_K@Z 000000014001b690 f   main.obj
+ 0001:0001b3e0       ??R<lambda_2b0643073f661d074020e000c3d4e170>@@QEBA?ATr1u64@@XZ 000000014001b6e0 f   main.obj
+ 0001:0001b5c0       ?B64RawFromEscaped@@YA?AT__m256i@@T1@@Z 000000014001b8c0 f   main.obj
+ 0001:0001b720       ?__B64Decode@@YAXPEBE_KPEAEPEA_K@Z 000000014001ba20 f   main.obj
+ 0001:0001b920       ?B64Decode@@YAXPEBE_KPEAE1@Z 000000014001bc20 f   main.obj
+ 0001:0001c010       ??R<lambda_51fe3bf0955aadb6a4c9c36443e70323>@@QEBAPEAUArena@@XZ 000000014001c310 f   main.obj
+ 0001:0001c070       ?TimeFileTimeToWallClock@@YA_KPEBU_FILETIME@@@Z 000000014001c370 f   main.obj
+ 0001:0001c0a0       ?TimeWallClockToFileTime@@YA?AU_FILETIME@@_K@Z 000000014001c3a0 f   main.obj
+ 0001:0001c100       ?HandleFromHANDLE@@YA?AUHandle@@PEAX@Z 000000014001c400 f   main.obj
+ 0001:0001c150       ?FilePropertyKindFromFileAttributes@@YAEK@Z 000000014001c450 f   main.obj
+ 0001:0001c170       ??R<lambda_ea8ef017d2d3bf270432ec021322b02c>@@QEBAPEAUArena@@XZ 000000014001c470 f   main.obj
+ 0001:0001c250       ?SocketFromHandle@@YA_KUHandle@@@Z 000000014001c550 f   main.obj
+ 0001:0001c280       ?HandleFromSocket@@YA?AUHandle@@_K@Z 000000014001c580 f   main.obj
+ 0001:0001c2d0       ?SockAddrFromSocketAddress@@YAXUSocketAddress@@PEAUsockaddr_storage@@PEA_J@Z 000000014001c5d0 f   main.obj
+ 0001:0001c3c0       ?SocketAddressFromSockAddr@@YA?AUSocketAddress@@PEAUsockaddr_storage@@@Z 000000014001c6c0 f   main.obj
+ 0001:0001c4a0       ?ExceptionFilter@@YAJPEAU_EXCEPTION_POINTERS@@@Z 000000014001c7a0 f   main.obj
+ 0001:0001cde0       ?EntryPointCaller@@YAXHPEAPEA_W@Z 000000014001d0e0 f   main.obj
+ 0001:0001d920       ??R<lambda_fe026dd943f07f51a848dfc01ae34208>@@QEBAPEAUArena@@XZ 000000014001dc20 f   main.obj
+ 0001:0001d9a0       ??R<lambda_95d33a7afca5799791bb811163410efe>@@QEBAPEAUArena@@XZ 000000014001dca0 f   main.obj
+ 0001:0001da00       ??R<lambda_74dcb1e678df8dba5e102e85626588c9>@@QEBAPEAUArena@@XZ 000000014001dd00 f   main.obj
+ 0001:0001daf0       ?rrCtzBytes32@@YAII@Z      000000014001ddf0 f   main.obj
+ 0001:0001db40       ?rrCtzBytes64@@YAI_K@Z     000000014001de40 f   main.obj
+ 0001:0001dd10       ?read16@@YAGPEBX@Z         000000014001e010 f   main.obj
+ 0001:0001dd40       ?write16@@YAXPEAXG@Z       000000014001e040 f   main.obj
+ 0001:0001dd70       ?read32@@YAIPEBX@Z         000000014001e070 f   main.obj
+ 0001:0001dda0       ?write32@@YAXPEAXI@Z       000000014001e0a0 f   main.obj
+ 0001:0001ddd0       ?read64@@YA_KPEBX@Z        000000014001e0d0 f   main.obj
+ 0001:0001de00       ?write64@@YAXPEAX_K@Z      000000014001e100 f   main.obj
+ 0001:0001de30       ?rrPtrDiff@@YA_J_J@Z       000000014001e130 f   main.obj
+ 0001:0001de50       ?rrPtrDiff32@@YAH_J@Z      000000014001e150 f   main.obj
+ 0001:0001de80       ?copy_no_overlap_long@@YAXPEAEPEBE_J@Z 000000014001e180 f   main.obj
+ 0001:0001df00       ?copy_no_overlap_nooverrun@@YAXPEAEPEBE_J@Z 000000014001e200 f   main.obj
+ 0001:0001df40       ?copy_match_memset@@YAXPEAEH_J@Z 000000014001e240 f   main.obj
+ 0001:0001dfe0       ?rr_lzb_simple_decode_notexpanded@@YA_JPEBXPEAX_J@Z 000000014001e2e0 f   main.obj
+ 0001:0001ea10       ?hmf_hash4_32@@YAII@Z      000000014001ed10 f   main.obj
+ 0001:0001ea50       ?LZB_SecondHash4@@YAII@Z   000000014001ed50 f   main.obj
+ 0001:0001ea90       ?GetNumBytesZeroNeverAllR@@YAH_K@Z 000000014001ed90 f   main.obj
+ 0001:0001eae0       ?LZB_Output@@YAPEAEPEAEHPEBEHH@Z 000000014001ede0 f   main.obj
+ 0001:0001f790       ?LZB_OutputLast@@YAPEAEPEAEHPEBE@Z 000000014001fa90 f   main.obj
+ 0001:0001fa20       ?rr_lzb_simple_context_init@@YAXPEAUrr_lzb_simple_context@@@Z 000000014001fd20 f   main.obj
+ 0001:0001fa80       ?rr_lzb_simple_encode_fast_sub@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 000000014001fd80 f   main.obj
+ 0001:000205b0       ?rr_lzb_simple_encode_veryfast_sub@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 00000001400208b0 f   main.obj
+ 0001:00020db0       ??R<lambda_7a2c008f5d4257520d84dc79bb7bcb1b>@@QEBAIXZ 00000001400210b0 f   main.obj
+ 0001:00020de0       ??R<lambda_e6625fec59c6a8afff84d8561080237b>@@QEBAIXZ 00000001400210e0 f   main.obj
+ 0001:00027c20       ?filt$0@?0??ThreadSetName@@YAXUStr8@@@Z@4HA 0000000140027f20 f   main.obj
+ 0001:00027c54       $unwind$??8@YAITu128@@0@Z  0000000140027f54     main.obj
+ 0001:00027c5c       $unwind$??9@YAITu128@@0@Z  0000000140027f5c     main.obj
+ 0001:00027c68       $unwind$?ArenaInit@@YAXXZ  0000000140027f68     main.obj
+ 0001:00027c70       $unwind$?__ArenaAlloc@@YAPEAUArena@@PEAUArenaParams@@@Z 0000000140027f70     main.obj
+ 0001:00027c7c       $unwind$?ArenaRelease@@YAXPEAUArena@@@Z 0000000140027f7c     main.obj
+ 0001:00027c84       $unwind$?ArenaPushSize@@YAPEAXPEAUArena@@_K1I@Z 0000000140027f84     main.obj
+ 0001:00027c90       $unwind$?ArenaGetPosition@@YA_KPEAUArena@@@Z 0000000140027f90     main.obj
+ 0001:00027c98       $unwind$?ArenaPopTo@@YAXPEAUArena@@_K@Z 0000000140027f98     main.obj
+ 0001:00027ca0       $unwind$?ArenaPop@@YAXPEAUArena@@_K@Z 0000000140027fa0     main.obj
+ 0001:00027ca8       $unwind$?ArenaClear@@YAXPEAUArena@@@Z 0000000140027fa8     main.obj
+ 0001:00027cb0       $unwind$?ArenaBeginTemp@@YA?AUTempArena@@PEAUArena@@@Z 0000000140027fb0     main.obj
+ 0001:00027cbc       $unwind$?ArenaEndTemp@@YAXUTempArena@@@Z 0000000140027fbc     main.obj
+ 0001:00027cc4       $unwind$?__GetScratch@@YAPEAUArena@@PEAPEAU1@_K@Z 0000000140027fc4     main.obj
+ 0001:00027ccc       $unwind$?ArenaPushStrFmtV@@YA?AUStr8@@PEAUArena@@PEBDPEAD@Z 0000000140027fcc     main.obj
+ 0001:00027cd8       $unwind$?ArenaPushStrFmt@@YA?AUStr8@@PEAUArena@@PEADZZ 0000000140027fd8     main.obj
+ 0001:00027ce4       $unwind$?ArenaPushStrFmtV@@YA?AUStr16@@PEAUArena@@PEBGPEAD@Z 0000000140027fe4     main.obj
+ 0001:00027cf0       $unwind$?ArenaPushStrFmt@@YA?AUStr16@@PEAUArena@@PEAGZZ 0000000140027ff0     main.obj
+ 0001:00027cfc       $unwind$?ListPushFmt@@YAXPEAUArena@@PEAUStr8List@@PEADZZ 0000000140027ffc     main.obj
+ 0001:00027d08       $unwind$?Str8TextPointPairFromStr@@YA?AUStr8TextPointPair@@UStr8@@@Z 0000000140028008     main.obj
+ 0001:00027d14       $unwind$?SerialPop@@YA_KUStr8@@_KPEAX11@Z 0000000140028014     main.obj
+ 0001:00027d1c       $unwind$?SerialFindFirstMatch@@YA_KUStr8@@_KG@Z 000000014002801c     main.obj
+ 0001:00027d28       $unwind$?SerialPopRawPtr@@YAPEAXUStr8@@_K1@Z 0000000140028028     main.obj
+ 0001:00027d30       $unwind$?SerialPopCStr@@YA_KUStr8@@_KPEAU1@@Z 0000000140028030     main.obj
+ 0001:00027d3c       $unwind$?SerialPopStr16@@YA_KUStr8@@_KPEAUStr16@@@Z 000000014002803c     main.obj
+ 0001:00027d48       $unwind$?SerialPopBlock@@YA_KUStr8@@_K1PEAU1@@Z 0000000140028048     main.obj
+ 0001:00027d54       $unwind$?TxtPt@@YA?AUTextPoint@@_J0@Z 0000000140028054     main.obj
+ 0001:00027d60       $unwind$?TxtRng@@YA?AUTextRange@@UTextPoint@@0@Z 0000000140028060     main.obj
+ 0001:00027d6c       $unwind$?FuzzyFind@@YA?AUFMRangeList@@PEAUArena@@UStr8@@1@Z 000000014002806c     main.obj
+ 0001:00027d78       $unwind$?ToLower@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140028078     main.obj
+ 0001:00027d84       $unwind$??__K_s8@@YA?AUStr8@@PEBD_K@Z 0000000140028084     main.obj
+ 0001:00027d90       $unwind$??__K_s16@@YA?AUStr16@@PEBD_K@Z 0000000140028090     main.obj
+ 0001:00027d9c       $unwind$?MainThreadBaseEntryPoint@@YAXHPEAPEAD@Z 000000014002809c     main.obj
+ 0001:00027da8       $unwind$??8@YAIUHandle@@0@Z 00000001400280a8     main.obj
+ 0001:00027db0       $unwind$??9@YAIUHandle@@0@Z 00000001400280b0     main.obj
+ 0001:00027db8       $unwind$?EntityAlloc@@YAPEAUOSEntity@@W4EntityKind@@@Z 00000001400280b8     main.obj
+ 0001:00027dc0       $unwind$?EntityDestroy@@YAXPEAUOSEntity@@@Z 00000001400280c0     main.obj
+ 0001:00027dc8       $unwind$?SharedMemoryAlloc@@YA?AUHandle@@_KUStr8@@@Z 00000001400280c8     main.obj
+ 0001:00027dd4       $unwind$?SharedMemoryOpen@@YA?AUHandle@@UStr8@@@Z 00000001400280d4     main.obj
+ 0001:00027de0       $unwind$?SharedMemoryClose@@YAXUHandle@@@Z 00000001400280e0     main.obj
+ 0001:00027de8       $unwind$?SharedMemoryViewOpen@@YAPEAXUHandle@@Tr1u64@@@Z 00000001400280e8     main.obj
+ 0001:00027df4       $unwind$?SharedMemoryViewClose@@YAXUHandle@@PEAXTr1u64@@@Z 00000001400280f4     main.obj
+ 0001:00027dfc       $unwind$?TimeNow@@YA_KXZ   00000001400280fc     main.obj
+ 0001:00027e04       $unwind$?SleepMSecsFromEndTimeUSecs@@YAI_K@Z 0000000140028104     main.obj
+ 0001:00027e0c       $unwind$?Abort@@YAXI@Z     000000014002810c     main.obj
+ 0001:00027e14       $unwind$?SysInit@@YAXXZ    0000000140028114     main.obj
+ 0001:00027e1c       $unwind$?EntryPoint@@YAXPEAUCommandLine@@@Z 000000014002811c     main.obj
+ 0001:00027e28       $unwind$?GetCurrentPath@@YA?AUStr8@@PEAUArena@@@Z 0000000140028128     main.obj
+ 0001:00027e34       $unwind$?UpdateTickIndex@@YA_KXZ 0000000140028134     main.obj
+ 0001:00027e3c       $unwind$?MemInit@@YAXXZ    000000014002813c     main.obj
+ 0001:00027e44       $unwind$?MemReserve@@YAPEAX_K@Z 0000000140028144     main.obj
+ 0001:00027e4c       $unwind$?MemReserveLarge@@YAPEAX_K@Z 000000014002814c     main.obj
+ 0001:00027e54       $unwind$?MemCommit@@YAIPEAX_K@Z 0000000140028154     main.obj
+ 0001:00027e5c       $unwind$?MemDeCommit@@YAXPEAX_K@Z 000000014002815c     main.obj
+ 0001:00027e64       $unwind$?MemRelease@@YAXPEAX_K@Z 0000000140028164     main.obj
+ 0001:00027e6c       $unwind$?EnableMaxMemorySpace@@YAXXZ 000000014002816c     main.obj
+ 0001:00027e74       $unwind$?GetTLS@@YAPEAUThreadLocalStorage@@XZ 0000000140028174     main.obj
+ 0001:00027e7c       $unwind$?TimeInit@@YAXXZ   000000014002817c     main.obj
+ 0001:00027e84       $unwind$?SleepMSecs@@YAXI@Z 0000000140028184     main.obj
+ 0001:00027e8c       $unwind$?TimeGetTimestamp@@YA_KXZ 000000014002818c     main.obj
+ 0001:00027e94       $unwind$?TimeElapsedSec@@YAN_K0@Z 0000000140028194     main.obj
+ 0001:00027e9c       $unwind$?TimeElapsedMSec@@YAN_K0@Z 000000014002819c     main.obj
+ 0001:00027ea4       $unwind$?TimeElapsedUSec@@YAN_K0@Z 00000001400281a4     main.obj
+ 0001:00027eac       $unwind$?TimeGetWallClockUTC@@YA_KXZ 00000001400281ac     main.obj
+ 0001:00027eb4       $unwind$?TimeWallClockToDateTime@@YAX_KPEAUDateTime@@@Z 00000001400281b4     main.obj
+ 0001:00027ebc       $unwind$?TimeDateTimeToWallClock@@YA_KPEAUDateTime@@@Z 00000001400281bc     main.obj
+ 0001:00027ec4       $unwind$?PrintInit@@YAXXZ  00000001400281c4     main.obj
+ 0001:00027ecc       $unwind$?PrintOut@@YAXUStr8@@@Z 00000001400281cc     main.obj
+ 0001:00027ed4       $unwind$?PrintOut@@YAXPEADZZ 00000001400281d4     main.obj
+ 0001:00027ee0       $unwind$?PrintErr@@YAXUStr8@@@Z 00000001400281e0     main.obj
+ 0001:00027ee8       $unwind$?PrintErr@@YAXPEADZZ 00000001400281e8     main.obj
+ 0001:00027ef4       $unwind$?UserIn@@YA?AUStr8@@PEAUArena@@U1@@Z 00000001400281f4     main.obj
+ 0001:00027f00       $unwind$?UserIn@@YA?AUStr8@@PEAUArena@@@Z 0000000140028200     main.obj
+ 0001:00027f0c       $unwind$?GetStdOut@@YA?AUHandle@@XZ 000000014002820c     main.obj
+ 0001:00027f14       $unwind$?GetStdErr@@YA?AUHandle@@XZ 0000000140028214     main.obj
+ 0001:00027f1c       $unwind$?GetStdIn@@YA?AUHandle@@XZ 000000014002821c     main.obj
+ 0001:00027f24       $unwind$?__LogBase@@YAXPEBDHEUStr8@@@Z 0000000140028224     main.obj
+ 0001:00027f30       $unwind$?__LogBase@@YAXPEBDHEPEADZZ 0000000140028230     main.obj
+ 0001:00027f3c       $unwind$?__LogBase@@YAXPEBDHEUStr16@@@Z 000000014002823c     main.obj
+ 0001:00027f48       $unwind$?__LogBase@@YAXPEBDHEPEAGZZ 0000000140028248     main.obj
+ 0001:00027f54       $unwind$?ProfileLoopEnd@@YAIPEAUProfileState@@@Z 0000000140028254     main.obj
+ 0001:00027f5c       $unwind$?SystemOpenFile@@YA?AUHandle@@IUStr8@@@Z 000000014002825c     main.obj
+ 0001:00027f68       $unwind$?SystemCloseFile@@YAXUHandle@@@Z 0000000140028268     main.obj
+ 0001:00027f70       $unwind$?SystemReadFile@@YA_KUHandle@@Tr1u64@@PEAX@Z 0000000140028270     main.obj
+ 0001:00027f7c       $unwind$?SystemWriteFile@@YA_KUHandle@@Tr1u64@@PEAX@Z 000000014002827c     main.obj
+ 0001:00027f88       $unwind$?SystemSetFileTimes@@YAIUHandle@@UDateTime@@@Z 0000000140028288     main.obj
+ 0001:00027f90       $unwind$?SystemGetFileProperties@@YA?AUFileProperties@@UHandle@@@Z 0000000140028290     main.obj
+ 0001:00027f9c       $unwind$?SystemGetFileProperties@@YA?AUFileProperties@@UStr8@@@Z 000000014002829c     main.obj
+ 0001:00027fa8       $unwind$?SystemGetFileID@@YA?AUFileID@@UHandle@@@Z 00000001400282a8     main.obj
+ 0001:00027fb4       $unwind$?SystemReserveFileSize@@YAIUHandle@@_K@Z 00000001400282b4     main.obj
+ 0001:00027fbc       $unwind$?SystemDeleteFile@@YAIUStr8@@@Z 00000001400282bc     main.obj
+ 0001:00027fc8       $unwind$?SystemGetFullFilePath@@YA?AUStr8@@PEAUArena@@U1@@Z 00000001400282c8     main.obj
+ 0001:00027fd4       $unwind$?SystemFileExists@@YAIUStr8@@@Z 00000001400282d4     main.obj
+ 0001:00027fe0       $unwind$?SystemDirExists@@YAIUStr8@@@Z 00000001400282e0     main.obj
+ 0001:00027fec       $unwind$?SystemOpenFileMap@@YA?AUHandle@@IU1@@Z 00000001400282ec     main.obj
+ 0001:00027ff4       $unwind$?SystemCloseFileMap@@YAXUHandle@@@Z 00000001400282f4     main.obj
+ 0001:00027ffc       $unwind$?SystemOpenFileMapView@@YAPEAXUHandle@@ITr1u64@@@Z 00000001400282fc     main.obj
+ 0001:00028008       $unwind$?SystemCloseFileMapView@@YAXUHandle@@PEAXTr1u64@@@Z 0000000140028308     main.obj
+ 0001:00028010       $unwind$?SystemFileIterBegin@@YAPEAUFileIter@@PEAUArena@@UStr8@@I@Z 0000000140028310     main.obj
+ 0001:0002801c       $unwind$?SystemFileIterNext@@YAIPEAUArena@@PEAUFileIter@@PEAUFileInfo@@@Z 000000014002831c     main.obj
+ 0001:00028028       $unwind$?SystemFileIterEnd@@YAXPEAUFileIter@@@Z 0000000140028328     main.obj
+ 0001:00028030       $unwind$?SystemOpenLibrary@@YA?AUHandle@@UStr8@@@Z 0000000140028330     main.obj
+ 0001:0002803c       $unwind$?SystemCloseLibrary@@YAXUHandle@@@Z 000000014002833c     main.obj
+ 0001:00028044       $unwind$?SystemLibraryLoadProc@@YAP6AXXZUHandle@@UStr8@@@Z 0000000140028344     main.obj
+ 0001:0002804c       $unwind$?SystemCreateDirectory@@YAIUStr8@@@Z 000000014002834c     main.obj
+ 0001:00028058       $unwind$?SystemMoveFile@@YAIUStr8@@0@Z 0000000140028358     main.obj
+ 0001:00028064       $unwind$?RingWrite@@YA_KPEAE_K1PEAX1@Z 0000000140028364     main.obj
+ 0001:0002806c       $unwind$?RingRead@@YA_KPEAE_K1PEAX1@Z 000000014002836c     main.obj
+ 0001:00028074       $unwind$?ProcessLaunch@@YA?AUHandle@@PEAUProcessLaunchProperties@@@Z 0000000140028374     main.obj
+ 0001:00028080       $unwind$?ProcessJoin@@YAIUHandle@@_K@Z 0000000140028380     main.obj
+ 0001:00028088       $unwind$?ProcessJoinExitCode@@YAIUHandle@@_KPEAH@Z 0000000140028388     main.obj
+ 0001:00028090       $unwind$?ProcessDetach@@YAXUHandle@@@Z 0000000140028390     main.obj
+ 0001:00028098       $unwind$?ProcessKill@@YAIUHandle@@@Z 0000000140028398     main.obj
+ 0001:000280a0       $unwind$?MutexAlloc@@YA?AUHandle@@XZ 00000001400283a0     main.obj
+ 0001:000280a8       $unwind$?MutexUnlock@@YAXUHandle@@@Z 00000001400283a8     main.obj
+ 0001:000280b0       $unwind$?MutexLock@@YAXUHandle@@@Z 00000001400283b0     main.obj
+ 0001:000280b8       $unwind$?MutexDestroy@@YAXUHandle@@@Z 00000001400283b8     main.obj
+ 0001:000280c0       $unwind$?RWMutexAlloc@@YA?AUHandle@@XZ 00000001400283c0     main.obj
+ 0001:000280c8       $unwind$?RWMutexDestroy@@YAXUHandle@@@Z 00000001400283c8     main.obj
+ 0001:000280d0       $unwind$?RWMutexLockR@@YAXUHandle@@@Z 00000001400283d0     main.obj
+ 0001:000280d8       $unwind$?RWMutexUnlockR@@YAXUHandle@@@Z 00000001400283d8     main.obj
+ 0001:000280e0       $unwind$?RWMutexLockW@@YAXUHandle@@@Z 00000001400283e0     main.obj
+ 0001:000280e8       $unwind$?RWMutexUnlockW@@YAXUHandle@@@Z 00000001400283e8     main.obj
+ 0001:000280f0       $unwind$?RWMutexLock@@YAXUHandle@@I@Z 00000001400283f0     main.obj
+ 0001:000280f8       $unwind$?RWMutexUnlock@@YAXUHandle@@I@Z 00000001400283f8     main.obj
+ 0001:00028100       $unwind$?CondVarAlloc@@YA?AUHandle@@XZ 0000000140028400     main.obj
+ 0001:00028108       $unwind$?CondVarDestroy@@YAXUHandle@@@Z 0000000140028408     main.obj
+ 0001:00028110       $unwind$?CondVarWait@@YAIUHandle@@0_K@Z 0000000140028410     main.obj
+ 0001:00028118       $unwind$?CondVarWaitR@@YAIUHandle@@0_K@Z 0000000140028418     main.obj
+ 0001:00028120       $unwind$?CondVarWaitW@@YAIUHandle@@0_K@Z 0000000140028420     main.obj
+ 0001:00028128       $unwind$?CondVarSignal@@YAXUHandle@@@Z 0000000140028428     main.obj
+ 0001:00028130       $unwind$?CondVarBroadcast@@YAXUHandle@@@Z 0000000140028430     main.obj
+ 0001:00028138       $unwind$?SemaphoreAlloc@@YA?AUHandle@@IIUStr8@@@Z 0000000140028438     main.obj
+ 0001:00028144       $unwind$?SemaphoreDestroy@@YAXUHandle@@UStr8@@@Z 0000000140028444     main.obj
+ 0001:0002814c       $unwind$?SemaphoreOpen@@YA?AUHandle@@UStr8@@@Z 000000014002844c     main.obj
+ 0001:00028158       $unwind$?SemaphoreClose@@YAXUHandle@@@Z 0000000140028458     main.obj
+ 0001:00028160       $unwind$?SemaphoreLock@@YAIUHandle@@_K@Z 0000000140028460     main.obj
+ 0001:00028168       $unwind$?SemaphoreUnlock@@YAXUHandle@@@Z 0000000140028468     main.obj
+ 0001:00028170       $unwind$?BarrierAlloc@@YA?AUHandle@@_K@Z 0000000140028470     main.obj
+ 0001:00028178       $unwind$?BarrierRelease@@YAXUHandle@@@Z 0000000140028478     main.obj
+ 0001:00028180       $unwind$?BarrierWait@@YAXUHandle@@@Z 0000000140028480     main.obj
+ 0001:00028188       $unwind$?StripeArrayAlloc@@YA?AUStripeArray@@PEAUArena@@@Z 0000000140028488     main.obj
+ 0001:00028194       $unwind$?StripeArrayRelease@@YAXPEAUStripeArray@@@Z 0000000140028494     main.obj
+ 0001:0002819c       $unwind$?StripeFromSlotIndex@@YAPEAUStripe@@PEAUStripeArray@@_K@Z 000000014002849c     main.obj
+ 0001:000281a4       $unwind$?ThreadGetID@@YAIXZ 00000001400284a4     main.obj
+ 0001:000281ac       $unwind$?ThreadSetName@@YAXUStr8@@@Z 00000001400284ac     main.obj
+ 0001:000281d0       $unwind$?filt$0@?0??ThreadSetName@@YAXUStr8@@@Z@4HA 00000001400284d0     main.obj
+ 0001:000281d8       $unwind$?ThreadSetName@@YAXPEADZZ 00000001400284d8     main.obj
+ 0001:000281e4       $unwind$?ThreadLaunch@@YA?AUHandle@@P6AXPEAX@Z00@Z 00000001400284e4     main.obj
+ 0001:000281ec       $unwind$?ThreadLaunch@@YA?AUHandle@@P6AXPEAX@Z0@Z 00000001400284ec     main.obj
+ 0001:000281f4       $unwind$?ThreadJoin@@YAIUHandle@@_K@Z 00000001400284f4     main.obj
+ 0001:000281fc       $unwind$?ThreadDetach@@YAXUHandle@@@Z 00000001400284fc     main.obj
+ 0001:00028204       $unwind$?ThreadContextSetThreadName@@YAXUStr8@@@Z 0000000140028504     main.obj
+ 0001:0002820c       $unwind$?ThreadContextGetThreadName@@YA?AUStr8@@XZ 000000014002850c     main.obj
+ 0001:00028218       $unwind$?ThreadContextWriteSrcLoc@@YAXPEAD_K@Z 0000000140028518     main.obj
+ 0001:00028220       $unwind$?ThreadContextReadSrcLoc@@YAXPEAPEADPEA_K@Z 0000000140028520     main.obj
+ 0001:00028228       $unwind$?ThreadContextAlloc@@YAPEAUThreadContext@@XZ 0000000140028528     main.obj
+ 0001:00028230       $unwind$?ThreadContextRelease@@YAXPEAUThreadContext@@@Z 0000000140028530     main.obj
+ 0001:00028238       $unwind$?ThreadContextSelect@@YAXPEAUThreadContext@@@Z 0000000140028538     main.obj
+ 0001:00028240       $unwind$?ThreadContextSelected@@YAPEAUThreadContext@@XZ 0000000140028540     main.obj
+ 0001:00028248       $unwind$?ThreadContextSetLaneContext@@YA?AULaneContext@@U1@@Z 0000000140028548     main.obj
+ 0001:00028254       $unwind$?ThreadContextBarrierWait@@YAXPEAX_K1@Z 0000000140028554     main.obj
+ 0001:0002825c       $unwind$?AccessOpen@@YAPEAUAccess@@XZ 000000014002855c     main.obj
+ 0001:00028264       $unwind$?AccessClose@@YAXPEAUAccess@@@Z 0000000140028564     main.obj
+ 0001:0002826c       $unwind$?AccessTouch@@YAXPEAUAccess@@PEAUAccessPoint@@UHandle@@@Z 000000014002856c     main.obj
+ 0001:00028274       $unwind$?__AccessPointIsExpired@@YAIPEAUAccessPoint@@PEAUAccessPointExpireParams@@@Z 0000000140028574     main.obj
+ 0001:0002827c       $unwind$?OCInit@@YAXXZ     000000014002857c     main.obj
+ 0001:00028288       $unwind$?__OCObjectFromKey@@YA?AUOCObject@@PEAUAccess@@UStr8@@PEAUOCObjectParams@@_K@Z 0000000140028588     main.obj
+ 0001:00028294       $unwind$?OCAsyncTick@@YAXXZ 0000000140028594     main.obj
+ 0001:000282a0       $unwind$?OCCancelThreadEntryPoint@@YAXPEAX@Z 00000001400285a0     main.obj
+ 0001:000282a8       $unwind$?CIDAlloc@@YA?AUCID@@_K0@Z 00000001400285a8     main.obj
+ 0001:000282b4       $unwind$?CKeyAlloc@@YA?AUCKey@@UCRoot@@UCID@@@Z 00000001400285b4     main.obj
+ 0001:000282c0       $unwind$??8@YAIUCID@@0@Z   00000001400285c0     main.obj
+ 0001:000282c8       $unwind$??9@YAIUCID@@0@Z   00000001400285c8     main.obj
+ 0001:000282d4       $unwind$??8@YAIUCKey@@0@Z  00000001400285d4     main.obj
+ 0001:000282e0       $unwind$??9@YAIUCKey@@0@Z  00000001400285e0     main.obj
+ 0001:000282ec       $unwind$?CInit@@YAXXZ      00000001400285ec     main.obj
+ 0001:000282f8       $unwind$?CRootAlloc@@YA?AUCRoot@@XZ 00000001400285f8     main.obj
+ 0001:00028300       $unwind$?CRootRelease@@YAXUCRoot@@@Z 0000000140028600     main.obj
+ 0001:0002830c       $unwind$?CSubmitData@@YA?ATu128@@UCKey@@PEAPEAUArena@@UStr8@@@Z 000000014002860c     main.obj
+ 0001:00028318       $unwind$?CCloseKey@@YAXUCKey@@@Z 0000000140028618     main.obj
+ 0001:00028324       $unwind$?CHashDownstreamInc@@YAXTu128@@@Z 0000000140028624     main.obj
+ 0001:00028330       $unwind$?CHashDownstreamDec@@YAXTu128@@@Z 0000000140028630     main.obj
+ 0001:0002833c       $unwind$?CHashFromKey@@YA?ATu128@@UCKey@@_K@Z 000000014002863c     main.obj
+ 0001:00028348       $unwind$?CDataFromHash@@YA?AUStr8@@PEAUAccess@@Tu128@@@Z 0000000140028648     main.obj
+ 0001:00028354       $unwind$?CAsyncTick@@YAXXZ 0000000140028654     main.obj
+ 0001:00028360       $unwind$?FSInit@@YAXXZ     0000000140028660     main.obj
+ 0001:0002836c       $unwind$?FSChangeGeneration@@YA_KXZ 000000014002866c     main.obj
+ 0001:00028374       $unwind$?FSObjectAlloc@@YA?AUOCObject@@UStr8@@PEAI1PEA_K@Z 0000000140028674     main.obj
+ 0001:00028380       $unwind$?FSObjectRelease@@YAXUOCObject@@@Z 0000000140028680     main.obj
+ 0001:0002838c       $unwind$?FSKeyFromPathRange@@YA?AUCKey@@UStr8@@Tr1u64@@_K@Z 000000014002868c     main.obj
+ 0001:00028398       $unwind$?FSHashFromPathRange@@YA?ATu128@@UStr8@@Tr1u64@@_K@Z 0000000140028698     main.obj
+ 0001:000283a4       $unwind$?FSAsyncTick@@YAXXZ 00000001400286a4     main.obj
+ 0001:000283b0       $unwind$?SockInit@@YAIXZ   00000001400286b0     main.obj
+ 0001:000283bc       $unwind$?SockShutdown@@YAXXZ 00000001400286bc     main.obj
+ 0001:000283c4       $unwind$?SocketOpen@@YA?AUHandle@@II@Z 00000001400286c4     main.obj
+ 0001:000283cc       $unwind$?SocketClose@@YAXUHandle@@@Z 00000001400286cc     main.obj
+ 0001:000283d4       $unwind$?SocketSetFlag@@YAIUHandle@@I@Z 00000001400286d4     main.obj
+ 0001:000283dc       $unwind$?SocketBind@@YAIUHandle@@USocketAddress@@@Z 00000001400286dc     main.obj
+ 0001:000283e8       $unwind$?SocketListen@@YAIUHandle@@I@Z 00000001400286e8     main.obj
+ 0001:000283f0       $unwind$?SocketAccept@@YA?AUHandle@@U1@PEAUSocketAddress@@@Z 00000001400286f0     main.obj
+ 0001:000283fc       $unwind$?SocketConnect@@YAIUHandle@@USocketAddress@@@Z 00000001400286fc     main.obj
+ 0001:00028408       $unwind$?SocketShutdown@@YAXUHandle@@I@Z 0000000140028708     main.obj
+ 0001:00028410       $unwind$?SocketSend@@YA_KUHandle@@PEAX_K@Z 0000000140028710     main.obj
+ 0001:00028418       $unwind$?SocketRecv@@YA_KUHandle@@PEAX_K@Z 0000000140028718     main.obj
+ 0001:00028420       $unwind$?SocketSendTo@@YA_KUHandle@@PEAX_KUSocketAddress@@@Z 0000000140028720     main.obj
+ 0001:0002842c       $unwind$?SocketRecvFrom@@YA?AUSocketRecvResult@@UHandle@@PEAX_K@Z 000000014002872c     main.obj
+ 0001:00028438       $unwind$?SockAddrIPv4@@YA?AUSocketAddress@@EEEEG@Z 0000000140028738     main.obj
+ 0001:00028444       $unwind$?SockAddrAny@@YA?AUSocketAddress@@G@Z 0000000140028744     main.obj
+ 0001:00028450       $unwind$?SockAddrLocal@@YA?AUSocketAddress@@G@Z 0000000140028750     main.obj
+ 0001:0002845c       $unwind$?SocketResolveAddr@@YAIPEAUArena@@UStr8@@GPEAUSocketAddress@@@Z 000000014002875c     main.obj
+ 0001:00028468       $unwind$??R<lambda_e6c8ec0dacc65a831648c0435a04629d>@@QEBAPEAUArena@@XZ 0000000140028768     main.obj
+ 0001:00028470       $unwind$??R<lambda_d250f64fe5e2db70a82c732296d24a33>@@QEBAPEAUArena@@XZ 0000000140028770     main.obj
+ 0001:00028478       $unwind$XXH_INLINE_XXH3_64bits_withSeed 0000000140028778     main.obj
+ 0001:00028480       $unwind$XXH_INLINE_XXH3_128bits_withSeed 0000000140028780     main.obj
+ 0001:0002848c       $unwind$XXH_read32         000000014002878c     main.obj
+ 0001:00028494       $unwind$XXH_readLE32       0000000140028794     main.obj
+ 0001:0002849c       $unwind$XXH_read64         000000014002879c     main.obj
+ 0001:000284a4       $unwind$XXH_readLE64       00000001400287a4     main.obj
+ 0001:000284ac       $unwind$XXH_mult64to128    00000001400287ac     main.obj
+ 0001:000284b8       $unwind$XXH3_mul128_fold64 00000001400287b8     main.obj
+ 0001:000284c4       $unwind$XXH3_avalanche     00000001400287c4     main.obj
+ 0001:000284cc       $unwind$XXH3_rrmxmx        00000001400287cc     main.obj
+ 0001:000284d4       $unwind$XXH3_len_1to3_64b  00000001400287d4     main.obj
+ 0001:000284dc       $unwind$XXH3_len_4to8_64b  00000001400287dc     main.obj
+ 0001:000284e4       $unwind$XXH3_len_9to16_64b 00000001400287e4     main.obj
+ 0001:000284ec       $unwind$XXH3_len_0to16_64b 00000001400287ec     main.obj
+ 0001:000284f4       $unwind$XXH3_mix16B        00000001400287f4     main.obj
+ 0001:000284fc       $unwind$XXH3_len_17to128_64b 00000001400287fc     main.obj
+ 0001:00028504       $unwind$XXH3_len_129to240_64b 0000000140028804     main.obj
+ 0001:0002850c       $unwind$XXH3_accumulate_512_avx2 000000014002880c     main.obj
+ 0001:00028518       $unwind$XXH3_accumulate_avx2 0000000140028818     main.obj
+ 0001:00028520       $unwind$XXH3_scrambleAcc_avx2 0000000140028820     main.obj
+ 0001:0002852c       $unwind$XXH3_initCustomSecret_avx2 000000014002882c     main.obj
+ 0001:00028538       $unwind$XXH3_hashLong_internal_loop 0000000140028838     main.obj
+ 0001:00028540       $unwind$XXH3_mix2Accs      0000000140028840     main.obj
+ 0001:00028548       $unwind$XXH3_mergeAccs     0000000140028848     main.obj
+ 0001:00028550       $unwind$XXH3_finalizeLong_64b 0000000140028850     main.obj
+ 0001:00028558       $unwind$XXH3_hashLong_64b_internal 0000000140028858     main.obj
+ 0001:00028564       $unwind$XXH3_hashLong_64b_withSeed_internal 0000000140028864     main.obj
+ 0001:00028570       $unwind$XXH3_hashLong_64b_withSeed 0000000140028870     main.obj
+ 0001:00028578       $unwind$XXH3_64bits_internal 0000000140028878     main.obj
+ 0001:00028580       $unwind$XXH3_len_1to3_128b 0000000140028880     main.obj
+ 0001:0002858c       $unwind$XXH3_len_4to8_128b 000000014002888c     main.obj
+ 0001:00028598       $unwind$XXH3_len_9to16_128b 0000000140028898     main.obj
+ 0001:000285a4       $unwind$XXH3_len_0to16_128b 00000001400288a4     main.obj
+ 0001:000285b0       $unwind$XXH128_mix32B      00000001400288b0     main.obj
+ 0001:000285bc       $unwind$XXH3_len_17to128_128b 00000001400288bc     main.obj
+ 0001:000285c8       $unwind$XXH3_len_129to240_128b 00000001400288c8     main.obj
+ 0001:000285d4       $unwind$XXH3_finalizeLong_128b 00000001400288d4     main.obj
+ 0001:000285e0       $unwind$XXH3_hashLong_128b_internal 00000001400288e0     main.obj
+ 0001:000285f0       $unwind$XXH3_hashLong_128b_withSeed_internal 00000001400288f0     main.obj
+ 0001:00028600       $unwind$XXH3_hashLong_128b_withSeed 0000000140028900     main.obj
+ 0001:0002860c       $unwind$XXH3_128bits_internal 000000014002890c     main.obj
+ 0001:00028618       $unwind$?StrListPushNodeSetStr@@YAPEAUStr8Node@@PEAUStr8List@@PEAU1@UStr8@@@Z 0000000140028918     main.obj
+ 0001:00028620       $unwind$?FindChar@@YAPEBDPEBDE@Z 0000000140028920     main.obj
+ 0001:00028628       $unwind$?U64ToCStr@@YAPEAD_KPEAD@Z 0000000140028928     main.obj
+ 0001:00028630       $unwind$?U64ToCWStr@@YAPEAG_KPEAG@Z 0000000140028930     main.obj
+ 0001:00028638       $unwind$?__VSNPrintf@@YAHPEAD_KPEBD0@Z 0000000140028938     main.obj
+ 0001:00028640       $unwind$?__VSNPrintfW@@YAHPEAG_KPEBGPEAD@Z 0000000140028940     main.obj
+ 0001:00028648       $unwind$??R<lambda_c922ba5709d57fb0ebb44dfec33bc1dd>@@QEBAPEAUArena@@XZ 0000000140028948     main.obj
+ 0001:00028650       $unwind$??R<lambda_5063d37ffdabe184d5391b6722749c86>@@QEBAPEAUArena@@XZ 0000000140028950     main.obj
+ 0001:00028658       $unwind$??R<lambda_e4a37e0a03adfec4cf3152bf3f7e1175>@@QEBAPEAUArena@@XZ 0000000140028958     main.obj
+ 0001:00028660       $unwind$??R<lambda_c52114deafd210ed7c3e9df63066b549>@@QEBAPEAUArena@@XZ 0000000140028960     main.obj
+ 0001:00028668       $unwind$??R<lambda_dcd17211030ba58c101809666613bd72>@@QEBAPEAUArena@@XZ 0000000140028968     main.obj
+ 0001:00028670       $unwind$??R<lambda_4d25408b59739b734ba7151573c95e51>@@QEBA?ATr1u64@@XZ 0000000140028970     main.obj
+ 0001:0002867c       $unwind$??R<lambda_9a7bdddb616723f2f7b96c907d12c748>@@QEBAIXZ 000000014002897c     main.obj
+ 0001:00028684       $unwind$??R<lambda_4e855bfdac0b56084b2bf31f325d2f47>@@QEBAIXZ 0000000140028984     main.obj
+ 0001:0002868c       $unwind$??R<lambda_ea348c28c3adddf988ea051931f9ed36>@@QEBA?ATr1u64@@XZ 000000014002898c     main.obj
+ 0001:00028698       $unwind$??R<lambda_0449ada13dca88ea2c58da6c665f9f4a>@@QEBAIXZ 0000000140028998     main.obj
+ 0001:000286a0       $unwind$??R<lambda_9e06ee8bdf49fbdcfc2cabf790a6d5f3>@@QEBAIXZ 00000001400289a0     main.obj
+ 0001:000286a8       $unwind$??R<lambda_dfcaf771d04e9dcb16f0904d425d0634>@@QEBAPEAUArena@@XZ 00000001400289a8     main.obj
+ 0001:000286b0       $unwind$??R<lambda_bbae845beb3f87964b7f1ba54920de42>@@QEBAPEAUArena@@XZ 00000001400289b0     main.obj
+ 0001:000286b8       $unwind$??R<lambda_726e5bb897ead3f51d80863e94a21a28>@@QEBAPEAUArena@@XZ 00000001400289b8     main.obj
+ 0001:000286c0       $unwind$??R<lambda_31572061269f8569ee7ef4050f66c504>@@QEBAPEAUArena@@XZ 00000001400289c0     main.obj
+ 0001:000286c8       $unwind$??R<lambda_97a43a577a90225da7b58a753c8ac09a>@@QEBAPEAUArena@@XZ 00000001400289c8     main.obj
+ 0001:000286d0       $unwind$??R<lambda_b426083c85131939ed268ea48beb6163>@@QEBA?ATr1u64@@XZ 00000001400289d0     main.obj
+ 0001:000286dc       $unwind$??R<lambda_763be10cc47e0a8bda18e0723cb53e8e>@@QEBAIXZ 00000001400289dc     main.obj
+ 0001:000286e4       $unwind$??R<lambda_4e517aefb2a5c99207ac9cb6e45f4f53>@@QEBAIXZ 00000001400289e4     main.obj
+ 0001:000286ec       $unwind$??R<lambda_5afdcdd8ee77b9c400f21bce8a713edc>@@QEBAPEAUArena@@XZ 00000001400289ec     main.obj
+ 0001:000286f4       $unwind$??R<lambda_202a85c4477781a17acca7c7ae6e3bab>@@QEBAPEAUArena@@XZ 00000001400289f4     main.obj
+ 0001:000286fc       $unwind$??R<lambda_278e2b8505d61ef9060f4c01bfabdb8c>@@QEBA?ATr1u64@@XZ 00000001400289fc     main.obj
+ 0001:00028708       $unwind$??R<lambda_1e0396191e21e36462d73a81622d8a4c>@@QEBA?AUOCObject@@XZ 0000000140028a08     main.obj
+ 0001:00028714       $unwind$??R<lambda_2b0643073f661d074020e000c3d4e170>@@QEBA?ATr1u64@@XZ 0000000140028a14     main.obj
+ 0001:00028720       $unwind$?B64RawFromEscaped@@YA?AT__m256i@@T1@@Z 0000000140028a20     main.obj
+ 0001:0002872c       $unwind$?__B64Decode@@YAXPEBE_KPEAEPEA_K@Z 0000000140028a2c     main.obj
+ 0001:00028738       $unwind$?B64Decode@@YAXPEBE_KPEAE1@Z 0000000140028a38     main.obj
+ 0001:00028740       $unwind$?B64Decode@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140028a40     main.obj
+ 0001:0002874c       $unwind$tls_callback       0000000140028a4c     main.obj
+ 0001:00028758       $unwind$??R<lambda_51fe3bf0955aadb6a4c9c36443e70323>@@QEBAPEAUArena@@XZ 0000000140028a58     main.obj
+ 0001:00028760       $unwind$?TimeWallClockToFileTime@@YA?AU_FILETIME@@_K@Z 0000000140028a60     main.obj
+ 0001:00028768       $unwind$?HandleFromHANDLE@@YA?AUHandle@@PEAX@Z 0000000140028a68     main.obj
+ 0001:00028770       $unwind$??R<lambda_ea8ef017d2d3bf270432ec021322b02c>@@QEBAPEAUArena@@XZ 0000000140028a70     main.obj
+ 0001:00028778       $unwind$?WinThreadEntryFunc@@YAKPEAX@Z 0000000140028a78     main.obj
+ 0001:00028780       $unwind$?SocketFromHandle@@YA_KUHandle@@@Z 0000000140028a80     main.obj
+ 0001:00028788       $unwind$?HandleFromSocket@@YA?AUHandle@@_K@Z 0000000140028a88     main.obj
+ 0001:00028790       $unwind$?SockAddrFromSocketAddress@@YAXUSocketAddress@@PEAUsockaddr_storage@@PEA_J@Z 0000000140028a90     main.obj
+ 0001:00028798       $unwind$?SocketAddressFromSockAddr@@YA?AUSocketAddress@@PEAUsockaddr_storage@@@Z 0000000140028a98     main.obj
+ 0001:000287a4       $unwind$?ExceptionFilter@@YAJPEAU_EXCEPTION_POINTERS@@@Z 0000000140028aa4     main.obj
+ 0001:000287b0       $unwind$?EntryPointCaller@@YAXHPEAPEA_W@Z 0000000140028ab0     main.obj
+ 0001:000287bc       $unwind$??R<lambda_fe026dd943f07f51a848dfc01ae34208>@@QEBAPEAUArena@@XZ 0000000140028abc     main.obj
+ 0001:000287c4       $unwind$??R<lambda_95d33a7afca5799791bb811163410efe>@@QEBAPEAUArena@@XZ 0000000140028ac4     main.obj
+ 0001:000287cc       $unwind$??R<lambda_74dcb1e678df8dba5e102e85626588c9>@@QEBAPEAUArena@@XZ 0000000140028acc     main.obj
+ 0001:000287d4       $unwind$wmain              0000000140028ad4     main.obj
+ 0001:000287dc       $unwind$wmainCRTStartup    0000000140028adc     main.obj
+ 0001:000287e4       $unwind$?rrCtzBytes64@@YAI_K@Z 0000000140028ae4     main.obj
+ 0001:000287ec       $unwind$?rr_lzb_simple_encode_fast@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 0000000140028aec     main.obj
+ 0001:000287f4       $unwind$?rr_lzb_simple_encode_veryfast@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 0000000140028af4     main.obj
+ 0001:000287fc       $unwind$?rr_lzb_simple_decode@@YA_JPEBX_JPEAX1@Z 0000000140028afc     main.obj
+ 0001:00028804       $unwind$?read16@@YAGPEBX@Z 0000000140028b04     main.obj
+ 0001:0002880c       $unwind$?write16@@YAXPEAXG@Z 0000000140028b0c     main.obj
+ 0001:00028814       $unwind$?read32@@YAIPEBX@Z 0000000140028b14     main.obj
+ 0001:0002881c       $unwind$?write32@@YAXPEAXI@Z 0000000140028b1c     main.obj
+ 0001:00028824       $unwind$?read64@@YA_KPEBX@Z 0000000140028b24     main.obj
+ 0001:0002882c       $unwind$?write64@@YAXPEAX_K@Z 0000000140028b2c     main.obj
+ 0001:00028834       $unwind$?rrPtrDiff32@@YAH_J@Z 0000000140028b34     main.obj
+ 0001:0002883c       $unwind$?copy_no_overlap_long@@YAXPEAEPEBE_J@Z 0000000140028b3c     main.obj
+ 0001:00028844       $unwind$?copy_no_overlap_nooverrun@@YAXPEAEPEBE_J@Z 0000000140028b44     main.obj
+ 0001:0002884c       $unwind$?copy_match_memset@@YAXPEAEH_J@Z 0000000140028b4c     main.obj
+ 0001:00028854       $unwind$?rr_lzb_simple_decode_notexpanded@@YA_JPEBXPEAX_J@Z 0000000140028b54     main.obj
+ 0001:0002885c       $unwind$?hmf_hash4_32@@YAII@Z 0000000140028b5c     main.obj
+ 0001:00028864       $unwind$?LZB_SecondHash4@@YAII@Z 0000000140028b64     main.obj
+ 0001:0002886c       $unwind$?GetNumBytesZeroNeverAllR@@YAH_K@Z 0000000140028b6c     main.obj
+ 0001:00028874       $unwind$?LZB_Output@@YAPEAEPEAEHPEBEHH@Z 0000000140028b74     main.obj
+ 0001:0002887c       $unwind$?LZB_OutputLast@@YAPEAEPEAEHPEBE@Z 0000000140028b7c     main.obj
+ 0001:00028884       $unwind$?rr_lzb_simple_context_init@@YAXPEAUrr_lzb_simple_context@@@Z 0000000140028b84     main.obj
+ 0001:0002888c       $unwind$?rr_lzb_simple_encode_fast_sub@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 0000000140028b8c     main.obj
+ 0001:00028894       $unwind$?rr_lzb_simple_encode_veryfast_sub@@YA_JPEAUrr_lzb_simple_context@@PEBX_JPEAX@Z 0000000140028b94     main.obj
+ 0001:0002889c       $unwind$?AsyncThreadEntryPoint@@YAXPEAX@Z 0000000140028b9c     main.obj
+ 0001:000288a8       $unwind$?Rng@@YA?ATr1u64@@_K0@Z 0000000140028ba8     main.obj
+ 0001:000288b4       $unwind$?Shift@@YA?ATr1u64@@T1@_K@Z 0000000140028bb4     main.obj
+ 0001:000288c0       $unwind$?Length@@YA_KTr1u64@@@Z 0000000140028bc0     main.obj
+ 0001:000288c8       $unwind$?StrLen@@YA_KPEAD@Z 0000000140028bc8     main.obj
+ 0001:000288d0       $unwind$?StrLen@@YA_KPEAG@Z 0000000140028bd0     main.obj
+ 0001:000288d8       $unwind$?Str@@YA?AUStr8@@PEAE_K@Z 0000000140028bd8     main.obj
+ 0001:000288e4       $unwind$?Str@@YA?AUStr8@@PEAD@Z 0000000140028be4     main.obj
+ 0001:000288f0       $unwind$?Str@@YA?AUStr8@@PEAE0@Z 0000000140028bf0     main.obj
+ 0001:000288fc       $unwind$?Str@@YA?AUStr16@@PEAG_K@Z 0000000140028bfc     main.obj
+ 0001:00028908       $unwind$?ArenaPushStrCpy@@YA?AUStr8@@PEAUArena@@U1@@Z 0000000140028c08     main.obj
+ 0001:00028914       $unwind$?ArenaPushStrCat@@YA?AUStr8@@PEAUArena@@U1@1@Z 0000000140028c14     main.obj
+ 0001:00028920       $unwind$?ListPush@@YAXPEAUArena@@PEAUStr8List@@UStr8@@@Z 0000000140028c20     main.obj
+ 0001:0002892c       $unwind$?StrArrayFromList@@YA?AUStr8Array@@PEAUArena@@PEAUStr8List@@@Z 0000000140028c2c     main.obj
+ 0001:00028938       $unwind$?StrListJoin@@YA?AUStr8@@PEAUArena@@PEAUStr8List@@PEBUStr8JoinPart@@@Z 0000000140028c38     main.obj
+ 0001:00028944       $unwind$?StrRange@@YA?AUStr8@@PEAEPEBE@Z 0000000140028c44     main.obj
+ 0001:00028950       $unwind$?StrSub@@YA?AUStr8@@U1@Tr1u64@@@Z 0000000140028c50     main.obj
+ 0001:0002895c       $unwind$?StrSkip@@YA?AUStr8@@U1@_K@Z 0000000140028c5c     main.obj
+ 0001:00028968       $unwind$?StrChopLastSlash@@YA?AUStr8@@U1@@Z 0000000140028c68     main.obj
+ 0001:00028974       $unwind$?StrPrefix@@YA?AUStr8@@U1@_K@Z 0000000140028c74     main.obj
+ 0001:00028980       $unwind$?StrPostfix@@YA?AUStr8@@U1@_K@Z 0000000140028c80     main.obj
+ 0001:0002898c       $unwind$?StrMatch@@YAIUStr8@@0I@Z 0000000140028c8c     main.obj
+ 0001:00028994       $unwind$?StrFindSubStr@@YA_KUStr8@@0_KI@Z 0000000140028c94     main.obj
+ 0001:000289a0       $unwind$?U64FromStr@@YA_KUStr8@@I@Z 0000000140028ca0     main.obj
+ 0001:000289a8       $unwind$?UTF8Decode@@YA?AUUnicodeDecode@@PEBE_K@Z 0000000140028ca8     main.obj
+ 0001:000289b0       $unwind$?UTF16Decode@@YA?AUUnicodeDecode@@PEBG_K@Z 0000000140028cb0     main.obj
+ 0001:000289b8       $unwind$?UTF8Encode@@YAIPEAEI@Z 0000000140028cb8     main.obj
+ 0001:000289c0       $unwind$?UTF16Encode@@YAIPEAGI@Z 0000000140028cc0     main.obj
+ 0001:000289c8       $unwind$?Str8FromStr16@@YA?AUStr8@@PEAUArena@@UStr16@@@Z 0000000140028cc8     main.obj
+ 0001:000289d4       $unwind$?Str16FromStr8@@YA?AUStr16@@PEAUArena@@UStr8@@@Z 0000000140028cd4     main.obj
+ 0001:000289e0       $unwind$?StrSplit@@YA?AUStr8List@@PEAUArena@@UStr8@@PEBEII@Z 0000000140028ce0     main.obj
+ 0001:000289ec       $unwind$?StrSkipLastSlash@@YA?AUStr8@@U1@@Z 0000000140028cec     main.obj
+ 0001:000289f8       $unwind$?IsUpper@@YAIE@Z   0000000140028cf8     main.obj
+ 0001:00028a00       $unwind$?IsDigit@@YAIEI@Z  0000000140028d00     main.obj
+ 0001:00028a08       $unwind$?ToLower@@YAEE@Z   0000000140028d08     main.obj
+ 0001:00028a10       $unwind$?Hash@@YA_K_KUStr8@@@Z 0000000140028d10     main.obj
+ 0001:00028a18       $unwind$?Hash@@YA_KUStr8@@@Z 0000000140028d18     main.obj
+ 0001:00028a24       $unwind$?BigHash@@YA?ATu128@@UStr8@@@Z 0000000140028d24     main.obj
+ 0001:00028a30       $unwind$?BigHash@@YA?ATu128@@_KUStr8@@@Z 0000000140028d30     main.obj
+ 0001:00028a3c       $unwind$?StrListFromCLIArgs@@YA?AUStr8List@@PEAUArena@@HPEAPEAD@Z 0000000140028d3c     main.obj
+ 0001:00028a48       $unwind$?CommandLineSlotFromStr@@YAPEAPEAUCommandLineOption@@PEAUCommandLine@@UStr8@@@Z 0000000140028d48     main.obj
+ 0001:00028a54       $unwind$?CommandLineOptionFromSlot@@YAPEAUCommandLineOption@@PEAPEAU1@UStr8@@@Z 0000000140028d54     main.obj
+ 0001:00028a60       $unwind$?CommandLineInsertOption@@YAPEAUCommandLineOption@@PEAUArena@@PEAUCommandLine@@UStr8@@UStr8List@@@Z 0000000140028d60     main.obj
+ 0001:00028a6c       $unwind$?CommandLineFromStrList@@YA?AUCommandLine@@PEAUArena@@UStr8List@@@Z 0000000140028d6c     main.obj
+ 0001:00028a78       $unwind$?CommandLineOptionFromStr@@YAPEAUCommandLineOption@@PEAUCommandLine@@UStr8@@@Z 0000000140028d78     main.obj
+ 0001:00028a84       $unwind$?CommandLineString@@YA?AUStr8@@PEAUCommandLine@@U1@@Z 0000000140028d84     main.obj
+ 0001:00028a90       $unwind$?MemCpy@@YAPEAXPEAXPEBX_K@Z 0000000140028d90     main.obj
+ 0001:00028a98       $unwind$?MemSet@@YAPEAXPEAXE_K@Z 0000000140028d98     main.obj
+ 0001:00028aa0       $unwind$?MemCmp@@YAIPEBX0_K@Z 0000000140028da0     main.obj
+ 0001:00028aa8       $unwind$?B64GetPaddingSize@@YA_KUStr8@@@Z 0000000140028da8     main.obj
+ 0002:00000068       ?HexCharacters@?PE@??__VSNPrintf@@YAHPEAD_KPEBD0@Z@4PEBDEB 0000000140028e28     main.obj
+ 0002:00000070       ?HexCharacters@?PM@??__VSNPrintfW@@YAHPEAG_KPEBGPEAD@Z@4PEBGEB 0000000140028e30     main.obj
+ 0002:000001e8       ?WinSetThreadDescriptionFunc@@3P6AIPEAXPEB_W@ZEA 0000000140028fa8     main.obj
+ 0002:000001f0       ?WinRIOFunctions@@3U_RIO_EXTENSION_FUNCTION_TABLE@@A 0000000140028fb0     main.obj
+ 0002:00000260       ?First@?1??ExceptionFilter@@YAJPEAU_EXCEPTION_POINTERS@@@Z@4JC 0000000140029020     main.obj
+ 0004:00000f5a       .idata$6                   000000014002b15a     kernel32:KERNEL32.dll
+ 0004:00000f92       .idata$6                   000000014002b192     shell32:SHELL32.dll
+ 0004:00000fe6       .idata$6                   000000014002b1e6     msvcrt:msvcrt.dll
+ 0004:0000101c       .idata$6                   000000014002b21c     ws2_32:WS2_32.dll
+ 0004:0000106c       .idata$6                   000000014002b26c     advapi32:ADVAPI32.dll
+ 0004:000010b2       .idata$6                   000000014002b2b2     shlwapi:SHLWAPI.dll
+ 0005:00000060       $R000000                   000000014002b320     * linker generated manifest res *

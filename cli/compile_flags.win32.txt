@@ -1,0 +1,27 @@
+-xc++
+--driver-mode=cl
+--target x86_64-pc-win32
+-fms-compatibility
+-fms-extensions
+-fno-exceptions
+-fno-rtti
+-Wno-microsoft-goto
+-Wno-writable-strings
+-O0
+-std=c++14
+-I
+internal
+-I
+external
+-I
+cache
+-mavx512f
+-mavx512bw
+-mavx512cd
+-mavx512dq
+-DUNICODE
+-D_UNICODE
+-D_CRT_SECURE_NO_WARNINGS
+-DNC_GUI
+-DNC_USE_DX11
+-DNC_DEBUG
