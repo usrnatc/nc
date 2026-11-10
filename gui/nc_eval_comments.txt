@@ -1,0 +1,914 @@
+// EvalEvalFromBundle:
+// ----------------------------------------------------------------------------
+//
+// Builds a complete EvalEval result structure from a cache bundle by collecting all stages of evaluation. Retrieves the key, parent key, and string from the bundle, then gets the parse, IR tree, and bytecode from the bundle. Interprets the bytecode to get the final code, space, and value. Returns the assembled EvalEval containing all evaluation stages.
+
+// EvalValueEvalFromEval:
+// ----------------------------------------------------------------------------
+//
+// Converts an EvalEval result from offset mode to value mode by reading the actual data from memory. If the IR tree is in offset mode, unwraps the type key to get the byte size, reads the memory from the space into the value, and updates the mode to value mode. Handles signed integer sign extension for smaller types like i8, i16, i32. Returns the converted EvalEval with the value loaded.
+
+// EvalPushAutoHookMatchesFromTypeKey:
+// ----------------------------------------------------------------------------
+//
+// Finds all auto-hook matches for a given type key by searching both exact type matches and pattern matches. For exact matches, hashes the type string to find the slot and checks each node's type string. For pattern matches, iterates through all pattern nodes and tests each pattern against the type string, handling wildcards with brace nesting and instruction name extraction. Builds a list of matching auto-hook expressions with their wildcard instructions and returns the match list.
+
+// EvalAutoHookMatchesFromTypeKey:
+// ----------------------------------------------------------------------------
+//
+// Retrieves cached auto-hook matches for a type key, computing them if not already cached. Hashes the type key to find the cache slot, searches for an existing node, and if not found, calls EvalPushAutoHookMatchesFromTypeKey to compute the matches and stores them in a new cache node. Returns the cached match list.
+
+// EvalIDFromStr:
+// ----------------------------------------------------------------------------
+//
+// Creates a unique integer ID for a string using the cache's string ID map. Hashes the string to find the slot, searches for an existing node matching the string, and if not found, generates a new ID. Allocates a new node, stores the ID and string, and links it into both the hash slot and ID slot. Returns the unique ID for the string.
+
+// EvalStrFromID:
+// ----------------------------------------------------------------------------
+//
+// Retrieves the string associated with a unique ID from the cache's string ID map. Hashes the ID to find the slot, iterates through the ID chain looking for a matching ID, and returns the stored string if found. Returns an empty string if no matching ID exists.
+
+// EvalKeyWrap:
+// ----------------------------------------------------------------------------
+//
+// Generates a new EvalKey by wrapping a parent key around a string expression. Uses the EvalParentKey macro to temporarily set the provided key as the parent, then calls EvalKeyFromStr to generate the new key under that parent. Returns the newly generated wrapped key.
+
+// EvalKeyWrap (format):
+// ----------------------------------------------------------------------------
+//
+// Generates a new EvalKey by wrapping a parent key around a formatted string. Uses a scratch arena and va_list to format the string, then delegates to the Str8 version of EvalKeyWrap to generate the wrapped key. Releases the scratch arena and returns the generated key.
+
+// EvalRangeFromEval:
+// ----------------------------------------------------------------------------
+//
+// Calculates the memory range for an EvalEval result based on its type and mode. If the IR tree is in offset mode, determines the type byte size by unwrapping the type key and uses the value as the base offset. Returns the range from the base offset to the base offset plus the type size.
+
+// EvalDebugLogFromExprStr:
+// ----------------------------------------------------------------------------
+//
+// Generates a detailed debug log for an expression string showing all stages of evaluation. Parses the expression string into tokens and prints each token with its kind. Prints the AST with indentation showing expression kinds and literal values. Generates the IR tree from the AST and prints each node with its operation and value. Returns the complete debug log as a string.
+
+// EvalTypeKindFromBase:
+// ----------------------------------------------------------------------------
+//
+// Converts a base TypeKind enum from the core type system to an EvalTypeKind enum. Uses a switch statement to map each base type (U8, U16, U32, U64, I8, I16, I32, I64, B8, B32, F32, F64, PTR, ARRAY, STRUCT, ENUM) to its corresponding evaluation type kind. Returns EVAL_TYPE_KIND_NULL for unhandled types.
+
+// EvalTypeGroupFromKind:
+// ----------------------------------------------------------------------------
+//
+// Categorizes an EvalTypeKind into one of the evaluation type groups (OTHER, UNSIGNED, SIGNED, F32, F64). Uses a switch statement to assign each type kind to its group based on the type category. Returns the appropriate EvalEvalTypeGroup for the given type kind.
+
+// EvalTypeKindIsInteger:
+// ----------------------------------------------------------------------------
+//
+// Determines if an EvalTypeKind is an integer type. Checks if the kind falls between EVAL_TYPE_KIND_FIRST_INTEGER and EVAL_TYPE_KIND_LAST_INTEGER inclusive. Returns TRUE if the kind is in the integer range, FALSE otherwise.
+
+// EvalTypeKindIsSigned:
+// ----------------------------------------------------------------------------
+//
+// Determines if an EvalTypeKind represents a signed type. Checks if the kind is in the signed character range (CHAR8 through CHAR32) or the signed integer range (I8 through I512). Returns TRUE for signed types, FALSE for unsigned types.
+
+// EvalTypeKindIsBasicOrEnum:
+// ----------------------------------------------------------------------------
+//
+// Determines if an EvalTypeKind is a basic primitive type or an enum type. Checks if the kind falls between EVAL_TYPE_KIND_FIRST_BASIC and EVAL_TYPE_KIND_LAST_BASIC, or if the kind is EVAL_TYPE_KIND_ENUM. Returns TRUE for basic or enum types.
+
+// EvalTypeKindIsPtrOrRef:
+// ----------------------------------------------------------------------------
+//
+// Determines if an EvalTypeKind is a pointer type. Checks if the kind is EVAL_TYPE_KIND_PTR. Returns TRUE for pointer types, FALSE otherwise. Note that reference types are not currently implemented.
+
+// ListPush (EvalMemberList):
+// ----------------------------------------------------------------------------
+//
+// Appends a new EvalMember to an EvalMemberList. Allocates a new EvalMemberNode from the memory pool, copies the member data into the node, and links it into the list's tail using SLL_QUEUE_PUSH. Increments the list's count and returns void.
+
+// EvalMemberArrayFromList:
+// ----------------------------------------------------------------------------
+//
+// Converts an EvalMemberList into a flat EvalMemberArray for easier access. Allocates an array from the memory pool with size equal to the list's count, then iterates through the list's nodes copying each member into the array. Returns the EvalMemberArray structure with the allocated array and count.
+
+// ListPush (EvalEnumValList):
+// ----------------------------------------------------------------------------
+//
+// Appends a new EvalEnumVal to an EvalEnumValList. Allocates a new EvalEnumValNode from the memory pool, copies the enum value data into the node, and links it into the list's tail using SLL_QUEUE_PUSH. Increments the list's count and returns void.
+
+// EvalEnumValArrayFromList:
+// ----------------------------------------------------------------------------
+//
+// Converts an EvalEnumValList into a flat EvalEnumValArray for easier access. Allocates an array from the memory pool with size equal to the list's count, then iterates through the list's nodes copying each enum value into the array. Returns the EvalEnumValArray structure with the allocated array and count.
+
+// EvalTypeKeyBasic:
+// ----------------------------------------------------------------------------
+//
+// Creates a basic EvalTypeKey for a built-in primitive type. Sets the key's kind to EVAL_TYPE_KEY_KIND_BASIC and stores the EvalTypeKind in U64[0]. Returns the constructed basic type key ready for use.
+
+// EvalTypeKeyExt:
+// ----------------------------------------------------------------------------
+//
+// Creates an external EvalTypeKey for types from the PID system. Sets the key's kind to EVAL_TYPE_KEY_KIND_EXT, stores the type kind in U64[0], the type index in U64[1], and the project index in U64[2]. If the kind is a basic type, converts the key to a basic key instead. Returns the constructed external type key.
+
+// Hash (EvalConstructedTypeParams):
+// ----------------------------------------------------------------------------
+//
+// Computes a hash value for EvalConstructedTypeParams for cache lookup. Creates a buffer array containing the kind, direct key fields, count, and depth, then hashes the buffer. Combines this with a hash of the type name string and returns the final hash value.
+
+// __EvalTypeKeyConstruct:
+// ----------------------------------------------------------------------------
+//
+// Constructs a new unique type key for a dynamically created type with caching. Hashes the construction parameters to find the content slot, searches for an existing node matching the parameters, and if not found, generates a new key ID. Allocates a new node, copies the parameters (including members, enum values, or args), calculates the byte size, and links the node into both the content hash slot and key hash slot. Returns the newly constructed or existing type key.
+
+// EvalTypeKeyConstructPtr:
+// ----------------------------------------------------------------------------
+//
+// Constructs a pointer type key from an element type, count, and flags. Delegates to EvalTypeKeyConstruct with kind set to EVAL_TYPE_KIND_PTR, the element type as the direct key, the specified count, and flags. Returns the constructed pointer type key.
+
+// EvalTypeKeyConstructArray:
+// ----------------------------------------------------------------------------
+//
+// Constructs an array type key from an element type, count, and flags. Delegates to EvalTypeKeyConstruct with kind set to EVAL_TYPE_KIND_ARRAY, the element type as the direct key, the specified count, and flags. Returns the constructed array type key.
+
+// EvalTypeKeyConstructMetaExpr:
+// ----------------------------------------------------------------------------
+//
+// Constructs a meta-expression type key that wraps a type with an expression string. Delegates to EvalTypeKeyConstruct with kind set to EVAL_TYPE_KIND_META_EXPR, the provided type as the direct key, and the expression string as the name. Returns the constructed meta-expression type key.
+
+// EvalTypeKeyConstructMetaDisplayName:
+// ----------------------------------------------------------------------------
+//
+// Constructs a meta-display-name type key that wraps a type with a display name override. Delegates to EvalTypeKeyConstruct with kind set to EVAL_TYPE_KIND_META_DISPLAY_NAME, the provided type as the direct key, and the display name as the name. Returns the constructed meta-display-name type key.
+
+// EvalTypeKeyConstructMetaDescription:
+// ----------------------------------------------------------------------------
+//
+// Constructs a meta-description type key that wraps a type with a description string. Delegates to EvalTypeKeyConstruct with kind set to EVAL_TYPE_KIND_META_DESCRIPTION, the provided type as the direct key, and the description as the name. Returns the constructed meta-description type key.
+
+// EvalTypeKeyConstructBase:
+// ----------------------------------------------------------------------------
+//
+// Converts a core Type structure into an EvalTypeKey. Handles leaf types by calling EvalTypeKindFromBase, pointer types by constructing a pointer key, array types by constructing an array key, and struct types by building member lists and constructing a struct key. Returns the constructed type key or EMPTY_EVAL_TYPE_KEY_VALUE for unhandled types.
+
+// EvalTypeKeyFile:
+// ----------------------------------------------------------------------------
+//
+// Returns the cached file type key from the current thread's evaluation cache. Retrieves the thread-local cache and returns the FileTypeKey stored in it. Returns the file type key for representing file entities.
+
+// EvalTypeKeyFolder:
+// ----------------------------------------------------------------------------
+//
+// Returns the cached folder type key from the current thread's evaluation cache. Retrieves the thread-local cache and returns the FolderTypeKey stored in it. Returns the folder type key for representing directory entities.
+
+// Hash (EvalType):
+// ----------------------------------------------------------------------------
+//
+// Computes a hash value for an EvalType structure for cache lookup. Uses serialization to convert the type's kind, flags, name, byte size, count, offset, and member information into a string buffer, then hashes the resulting string. Returns the computed hash value.
+
+// EvalTypeKindFromKey:
+// ----------------------------------------------------------------------------
+//
+// Extracts the EvalTypeKind from any type key (BASIC, EXT, or CONSTRUCTED). For all key kinds, reads U64[0] and casts it to EvalTypeKind. Returns the extracted type kind.
+
+// EvalByteSizeFromKey:
+// ----------------------------------------------------------------------------
+//
+// Computes the byte size of a type from its key with caching. For basic types, looks up the size in the basic byte size table. For external types, retrieves the byte size from the PID type node. For constructed types, looks up the cached byte size from the constructed type node. Returns the computed byte size.
+
+// EvalPushTypeFromKey:
+// ----------------------------------------------------------------------------
+//
+// Constructs and returns an EvalType structure from a type key with caching. For basic types, creates a type with the kind and name from the basic string table. For constructed types, copies the parameters from the cache node including members, enum values, and args. For external types, resolves the type from the PID system and builds the type with its members or enum values. Returns the constructed type or EMPTY_EVAL_TYPE_VALUE.
+
+// __EvalMemberOffsetCmpAscFunc:
+// ----------------------------------------------------------------------------
+//
+// Comparison function for sorting EvalMember structures by their kind and then offset. Compares the kind field first, and if equal, compares the offset field. Returns -1 if MemberA is less, 1 if greater, or 0 if equal. Used as a callback for quicksort.
+
+// EvalTypeDataMembersFromKey:
+// ----------------------------------------------------------------------------
+//
+// Extracts all data members from a type key, handling inheritance and padding. Recursively traverses the type hierarchy to collect members from structs and their base types. For structs with padding, inserts padding members between fields to accurately represent memory layout. Returns an array of members with their offsets and types.
+
+// EvalExpandRuleFromTypeKey:
+// ----------------------------------------------------------------------------
+//
+// Finds the appropriate expansion rule for a type key by checking lens types and sets. Unwraps the type key to skip meta types, then walks through lens and set types looking for a non-null ExpandInfoFunc. Returns the found expansion rule or the default expansion rule if none is found.
+
+// EvalTypeKeyDirect:
+// ----------------------------------------------------------------------------
+//
+// Returns the direct type key (the underlying type) of a constructed or external type. For constructed and external types, retrieves the type from the cache and returns its DirectTypeKey field. Returns an empty type key for basic types or if the type doesn't exist.
+
+// EvalTypeKeyOwner:
+// ----------------------------------------------------------------------------
+//
+// Returns the owner type key (the parent type) of a constructed or external type. For constructed and external types, retrieves the type from the cache and returns its OwnerTypeKey field. Returns an empty type key if the type doesn't have an owner or doesn't exist.
+
+// EvalTypeKeyPromote:
+// ----------------------------------------------------------------------------
+//
+// Promotes smaller integer types to larger types for arithmetic operations. If the type is BOOL, I8, I16, U8, or U16, promotes it to I32. Returns the promoted type key or the original key if no promotion is needed.
+
+// EvalTypeKeyUnwrap:
+// ----------------------------------------------------------------------------
+//
+// Strips decorative type layers (lenses, meta types, enums) from a type key based on flags. Repeatedly applies unwrapping by checking the type kind and the unwrap flags, stripping layers like LENS, META_DISPLAY_NAME, META_DESCRIPTION, META_EXPR, and ENUM. Stops when no more layers should be stripped or the type is a base type like ARRAY. Returns the unwrapped type key.
+
+// EvalTypeMatch:
+// ----------------------------------------------------------------------------
+//
+// Compares two type keys for compatibility, handling basic type equivalence and array element type matching. Unwraps decorative layers from both types, then compares the keys directly. If the keys don't match but have the same kind, checks array element compatibility or treats basic types as compatible. Returns TRUE if the types match, FALSE otherwise.
+
+// EvalTypeLHSFromStr:
+// ----------------------------------------------------------------------------
+//
+// Appends the left-hand side (prefix) string representation of a type to a string list. Handles different type kinds: structs and enums print their names, incomplete types print "struct" or "enum" before the name, arrays print their element type, lens types print the lens name and arguments, and meta types delegate to their direct type. Uses recursion for nested types and returns void.
+
+// EvalTypeRHSFromStr:
+// ----------------------------------------------------------------------------
+//
+// Appends the right-hand side (suffix) string representation of a type to a string list. Handles arrays by printing the array brackets and count after the element type, then recursing on the direct type. Handles meta types by delegating to their direct type. Returns void after appending the suffix strings.
+
+// EvalTypeStrFromKey:
+// ----------------------------------------------------------------------------
+//
+// Generates the full string representation of a type from its key. Uses a scratch arena to build a string list, calls EvalTypeLHSFromStr to add the prefix, then EvalTypeRHSFromStr to add the suffix. Joins the list into a single string, trims whitespace, and returns the type string.
+
+// EvalDefaultExpansionTypeFromKey:
+// ----------------------------------------------------------------------------
+//
+// Finds the appropriate default expansion type by walking through lens and meta layers. Iterates through the type chain via EvalTypeKeyDirect, stopping at the first struct, set, or enum type encountered. Returns the found expansion type key or an empty key if no suitable type is found.
+
+// EvalTypeFromKey:
+// ----------------------------------------------------------------------------
+//
+// Retrieves an EvalType from the type cache, computing it if not already cached. Hashes the key to find the cache slot, searches for an existing node, and if not found, calls EvalPushTypeFromKey to compute the type. Allocates a new cache node, stores the key and type, and links it into the cache. Returns the cached type.
+
+// EvalMemberCacheNodeFromTypeKey:
+// ----------------------------------------------------------------------------
+//
+// Builds a member cache node for a type key, computing members and building hash tables for fast lookup. Hashes the key to find the cache slot, searches for an existing node, and if not found, calls EvalTypeDataMembersFromKey to get the members. Builds member hash slots by hashing each member name, and initializes filter slots for fuzzy filtering. Returns the cached member cache node.
+
+// EvalTypeDataMembersFromKeyCached (with filter):
+// ----------------------------------------------------------------------------
+//
+// Retrieves members from a type with optional fuzzy filtering using the member cache. If no filter is provided, returns all members directly. If a filter is provided, computes filtered members by using fuzzy matching on each member name, caches the result, and returns the filtered member array.
+
+// EvalTypeDataMembersFromKeyCached:
+// ----------------------------------------------------------------------------
+//
+// Retrieves all members from a type using the member cache without filtering. Gets the member cache node from the type key and returns its members array directly. Returns an empty member array if the cache node doesn't exist.
+
+// EvalTypeMemberFromKeyNameCached:
+// ----------------------------------------------------------------------------
+//
+// Finds a specific member by name in a type using the member cache's hash lookup. Hashes the member name to find the hash slot, then iterates through the hash chain comparing member names. Returns the matching member or EMPTY_EVAL_MEMBER_VALUE if not found.
+
+// EvalEnumValCacheNodeFromTypeKey:
+// ----------------------------------------------------------------------------
+//
+// Builds an enum value cache node for a type key, computing enum values and building hash tables for fast lookup. Hashes the key to find the cache slot, searches for an existing node, and if not found, builds hash slots for each enum value name. Initializes filter slots for fuzzy filtering and returns the cached enum value cache node.
+
+// EvalEnumValsFromKeyCached (with filter):
+// ----------------------------------------------------------------------------
+//
+// Retrieves enum values from a type with optional fuzzy filtering using the enum value cache. If no filter is provided, returns the type's enum values directly. If a filter is provided, computes filtered enum values by using fuzzy matching on each value name, caches the result, and returns the filtered enum value array.
+
+// EvalEnumValsFromKeyCached:
+// ----------------------------------------------------------------------------
+//
+// Retrieves all enum values from a type using the enum value cache without filtering. Gets the enum value cache node from the type key and returns the type's enum values array directly. Returns an empty enum value array if the cache node doesn't exist.
+
+// EvalEnumValFromKeyNameCached:
+// ----------------------------------------------------------------------------
+//
+// Finds a specific enum value by name in a type using the enum value cache's hash lookup, with support for qualified names. Hashes the member name to find the hash slot, then iterates through the hash chain comparing the simple name, qualified name, and underscore-qualified name. Returns the matching enum value or an empty value if not found.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(Default):
+// ----------------------------------------------------------------------------
+//
+// Default expansion info function that provides row count for structures, arrays, and enums. For structs, gets the member count using cached members. For arrays, returns the array count. For enums, returns the enum value count. Returns the expansion info with the row count.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(Default):
+// ----------------------------------------------------------------------------
+//
+// Default expansion range function that generates expressions for expanded rows. For structs, generates member access expressions for each member. For enums, generates member access expressions with the suffix stripped of the type name. For arrays and sets, generates array index expressions. Returns void after filling the output eval array.
+
+// EVAL_TYPE_EXPAND_ID_FROM_NUM_FUNC_DEF(Identity):
+// ----------------------------------------------------------------------------
+//
+// Identity function for converting a number to an ID. Simply returns the input number unchanged. Used as a default when no custom mapping is needed.
+
+// EVAL_TYPE_EXPAND_NUM_FROM_ID_FUNC_DEF(Identity):
+// ----------------------------------------------------------------------------
+//
+// Identity function for converting an ID to a number. Simply returns the input ID unchanged. Used as a default when no custom mapping is needed.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(Rows):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function for a "Rows" lens that expands each argument as a separate row. Stores the eval results for each argument in an acceleration structure. Returns the expansion info with the count of arguments and the acceleration data as user data.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(Rows):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function for a "Rows" lens that returns precomputed rows from the acceleration structure. Iterates through the index range and copies the precomputed eval results from the acceleration data into the output eval array. Returns void after filling the requested range.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(Omit):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function that computes which children to omit based on a list of excluded names. Evaluates the raw children, then filters out those whose names match the excluded list, building an allowed children list. Returns the expansion info with the count of allowed children and the list as user data.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(Omit):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function that returns the filtered children from an Omit lens. Iterates through the index range and generates member access expressions for each allowed child from the user data. Returns void after filling the output eval array.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(Sequence):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function for a sequence generator that produces a numeric sequence. Evaluates the sequence expression to get the count from the value. Returns the expansion info with the count of sequence elements.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(Sequence):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function for a sequence generator that produces numeric values. Iterates through the index range and creates eval expressions for each number in the sequence. Returns void after filling the output eval array with numeric literals.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(Array):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function for a dynamic array lens that computes the array size from an argument expression. Evaluates the count expression to get the number of elements. Returns the expansion info with the computed array size.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(Array):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function for a dynamic array lens that generates index expressions. Iterates through the index range and creates array index access expressions for each element. Returns void after filling the output eval array.
+
+// EvalListGatherObjectCreate:
+// ----------------------------------------------------------------------------
+//
+// Creates a cached object for gathering list traversal offsets. Reads the key data containing the base offset, member offset, member size, and space read function. Traverses a linked list by reading next pointers from memory, recording each node's offset. Returns an object containing the allocated memory pool and array of node offsets.
+
+// EvalListGatherObjectDestroy:
+// ----------------------------------------------------------------------------
+//
+// Destroys a list gather object by releasing its memory pool. Retrieves the arena pointer from the object's first slot and calls ArenaRelease to free all memory. Returns void after cleanup.
+
+// EVAL_TYPE_IR_EXT_FUNC_DEF(List):
+// ----------------------------------------------------------------------------
+//
+// IR extension function that converts a linked list traversal into an array of node offsets. Finds the next link member by checking the type's arguments, then searching for members named "next", "prev", or any pointer-to-self member. Generates bytecode to get the base offset, then uses a gather object to collect all node offsets. Stores the offsets and count in the IR extension user data.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(List):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function for a list type that returns the number of nodes in the list. Retrieves the offsets array from the IR extension user data and returns its count. Returns the expansion info with the node count.
+
+// EVAL_TYPE_ACCESS_FUNC_DEF(List):
+// ----------------------------------------------------------------------------
+//
+// Access function for list types that handles array index operations on list nodes. For array index expressions, evaluates the index to get the node number, looks up the node offset from the offsets array, and constructs an IR tree with that offset. Returns the IR tree with the node's type and offset mode.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(List):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function for list types that generates index expressions for list nodes. Iterates through the index range and creates array index access expressions for each node. Returns void after filling the output eval array.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(Folder):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function for folder types that lists files and subdirectories. Gets the folder path from the eval value, applies filtering to the path, and uses SystemFileIterBegin to iterate through the directory contents. Separates folders and files into lists, builds an acceleration structure, and returns the expansion info with the total count.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(Folder):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function for folder types that generates expressions for files and subdirectories. Iterates through the index range, generates folder expressions for subdirectories and file expressions for files with escaped paths. Returns void after filling the output eval array.
+
+// EVAL_TYPE_EXPAND_ID_FROM_NUM_FUNC_DEF(Folder):
+// ----------------------------------------------------------------------------
+//
+// ID-from-number function for folder types that maps a numeric index to a unique ID for a file or folder. Checks if the index corresponds to a folder or file, extracts the name, and hashes it to produce a unique ID. Returns the computed ID.
+
+// EVAL_TYPE_EXPAND_NUM_FROM_ID_FUNC_DEF(Folder):
+// ----------------------------------------------------------------------------
+//
+// Number-from-ID function for folder types that maps a unique ID back to a numeric index. Searches through the folder and file lists, hashes each name, and returns the index when the hash matches the ID. Returns 0 if no match is found.
+
+// EVAL_TYPE_IR_EXT_FUNC_DEF(File):
+// ----------------------------------------------------------------------------
+//
+// IR extension function for file types that builds file metadata acceleration. Evaluates the file path from the root, gets file properties using SystemGetFileProperties, and builds a list of field names (size, last_modified_time, creation_time, data). Stores the file path, properties, and field list in the acceleration structure. Returns the IR extension with the acceleration data.
+
+// EVAL_TYPE_ACCESS_FUNC_DEF(File):
+// ----------------------------------------------------------------------------
+//
+// Access function for file types that handles member access operations on file objects. For member expressions, checks the member name and returns the appropriate property (size, last_modified_time, creation_time, or data). For data access, creates a file space and returns the file content as an array. Returns the IR tree with the property value and type.
+
+// EVAL_TYPE_EXPAND_INFO_FUNC_DEF(File):
+// ----------------------------------------------------------------------------
+//
+// Expansion info function for file types that returns the number of expandable fields. Retrieves the field list from the acceleration structure and returns its count. Returns the expansion info with the field count.
+
+// EVAL_TYPE_EXPAND_RANGE_FUNC_DEF(File):
+// ----------------------------------------------------------------------------
+//
+// Expansion range function for file types that generates member access expressions for file fields. Iterates through the index range and creates member access expressions for each field name from the acceleration structure. Returns void after filling the output eval array.
+
+// EvalInterpContextSelect:
+// ----------------------------------------------------------------------------
+//
+// Selects a new interpretation context for the current thread. Sets the thread-local EVAL_INTERP_CTX to the provided context, which includes the primary memory space for interpretation. Returns void after the context is selected.
+
+// EvalSpaceGen:
+// ----------------------------------------------------------------------------
+//
+// Generates a generation number for a memory space to detect changes. If the space kind is user-defined, delegates to the base context's space generation function. Returns the generated number or 0 for unhandled spaces.
+
+// EvalSpaceRead:
+// ----------------------------------------------------------------------------
+//
+// Reads data from a memory space at the specified offset range. Handles different space kinds: for hash store keys, looks up cached data by key hash; for files, reads chunks from the file system with change detection. Returns TRUE if the read was successful, FALSE otherwise.
+
+// EvalSpaceWrite:
+// ----------------------------------------------------------------------------
+//
+// Writes data to a memory space at the specified offset range. For user-defined space kinds, delegates to the base context's space write function. Returns TRUE if the write was successful, FALSE otherwise.
+
+// EvalInterpret:
+// ----------------------------------------------------------------------------
+//
+// Interprets bytecode using a stack machine with configurable memory spaces. Decodes each opcode's control bits to determine decode size, pop count, and push count. Executes operations including arithmetic, logical, comparison, conversion, and memory operations on a value stack. Handles errors like division by zero and insufficient stack space. Returns the interpretation result with the final value and space.
+
+// ListPushOp:
+// ----------------------------------------------------------------------------
+//
+// Appends a new operation to an EvalOpList with the specified opcode and immediate value. Allocates a new EvalOp from the memory pool, sets the opcode and value, and links it into the list. Updates the operation count and encoded size based on the opcode's control bits. Returns void.
+
+// ListPushConstU:
+// ----------------------------------------------------------------------------
+//
+// Appends a constant unsigned integer operation to an EvalOpList, selecting the smallest possible encoding. Chooses between CONST_U8, CONST_U16, CONST_U32, and CONST_U64 based on the value's range. Delegates to ListPushOp to add the operation. Returns void.
+
+// ListPushConstI:
+// ----------------------------------------------------------------------------
+//
+// Appends a constant signed integer operation to an EvalOpList with sign extension. For values within range, uses CONST_U8, CONST_U16, or CONST_U32 with a truncation operation. For larger values, uses CONST_U64. Returns void after adding the constant operations.
+
+// ListPushByteCode:
+// ----------------------------------------------------------------------------
+//
+// Appends raw bytecode to an EvalOpList as a single operation. Allocates a new EvalOp, sets the opcode to EVAL_IR_EXT_KIND_BYTECODE, stores the bytecode string, and links it into the list. Updates the operation count and encoded size. Returns void.
+
+// ListPushSetSpace:
+// ----------------------------------------------------------------------------
+//
+// Appends a SET_SPACE operation to an EvalOpList to change the active memory space. Allocates a new EvalOp, sets the opcode to EVAL_IR_EXT_KIND_SET_SPACE, copies the space data into the value, and links it into the list. Updates the operation count and encoded size. Returns void.
+
+// ListPushSetBaseOffset:
+// ----------------------------------------------------------------------------
+//
+// Placeholder function for setting the base offset in an operation list. Currently does nothing and is reserved for future use. Returns void.
+
+// ListPushStrLit:
+// ----------------------------------------------------------------------------
+//
+// Appends a string literal operation to an EvalOpList with the string payload. Allocates a new EvalOp, sets the opcode to CONST_STR, stores the string, sets the value to the string size, and links it into the list. Updates the operation count and encoded size. Returns void.
+
+// ListCat (EvalOpList):
+// ----------------------------------------------------------------------------
+//
+// Concatenates one EvalOpList into another by linking the source list's head to the destination's tail. If the destination already has operations, links the tail to the source head; otherwise copies the entire source list. Zeros out the source list after concatenation and updates both operation count and encoded size.
+
+// EvalPushIRNode:
+// ----------------------------------------------------------------------------
+//
+// Creates a new EvalIRNode with the specified operation code. Allocates and zeros a new node from the memory pool, initializes the head and tail pointers to EMPTY_EVAL_IR_NODE_VALUE, sets the next pointer to EMPTY_EVAL_IR_NODE_VALUE, and stores the operation code. Returns the newly created IR node.
+
+// EvalIRNodePushChild:
+// ----------------------------------------------------------------------------
+//
+// Appends a child node to an IR node's child list if both parent and child are valid. Uses SLL_QUEUE_PUSH_EX_EMPTY to add the child to the parent's head/tail linked list with the parent's empty value sentinel. Returns void after linking the child.
+
+// EvalIRTreeConstU:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node representing an unsigned integer constant, choosing the smallest encoding. Selects between CONST_U8, CONST_U16, CONST_U32, or CONST_U64 based on the value's range. Creates the node, sets the value, and returns the node.
+
+// EvalIRTreeLeafU128:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node representing a 128-bit integer constant. Creates a new node with opcode CONST_U128 and stores the 128-bit value. Returns the newly created node.
+
+// EvalIRTreeUnaryOp:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for a unary operation with a type group. Creates a new node with the specified opcode, stores the type group in the value, and adds the child as a child node. Returns the created unary operation node.
+
+// EvalIRTreeBinaryOp:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for a binary operation with a type group and operand size. Creates a new node with the specified opcode, stores the type group and operand size in the value's U8 fields, and adds the LHS and RHS as child nodes. Returns the created binary operation node.
+
+// EvalIRTreeBinaryOpU:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for a binary operation on unsigned types. Delegates to EvalIRTreeBinaryOp with the type group set to EVAL_EVAL_TYPE_GROUP_UNSIGNED and the specified operand size. Returns the created binary operation node.
+
+// EvalIRTreeConditional:
+// ----------------------------------------------------------------------------
+//
+// Placeholder function for creating a conditional (ternary) operation node. Currently returns NULL as the conditional operation is not yet implemented. Reserved for future use.
+
+// EvalIRTreeByteCode:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node containing raw bytecode. Creates a new node with opcode EVAL_IR_EXT_KIND_BYTECODE and stores the bytecode string. Returns the created bytecode node.
+
+// EvalIRTreeStrLit:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node representing a string literal. Creates a new node with opcode CONST_STR and stores the string. Returns the created string literal node.
+
+// EvalIRTreeSetSpace:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node that sets the active memory space. Creates a new node with opcode EVAL_IR_EXT_KIND_SET_SPACE, copies the space into the value, and adds the child as a child node. Returns the created SET_SPACE node.
+
+// EvalIRTreeMemReadType:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for reading memory of a specific type. Creates a new MEM_READ node, sets the value to the type's byte size (capped at 64), and adds the address child. Returns the created memory read node.
+
+// EvalIRTreeConvertLo:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for converting between type groups (lower-level conversion). Creates a new CONVERT node, stores the source and destination type groups in the value (source | (destination << 8)), and adds the child. Returns the created conversion node.
+
+// EvalIRTreeTrunc:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for truncating a value to a smaller size. If the byte size is less than 64, creates a TRUNC or TRUNC_SIGNED node with the bit size in the value. Returns the truncation node or the original child if no truncation is needed.
+
+// EvalIRTreeConvertHi:
+// ----------------------------------------------------------------------------
+//
+// Creates an IR tree node for converting between types with type checking. Determines if the conversion is legal using the conversion matrix, and if so, creates a CONVERT node. If the destination is smaller than the source and integer, adds a truncation node. Returns the conversion node chain or the original child.
+
+// EvalIRTreeResolveToValue:
+// ----------------------------------------------------------------------------
+//
+// Converts an IR tree from offset mode to value mode by adding a memory read. If the mode is offset, creates a MEM_READ node for the type. Returns the resolved tree or the original tree if already in value mode.
+
+// EvalExprIsPoisoned:
+// ----------------------------------------------------------------------------
+//
+// Checks if an expression is marked as poisoned (currently being evaluated recursively). Hashes the expression pointer to find the slot, then iterates through the poison map looking for a matching expression. Returns TRUE if the expression is poisoned, FALSE otherwise.
+
+// EvalPoisonExpr:
+// ----------------------------------------------------------------------------
+//
+// Marks an expression as poisoned to prevent recursive evaluation. Hashes the expression pointer to find the slot, allocates a new poison node, and adds it to the poison map. Returns void.
+
+// EvalUnpoisonExpr:
+// ----------------------------------------------------------------------------
+//
+// Unmarks an expression as poisoned by removing it from the poison map. Hashes the expression pointer to find the slot, searches for the node, and removes it from the doubly-linked list. Returns void.
+
+// EVAL_TYPE_ACCESS_FUNC_DEF(Default):
+// ----------------------------------------------------------------------------
+//
+// Default access function that handles member access and array indexing expressions. For member access, resolves the member name from the type's member cache, handles enum value lookups with qualified names, and generates an IR tree with the member offset. For array indexing, evaluates the index, checks type compatibility, and generates an IR tree with the element offset. Returns the IR tree with the resolved type and mode.
+
+// EvalPushIRTreeAndType:
+// ----------------------------------------------------------------------------
+//
+// Generates an IR tree and type from an expression AST with identifier resolution and auto-hooks. Traverses the AST recursively, handling each expression kind with type checking and conversion. For identifiers, resolves using the identifier resolution rule with multiple resolution paths. Applies auto-hooks when matching type patterns. Handles lens chains and fast paths. Returns the IR tree and type with any messages.
+
+// EvalAppendOpList:
+// ----------------------------------------------------------------------------
+//
+// Converts an IR tree to a linear operation list by traversing the tree recursively. For each node, checks if the space has changed and emits a SET_SPACE if needed. Handles different opcodes: sets space for SET_SPACE nodes, emits bytecode for BYTECODE nodes, and recursively processes children for other nodes before emitting the operation. Returns void after building the op list.
+
+// EvalOpListFromIRTree:
+// ----------------------------------------------------------------------------
+//
+// Creates an EvalOpList from an IR tree with the current interpretation context's space. Initializes an empty op list, gets the primary space from the interpretation context, and calls EvalAppendOpList to traverse the IR tree. Returns the generated operation list.
+
+// EvalByteCodeFromOpList:
+// ----------------------------------------------------------------------------
+//
+// Encodes an EvalOpList into a flat bytecode array. Allocates a buffer of the encoded size from the memory pool, then iterates through the ops. For each op, writes the opcode and immediate data based on the control bits, handling special ops like CONST_STR, BYTECODE, and SET_SPACE. Returns the encoded bytecode string.
+
+// EvalExprIRExtMemberAccess:
+// ----------------------------------------------------------------------------
+//
+// Creates an expression for accessing a member of an IR tree result. Creates a MEMBER_ACCESS expression, builds a LHS leaf with the IR tree's bytecode, and creates a RHS leaf with the member name. Returns the constructed member access expression.
+
+// ListPush (EvalTokenChunkList):
+// ----------------------------------------------------------------------------
+//
+// Appends a token to a token chunk list with chunk allocation. If the current chunk is full or doesn't exist, allocates a new chunk with the specified chunk size. Stores the token in the current chunk's array and updates the chunk and list counts. Returns void.
+
+// EvalTokenArrayFromChunkList:
+// ----------------------------------------------------------------------------
+//
+// Converts a token chunk list into a flat token array. Allocates an array from the memory pool with the total count, then iterates through the chunks copying tokens into the array. Returns the token array.
+
+// EvalTokenArrayFromText:
+// ----------------------------------------------------------------------------
+//
+// Tokenizes a text string into an array of tokens. Scans through the text character by character, identifying token kinds (identifiers, numbers, string literals, character literals, symbols, comments). Handles multi-character symbols, escape sequences in strings and chars, and nested angle brackets for generic types. Returns the token array.
+
+// EvalTokenArrayAlloc:
+// ----------------------------------------------------------------------------
+//
+// Creates an EvalTokenArray from a range of tokens in a larger array. Sets the V pointer to the head and the count to the difference between head and tail. Returns the token array structure.
+
+// EvalPushExpr:
+// ----------------------------------------------------------------------------
+//
+// Allocates and initializes a new EvalExpr node with the specified kind and range. Zeros the structure, sets the head, tail, next, prev, and ref pointers to EMPTY_EVAL_EXPR_VALUE, and stores the kind and range. Returns the new expression node.
+
+// EvalExprInsertChild:
+// ----------------------------------------------------------------------------
+//
+// Inserts a child expression into a parent's child list after a specific previous child. Uses DLL_INSERT_EX to link the child into the doubly-linked list. Returns void.
+
+// EvalExprPushChild:
+// ----------------------------------------------------------------------------
+//
+// Appends a child expression to a parent's child list. Uses DLL_PUSH_BACK_EX to add the child to the end of the list. Returns void.
+
+// EvalExprRemoveChild:
+// ----------------------------------------------------------------------------
+//
+// Removes a child expression from a parent's child list. Uses DLL_REMOVE_EX to unlink the child from the doubly-linked list. Returns void.
+
+// EvalExprRef:
+// ----------------------------------------------------------------------------
+//
+// Creates a reference expression that points to another expression. Allocates a new REF node, sets its Ref pointer to the target expression, and copies the range. Returns the reference expression.
+
+// EvalExprCpy:
+// ----------------------------------------------------------------------------
+//
+// Creates a deep copy of an expression tree. Traverses the source tree using a task queue, creating new nodes for each source node. Copies all fields including mode, space, type key, value, strings, bytecode, qualifier, and disambiguator. Links children and siblings appropriately. Returns the copied expression root.
+
+// ListPush (EvalExprList):
+// ----------------------------------------------------------------------------
+//
+// Appends an expression to an EvalExprList. Allocates a new node from the memory pool, stores the expression pointer, and links it into the list using SLL_QUEUE_PUSH. Increments the list count and returns void.
+
+// EvalAppendStrsFromExpr:
+// ----------------------------------------------------------------------------
+//
+// Converts an expression tree to string pieces using operator precedence and parenthesization. For each node, retrieves the operator info (pre, sep, post, chain) and recursively appends child strings with parentheses when the child's precedence exceeds the parent's. Handles leaf nodes by appending their literal values, identifiers, or type strings. Returns void after appending to the output list.
+
+// EvalStrFromExpr:
+// ----------------------------------------------------------------------------
+//
+// Converts an expression tree to a complete string representation. Creates a string list, calls EvalAppendStrsFromExpr to fill it, then joins the list into a single string. Returns the expression string.
+
+// EvalLeafBuiltinTypeKeyFromName:
+// ----------------------------------------------------------------------------
+//
+// Looks up a built-in type key by its name. Checks the name against a list of built-in type names (uint8, int32, float64, char, bool, etc.) using the EVAL_BUILTIN_TYPE_X_LIST macro. Returns the corresponding basic type key if found, or an empty key if not found.
+
+// EvalLeafTypeKeyFromName:
+// ----------------------------------------------------------------------------
+//
+// Looks up a type key by name, checking built-in types and external PID types. First checks built-in types using EvalLeafBuiltinTypeKeyFromName. If not found, attempts to resolve the name as a PID type by matching it against the project's type nodes. Returns the type key if found, or an empty key if not found.
+
+// EvalTypeKeyFromExpr:
+// ----------------------------------------------------------------------------
+//
+// Extracts a type key from a type expression. For identifier leafs, resolves the type by name. For type identifier nodes, returns the stored type key. For array types, constructs an array type key from the element type and count. Returns the type key or an empty key.
+
+// EvalPushParseFromStr (with tokens):
+// ----------------------------------------------------------------------------
+//
+// Parses an expression from a token array using a Pratt parser with precedence climbing. Implements the full parsing algorithm: skip separators, collect prefix unary operators, parse atoms (identifiers, literals, parenthesized expressions), handle postfix operators (member access, array indexing, calls), and parse binary operators with precedence climbing. Handles ternary operators with separate logic. Returns the parse result with the AST and messages.
+
+// EvalPushParseFromStr:
+// ----------------------------------------------------------------------------
+//
+// Convenience wrapper that tokenizes a string and parses it. Tokenizes the input string using EvalTokenArrayFromText, then calls the token-array version of EvalPushParseFromStr. Returns the complete parse result.
+
+// EvalEvalConvKindFromTypeGroups:
+// ----------------------------------------------------------------------------
+//
+// Looks up the conversion kind between two type groups using the conversion matrix. Returns NOOP if the types are the same, LEGAL if a conversion is allowed, or OTHER_TO_OTHER if conversion is not supported.
+
+// EvalEvalOpTypeGroupAreCompatible:
+// ----------------------------------------------------------------------------
+//
+// Checks if a type group is compatible with an operation. For arithmetic and comparison ops, returns TRUE for signed, unsigned, F32, and F64 groups. For bitwise and logical ops, returns TRUE only for signed and unsigned groups. Returns FALSE for incompatible combinations.
+
+// EvalTypeKindFromPID:
+// ----------------------------------------------------------------------------
+//
+// Converts a PID type kind to an EvalTypeKind. Maps each PID type kind (CHAR8, U16, F32, PTR, STRUCT, ENUM, etc.) to its corresponding evaluation type kind. Returns EVAL_TYPE_KIND_NULL for unhandled types.
+
+// EvalMemberKindFromPID:
+// ----------------------------------------------------------------------------
+//
+// Converts a PID member kind to an EvalMemberKind. Maps DATA_FIELD, STATIC_DATA, and NESTED_TYPE from PID to their evaluation equivalents. Returns EVAL_MEMBER_KIND_NULL for unhandled kinds.
+
+// EV_EXPAND_RULE_INFO_FUNC_DEF(Null):
+// ----------------------------------------------------------------------------
+//
+// Null expansion rule info function that returns an empty expansion info. Returns an EVExpandInfo structure with all fields zeroed. Used as a default when no expansion rule is available.
+
+// EVKeyAlloc:
+// ----------------------------------------------------------------------------
+//
+// Creates a new EVKey from a parent hash and child ID. Sets the ParentHash and ChildID fields and returns the key structure.
+
+// EVKeyRoot:
+// ----------------------------------------------------------------------------
+//
+// Returns the root EVKey with parent hash 5381 and child ID 1. Used as the starting point for visual expansion trees.
+
+// Hash (EVKey):
+// ----------------------------------------------------------------------------
+//
+// Computes a hash for an EVKey for cache lookup. Combines the parent hash with a hash of the child ID using the rolling hash function. Returns the computed hash.
+
+// EVExpansionTypeFromKey:
+// ----------------------------------------------------------------------------
+//
+// Finds the expansion type for a key by walking through lens and meta layers. Iterates through the type chain via EvalTypeKeyDirect, stopping at the first type with an expansion rule or the first non-decorative type. Returns the expansion type key.
+
+// EVTypeKeyAndModeIsExpandable:
+// ----------------------------------------------------------------------------
+//
+// Checks if a type and mode can be expanded. First checks if the type has a visual expansion rule. If not, checks if the default expansion type is an enum (expandable in null mode) or any other non-null type. Returns TRUE if expandable, FALSE otherwise.
+
+// EVTypeKeyIsEditable:
+// ----------------------------------------------------------------------------
+//
+// Checks if a type can be edited. Walks through the type chain checking flags and kind. Returns FALSE for non-editable types, strings of text (which are edit safe), and arrays of character types. Returns TRUE for basic integer types.
+
+// EVViewAlloc:
+// ----------------------------------------------------------------------------
+//
+// Creates a new EVView for managing visual expansion state. Allocates a new arena and view structure, initializes expansion slots with 256 slots, and initializes key view rule slots with 256 slots. Returns the new view.
+
+// EVViewRelease:
+// ----------------------------------------------------------------------------
+//
+// Releases all memory associated with an EVView by calling ArenaRelease on its memory pool. Returns void after the view is destroyed.
+
+// EVExpandNodeFromKey:
+// ----------------------------------------------------------------------------
+//
+// Looks up an expansion node in a view by its key. Hashes the key to find the slot, then iterates through the hash chain looking for a matching key. Returns the expansion node if found, NULL otherwise.
+
+// EVExpansionFromKey:
+// ----------------------------------------------------------------------------
+//
+// Checks if a key is currently expanded in a view. Looks up the expansion node and returns its Expanded flag. Returns FALSE if the node doesn't exist.
+
+// EVViewRuleFromKey:
+// ----------------------------------------------------------------------------
+//
+// Retrieves the view rule string associated with a key. Hashes the key to find the slot, iterates through the hash chain, and returns the stored rule string if found. Returns an empty string if no rule exists.
+
+// EVKeySetExpansion:
+// ----------------------------------------------------------------------------
+//
+// Sets the expansion state for a key in a view. If expanding, creates or reuses an expansion node, links it into the hash slot and parent's child list, and sets Expanded to TRUE. If collapsing, removes the node from all lists and adds it to the free list. Returns void.
+
+// EVKeySetViewRule:
+// ----------------------------------------------------------------------------
+//
+// Sets or updates the view rule string for a key. Hashes the key to find the slot, searches for an existing node, and if not found, allocates a new one. Copies the rule string into the node's buffer and updates the string size. Returns void.
+
+// TablePush:
+// ----------------------------------------------------------------------------
+//
+// Adds an expansion rule to an expansion rule table. If the table has no slots, allocates 512 slots. Hashes the rule's string to find the slot, allocates a new node, copies the rule, and links it into the slot's list. Returns void.
+
+// EVSelectExpandRuleTable:
+// ----------------------------------------------------------------------------
+//
+// Selects the active expansion rule table for the current thread. Sets the thread-local EV_VIEW_RULE_INFO_TABLE to the provided table. Returns void.
+
+// EVExpandRuleFromStr:
+// ----------------------------------------------------------------------------
+//
+// Looks up an expansion rule by its string name in the active rule table. Hashes the string to find the slot, iterates through the slot's list comparing strings, and returns the matching rule if found. Returns the null expansion rule if not found.
+
+// EVExpandRuleFromTypeKey:
+// ----------------------------------------------------------------------------
+//
+// Looks up an expansion rule for a type key by checking lens names. Unwraps meta types, then walks through lens layers checking if the lens name matches any registered expansion rule. Returns the matching rule if found, or the null expansion rule.
+
+// EVBlockTreeFromEval:
+// ----------------------------------------------------------------------------
+//
+// Builds a visual expansion block tree from an eval result. Creates a root block, then processes tasks for each expanded block. For each block, gets the type expansion info and visual expansion info, creates child blocks for each row, and recursively processes children if expanded. Returns the block tree with total row and item counts.
+
+// EVDepthFromBlock:
+// ----------------------------------------------------------------------------
+//
+// Calculates the depth of a block in the visual tree. Walks up the parent chain counting levels until reaching the root. Returns the depth as the number of parent links.
+
+// EVBlockIDFromNum:
+// ----------------------------------------------------------------------------
+//
+// Converts a numeric index to a block ID using the block's type expansion rule. Calls the ExpandIDFromNumFunc on the block's type expansion info with the number. Returns the computed ID.
+
+// EVBlockNumFromID:
+// ----------------------------------------------------------------------------
+//
+// Converts a block ID back to a numeric index using the block's type expansion rule. Calls the ExpandNumFromIDFunc on the block's type expansion info with the ID. Returns the computed number.
+
+// EVBlockRangeListFromTree:
+// ----------------------------------------------------------------------------
+//
+// Builds a flat list of block ranges from a block tree for fast visual navigation. Traverses the tree using a task queue, computing the visual range for each block based on its position and child positions. Returns the block range list.
+
+// EVBlockRangeFromNum:
+// ----------------------------------------------------------------------------
+//
+// Finds the block range containing a specific visual number. Iterates through the block range list accumulating visual sizes, and returns the range when the number falls within it. Returns an empty range if not found.
+
+// EVKeyFromNum:
+// ----------------------------------------------------------------------------
+//
+// Converts a visual number to a block key. Finds the containing block range, computes the relative number within the block, converts to a block ID using EVBlockIDFromNum, and constructs the key. Returns the key or the root key if no match is found.
+
+// EVNumFromKey:
+// ----------------------------------------------------------------------------
+//
+// Converts a block key to a visual number. Iterates through the block range list comparing parent hashes, finds the containing block, converts the child ID to a number using EVBlockNumFromID, and computes the visual number. Returns 0 if no match is found.
+
+// EVVNumFromNum:
+// ----------------------------------------------------------------------------
+//
+// Converts a semantic number to a visual number by applying block visual sizes. Iterates through the block range list accumulating visual sizes for each block, and finds the visual number corresponding to the semantic number. Returns the visual number.
+
+// EVNumFromVNum:
+// ----------------------------------------------------------------------------
+//
+// Converts a visual number to a semantic number by reversing the visual size mapping. Iterates through the block range list, maps visual positions to semantic positions considering block visual sizes and single-item flags. Returns the semantic number.
+
+// EVWindowedRowListFromBlockRangeList:
+// ----------------------------------------------------------------------------
+//
+// Builds a windowed list of rows from a block range list for rendering a specific range. Computes the visual range for each block, applies skip and chop for windowing, and expands the visible rows using the block's expansion range function. Returns the windowed row list.
+
+// EVRowFromNum:
+// ----------------------------------------------------------------------------
+//
+// Retrieves a single row by its semantic number. Converts the number to a visual number, builds a windowed row list for that single position, and returns the first row. Returns an empty row if no match is found.
+
+// EVRowsFromNumRange:
+// ----------------------------------------------------------------------------
+//
+// Retrieves multiple rows by semantic number range. Converts the range to visual numbers, builds a windowed row list for the range, and returns the row list.
+
+// EVEvalIsExpandable:
+// ----------------------------------------------------------------------------
+//
+// Checks if an eval can be expanded by checking type expansion rules. First checks if the type has a visual expansion rule, then checks if the type and mode are expandable. Returns TRUE if expandable, FALSE otherwise.
+
+// EVRowIsExpandable:
+// ----------------------------------------------------------------------------
+//
+// Checks if a row is expandable by checking the row's eval. Delegates to EVEvalIsExpandable on the row's eval. Returns TRUE if expandable, FALSE otherwise.
+
+// EVRowIsEditable:
+// ----------------------------------------------------------------------------
+//
+// Checks if a row is editable by checking the row's eval type. Calls EVTypeKeyIsEditable on the eval's type key. Returns TRUE if editable, FALSE otherwise.
+
+// EVStrFromASCII:
+// ----------------------------------------------------------------------------
+//
+// Converts an ASCII byte to its display string with escape sequences. Maps control characters (0x00, 0x07, 0x08, 0x0C, 0x0A, 0x0D, 0x09, 0x0B) to their C escape sequences. Handles quotes, backslash, and printable characters. Returns the escape string or the character itself.
+
+// EVStrFromSimpleTypedEval:
+// ----------------------------------------------------------------------------
+//
+// Generates a human-readable string for a simple typed value. For characters, displays as an escaped character with optional numeric value. For integers, formats with the specified radix and digit grouping. For floats, formats with appropriate precision. For booleans, displays "true" or "false". For pointers, displays as hexadecimal. Returns the formatted string.
+
+// EVEscapedFromRawStr:
+// ----------------------------------------------------------------------------
+//
+// Escapes a raw string for display by converting control characters to escape sequences. Iterates through the raw string, splitting at each control character and replacing it with its escape sequence. Rebuilds the string with the escaped characters. Returns the escaped string.
+
+// EVStrIterBegin:
+// ----------------------------------------------------------------------------
+//
+// Creates an iterator for generating the string representation of an eval. Allocates a new EVStrIter, creates the head task with the eval and parameters, and returns the iterator. The iterator will produce parts of the string representation on each call.
+
+// EVStrIterNext:
+// ----------------------------------------------------------------------------
+//
+// Advances the string iterator and produces the next part of the string representation. Processes the current task based on the eval's type kind. Handles enumeration values (with optional suffix stripping), lens types (bin, oct, dec, hex, digits), meta types, pointers (with string reading and dereferencing), structures, arrays, and sets. Uses a task stack for nested stringification. Returns TRUE if a string part was produced, FALSE when done.
+
+// EvalTypeKeyFromPIDKey:
+// ----------------------------------------------------------------------------
+//
+// Placeholder function for converting a PID key to an eval type key. Currently not implemented and returns an empty key. Reserved for future integration.

@@ -1,0 +1,71 @@
+libnc.h
+H:\C++\ncviewer\nc_defines.h
+H:\C++\ncviewer\nc_types.h
+H:\C++\ncviewer\nc_arena.h
+H:\C++\ncviewer\nc_math.h
+H:\C++\ncviewer\nc_string.h
+H:\C++\ncviewer\nc_cli.h
+H:\C++\ncviewer\nc_system.h
+H:\C++\ncviewer\nc_memory.h
+H:\C++\ncviewer\nc_tls.h
+H:\C++\ncviewer\nc_time.h
+H:\C++\ncviewer\nc_print.h
+H:\C++\ncviewer\nc_log.h
+H:\C++\ncviewer\nc_profile.h
+H:\C++\ncviewer\nc_atomics.h
+H:\C++\ncviewer\nc_file.h
+H:\C++\ncviewer\nc_net.h
+H:\C++\ncviewer\nc_proc.h
+H:\C++\ncviewer\nc_simd.h
+H:\C++\ncviewer\nc_sync.h
+H:\C++\ncviewer\nc_thread.h
+cache\nc_object_cache.h
+cache\nc_content.h
+cache\nc_file_stream.h
+H:\C++\ncviewer\nc_base64.h
+H:\C++\ncviewer\nc_math.cpp
+H:\C++\ncviewer\nc_memory.cpp
+H:\C++\ncviewer\nc_arena.cpp
+external\xxHash/xxhash.h
+H:\C++\ncviewer\nc_string.cpp
+H:\C++\ncviewer\nc_system.cpp
+H:\C++\ncviewer\nc_time.cpp
+H:\C++\ncviewer\nc_log.cpp
+H:\C++\ncviewer\nc_profile.cpp
+H:\C++\ncviewer\nc_cli.cpp
+H:\C++\ncviewer\nc_file.cpp
+H:\C++\ncviewer\nc_proc.cpp
+H:\C++\ncviewer\nc_thread.cpp
+cache\nc_object_cache.cpp
+cache\nc_content.cpp
+cache\nc_file_stream.cpp
+H:\C++\ncviewer\nc_base64.cpp
+#if WINDOWS
+    internal\win32/win32_platform.h
+    internal\win32/win32_system.cpp
+    internal\win32/win32_memory.cpp
+    internal\win32/win32_file.cpp
+    internal\win32/win32_keyboard.h
+    internal\win32/win32_net.cpp
+    internal\win32/win32_proc.cpp
+    internal\win32/win32_sync.cpp
+    internal\win32/win32_thread.cpp
+    internal\win32/win32_time.cpp
+    internal\win32/win32_print.cpp
+    internal\win32/win32_entry.cpp
+#elif LINUX
+    internal\linux/linux_platform.h
+    internal\linux/linux_system.cpp
+    internal\linux/linux_memory.cpp
+    internal\linux/linux_file.cpp
+    internal\linux/linux_keyboard.h
+    internal\linux/linux_net.cpp
+    internal\linux/linux_proc.cpp
+    internal\linux/linux_sync.cpp
+    internal\linux/linux_thread.cpp
+    internal\linux/linux_time.cpp
+    internal\linux/linux_print.cpp
+    internal\linux/linux_entry.cpp
+#endif
+external\rad_lzb_simple/rad_lzb_simple.h
+external\rad_lzb_simple/rad_lzb_simple.c

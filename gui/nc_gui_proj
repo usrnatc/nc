@@ -1,0 +1,60 @@
+// raddbg 0.9.24 project file
+
+recent_file: path: "nc_metadesk.cpp"
+recent_file: path: "include_order.txt"
+recent_file: path: "nc_types.h"
+recent_file: path: "nc_ui.cpp"
+recent_file: path: "nc_application.cpp"
+recent_file: path: "main.cpp"
+recent_file: path: "nc_eval.cpp"
+recent_file: path: "nc_memory.cpp"
+recent_file: path: "nc_eval.h"
+recent_file: path: "nc_profile.cpp"
+recent_file: path: "nc_string.cpp"
+recent_file: path: "nc_arena.cpp"
+target:
+{
+  executable: "build/main.exe"
+  working_directory: build
+  enabled: 1
+}
+debug_info:
+{
+  path: "H:/C++/nc/gui/build/main.pdb"
+  timestamp: 66216380162406
+}
+debug_info:
+{
+  path: "H:/C++/nc/gui/build/main.rdi"
+  timestamp: 66216043640329
+}
+debug_info:
+{
+  path: "C:/ProgramData/Windhawk/Engine/Mods/64/disk-pie-chart_1.0.0_360183.dll"
+  timestamp: 66193465963112
+}
+debug_info:
+{
+  path: "C:/ProgramData/Windhawk/Engine/Mods/64/libunwind.whl"
+  timestamp: 66193463763012
+}
+debug_info:
+{
+  path: "C:/ProgramData/Windhawk/Engine/Mods/64/libc++.whl"
+  timestamp: 66193463763009
+}
+debug_info:
+{
+  path: "C:/ProgramData/Windhawk/Engine/Mods/64/explorer-details-better-file-sizes_1.4.11_569577.dll"
+  timestamp: 66193969082194
+}
+debug_info:
+{
+  path: "C:/ProgramData/Windhawk/Engine/Mods/64/modernize-folder-picker-dialog_1.0.0_674792.dll"
+  timestamp: 66193464135881
+}
+debug_info:
+{
+  path: "C:/ProgramData/Windhawk/Engine/Mods/64/shrink-address-bar-height_1.0.1_215711.dll"
+  timestamp: 66193969227979
+}
