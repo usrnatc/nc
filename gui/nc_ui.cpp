@@ -2721,7 +2721,13 @@ UIBuildBoxFromKey(UIBoxKind Kind, UIKey Key)
         if (!IsUIBoxEmpty(Box)) {
             SLL_STACK_POP(UI_STATE->HeadFreeBox);
         } else {
-            Box = ArenaPushArrayZero(!BoxIsTransient ? UI_STATE->MemPool : UIBuildMemPool(), UIBox, 1);
+            Box = ArenaPushArrayZero(
+                !BoxIsTransient 
+                    ? UI_STATE->MemPool 
+                    : UIBuildMemPool(), 
+                UIBox, 
+                1
+            );
         }
 
         MemSet(Box, 0, sizeof(UIBox));
@@ -2731,23 +2737,36 @@ UIBuildBoxFromKey(UIBoxKind Kind, UIKey Key)
     Box->Tail = EMPTY_UI_BOX_VALUE;
     Box->Next = EMPTY_UI_BOX_VALUE;
     Box->Prev = EMPTY_UI_BOX_VALUE;
-    Box->HashNext = EMPTY_UI_BOX_VALUE;
-    Box->HashPrev = EMPTY_UI_BOX_VALUE;
     Box->Parent = EMPTY_UI_BOX_VALUE;
     Box->ChildCount = 0;
     Box->Kind = 0;
     Box->HoverCursor = CURSOR_KIND_POINTER;
     MemSet(Box->PreferredSize, 0, sizeof(Box->PreferredSize));
-    MemSet(&Box->DrawBucket, 0, sizeof(*Box->DrawBucket));
+    MemSet(&Box->DrawBucket, 0, sizeof(Box->DrawBucket));
 
     if (BoxFirstFrame && !BoxIsTransient) {
         u64 Slot = *Key.V % UI_STATE->BoxTableSize;
 
-        DLL_INSERT_EX(EMPTY_UI_BOX_VALUE, UI_STATE->BoxTable[Slot].Head, UI_STATE->BoxTable[Slot].Tail, UI_STATE->BoxTable[Slot].Tail, Box, HashNext, HashPrev);
+        DLL_INSERT_EX(
+            EMPTY_UI_BOX_VALUE, 
+            UI_STATE->BoxTable[Slot].Head, 
+            UI_STATE->BoxTable[Slot].Tail, 
+            UI_STATE->BoxTable[Slot].Tail, 
+            Box, 
+            HashNext, 
+            HashPrev
+        );
     }
 
     if (!IsUIBoxEmpty(Parent)) {
-        DLL_PUSH_BACK_EX(EMPTY_UI_BOX_VALUE, Parent->Head, Parent->Tail, Box, Next, Prev);
+        DLL_PUSH_BACK_EX(
+            EMPTY_UI_BOX_VALUE, 
+            Parent->Head, 
+            Parent->Tail, 
+            Box, 
+            Next, 
+            Prev
+        );
         ++Parent->ChildCount;
         Box->Parent = Parent;
     }
@@ -2757,7 +2776,11 @@ UIBuildBoxFromKey(UIBoxKind Kind, UIKey Key)
     Box->FastpathCodepoint = UI_STATE->FastpathCodepointStack.Head->V;
     Box->GroupKey = UI_STATE->GroupKeyStack.Head->V;
 
-    if (UIIsFocusActive() && (Box->Kind & UI_BOX_KIND_DEFAULT_FOCUS_NAV) && (UI_STATE->DefaultNavRootKey == EMPTY_UI_KEY_VALUE)) {
+    if (
+        UIIsFocusActive() && 
+        (Box->Kind & UI_BOX_KIND_DEFAULT_FOCUS_NAV) && 
+        (UI_STATE->DefaultNavRootKey == EMPTY_UI_KEY_VALUE)
+    ) {
         UI_STATE->DefaultNavRootKey = Box->Key;
     }
 
@@ -2768,7 +2791,13 @@ UIBuildBoxFromKey(UIBoxKind Kind, UIKey Key)
 
     Box->LastTouchedBuildIndex = UI_STATE->BuildIndex;
 
-    if (Box->Kind & UI_BOX_KIND_DISABLED && (!(LastKind & UI_BOX_KIND_DISABLED) || BoxFirstFrame)) {
+    if (
+        Box->Kind & UI_BOX_KIND_DISABLED && 
+        (
+            !(LastKind & UI_BOX_KIND_DISABLED) || 
+            BoxFirstFrame
+        )
+    ) {
         Box->FirstDisabledBuildIndex = UI_STATE->BuildIndex;
     }
 
@@ -2782,14 +2811,18 @@ UIBuildBoxFromKey(UIBoxKind Kind, UIKey Key)
         Box->FixedPosition.Y = UI_STATE->FixedYStack.Head->V;
     }
 
-    if (UI_STATE->FixedWidthStack.Head != &UI_STATE->FixedWidthEmptyStackHead) {
+    if (
+        UI_STATE->FixedWidthStack.Head != &UI_STATE->FixedWidthEmptyStackHead
+    ) {
         Box->Kind |= UI_BOX_KIND_FIXED_WIDTH;
         Box->FixedSize.X = UI_STATE->FixedWidthStack.Head->V;
     } else {
         Box->PreferredSize[AXIS_2D_X] = UI_STATE->PreferredWidthStack.Head->V;
     }
 
-    if (UI_STATE->FixedHeightStack.Head != &UI_STATE->FixedHeightEmptyStackHead) {
+    if (
+        UI_STATE->FixedHeightStack.Head != &UI_STATE->FixedHeightEmptyStackHead
+    ) {
         Box->Kind |= UI_BOX_KIND_FIXED_HEIGHT;
         Box->FixedSize.Y = UI_STATE->FixedHeightStack.Head->V;
     } else {

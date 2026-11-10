@@ -111,6 +111,7 @@ GUILinkerFlags=(
     "-Wl,-Bdynamic -lXau"
     "-Wl,-Bdynamic -lXdmcp"
     "-Wl,-Bdynamic -lXrandr"
+    "-Wl,-Bdynamic -lXfixes"
     "-Wl,-Bdynamic -lGL"
     "-Wl,-Bdynamic -lEGL"
 )

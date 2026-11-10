@@ -9,6 +9,7 @@
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/extensions/Xfixes.h>
 
 struct LinuxWindowClientArea {
     LinuxWindowClientArea* Next;
@@ -23,7 +24,7 @@ struct LinuxWindow {
     XID                    CounterXID;
     u64                    CounterValue;
     b32                    ResizeDraw;
-    r2f32                  LastSyncedRect;
+    r2f32                  PrevSyncedRect;
     b32                    WaitingForResize;
     b32                    CustomBorder;
     f32                    CustomTitleBarThickness;
@@ -35,6 +36,7 @@ struct LinuxWindow {
 struct GraphicsState {
     Arena*                 MemPool;
     Display*               Disp;
+    Window                 __HIDDEN_WINDOW;                                     // NOTE(nc): we need this because X11 is kind of shit and clipboards die when the owning-window does. so we need a window that lives forever
     XIM                    Xim;
     LinuxWindow*           HeadWindow;
     LinuxWindow*           TailWindow;
@@ -47,7 +49,7 @@ struct GraphicsState {
     Atom                   UTF8StringAtom;
     Atom                   MotifHintsAtom;
     Cursor                 Cursors[CURSOR_KIND_COUNT];
-    CursorKind             LastSetCursor;
+    CursorKind             PrevSetCursor;
     GraphicsProperties     Properties;
     int                    WakeupFD;
     Visual*                WindowVisual;
@@ -56,11 +58,16 @@ struct GraphicsState {
     LinuxWindowClientArea* FreeClientArea;
     long*                  IconImageData;
     u64                    IconImageDataCount;
-    XID                    ClipboardXID;
     Arena*                 ClipboardMemPool;
     u8*                    ClipboardBuffer;
     u64                    ClipboardBufferSize;
-    u64 KeyDownState[(INPUT_KIND_COUNT + 63) / 64];
+    u64                    KeyDownState[(INPUT_KIND_COUNT + 63) / 64];
+    b32                    IsXFixesPresent;
+    int                    XFixesSelectionEventCode;
+    Window                 PrevTitleBarPressWindow;
+    Time                   PrevTitleBarPressTime;
+    int                    PrevTitleBarPressX;
+    int                    PrevTitleBarPressY;
 };
 
 GraphicsState* GRAPHICS_STATE = NULL;
@@ -1150,7 +1157,9 @@ GraphicsInit(void)
 
         PrintErr(
             "[ERROR] XOpenDisplay failed (DISPLAY=%s). Is an X server / WSLg running?\n",
-            DisplayEnv ? DisplayEnv : "<unset>"
+            DisplayEnv 
+                ? DisplayEnv 
+                : "<unset>"
         );
         GraphicalMessage(
             TRUE,
@@ -1158,6 +1167,23 @@ GraphicsInit(void)
             "Could not connect to the X display."_s8
         );
         Abort(1);
+    }
+
+    {
+        GRAPHICS_STATE->__HIDDEN_WINDOW = XCreateWindow(
+            GRAPHICS_STATE->Disp,
+            XDefaultRootWindow(GRAPHICS_STATE->Disp),
+            -1,
+            -1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        );
     }
 
     GRAPHICS_STATE->DeleteWindowAtom = XInternAtom(
@@ -1195,6 +1221,29 @@ GraphicsInit(void)
         "_MOTIF_WM_HINTS",
         0
     );
+
+    {
+        int XFixesVersion = 0;
+        int XFixesErr = 0;
+
+        GRAPHICS_STATE->IsXFixesPresent = XQueryExtension(
+            GRAPHICS_STATE->Disp,
+            "XFIXES",
+            &XFixesVersion,
+            &GRAPHICS_STATE->XFixesSelectionEventCode,
+            &XFixesErr
+        );
+
+        if (GRAPHICS_STATE->IsXFixesPresent) {
+            XFixesSelectSelectionInput(
+                GRAPHICS_STATE->Disp,
+                GRAPHICS_STATE->__HIDDEN_WINDOW,
+                GRAPHICS_STATE->ClipboardAtom,
+                XFixesSetSelectionOwnerNotifyMask
+            );
+        }
+    }
+
     GRAPHICS_STATE->Xim = XOpenIM(
         GRAPHICS_STATE->Disp,
         NULL,
@@ -1207,20 +1256,81 @@ GraphicsInit(void)
     //     : cleared and the data is lost (why???). This window will be hidden,
     //     : but lives for the lifetime of the application so that the clipboard
     //     : is persistent throughout the program's run as expected.
-    GRAPHICS_STATE->ClipboardXID = XCreateSimpleWindow(
-        GRAPHICS_STATE->Disp,
-        XDefaultRootWindow(GRAPHICS_STATE->Disp),
-        -10,
-        -10,
-        1,
-        1,
-        0,
-        0,
-        0
-    );
+    // GRAPHICS_STATE->ClipboardXID = XCreateSimpleWindow(
+    //     GRAPHICS_STATE->Disp,
+    //     XDefaultRootWindow(GRAPHICS_STATE->Disp),
+    //     -10,
+    //     -10,
+    //     1,
+    //     1,
+    //     0,
+    //     0,
+    //     0
+    // );
     GRAPHICS_STATE->Properties.DoubleClickTime = 0.5f;
     GRAPHICS_STATE->Properties.CaretBlinkTime = 0.5f;
     GRAPHICS_STATE->Properties.DefaultRefreshRate = 60.0f;
+
+    {
+        XRRScreenResources* Resources = XRRGetScreenResourcesCurrent(
+            GRAPHICS_STATE->Disp,
+            DefaultRootWindow(GRAPHICS_STATE->Disp)
+        );
+
+        for (u64 Index = 0; Index < Resources->noutput; ++Index) {
+            XRROutputInfo* OutputInfo = XRRGetOutputInfo(
+                GRAPHICS_STATE->Disp,
+                Resources,
+                Resources->outputs[Index]
+            );
+
+            if (
+                OutputInfo &&
+                OutputInfo->connection == RR_Connected &&
+                OutputInfo->crtc != None
+            ) {
+                XRRCrtcInfo* CRTCInfo = XRRGetCrtcInfo(
+                    GRAPHICS_STATE->Disp,
+                    Resources,
+                    OutputInfo->crtc
+                );
+
+                if (CRTCInfo) {
+                    for (
+                        u64 ModeIndex = 0; 
+                        ModeIndex < Resources->nmode; 
+                        ++ModeIndex
+                    ) {
+                        if (
+                            Resources->modes[ModeIndex].id == CRTCInfo->mode
+                        ) {
+                            XRRModeInfo* ModeInfo = &Resources->modes[
+                                ModeIndex
+                            ];
+
+                            if (ModeInfo->vTotal && ModeInfo->hTotal) {
+                                GRAPHICS_STATE->Properties.DefaultRefreshRate = (
+                                    (f32) ModeInfo->dotClock /
+                                    (
+                                        (f32) ModeInfo->hTotal * (f32) ModeInfo->vTotal
+                                    )
+                                );
+                            }
+                        }
+                    }
+
+                    XRRFreeCrtcInfo(CRTCInfo);
+                }
+
+                XRRFreeOutputInfo(OutputInfo);
+            }
+        }
+
+        XRRFreeScreenResources(Resources);
+
+        if (!GRAPHICS_STATE->Properties.DefaultRefreshRate)
+            GRAPHICS_STATE->Properties.DefaultRefreshRate = 60.0f;
+    }
 
     {
         struct {
@@ -1301,7 +1411,7 @@ SetClipboardText(Str8 String)
     XSetSelectionOwner(
         GRAPHICS_STATE->Disp,
         GRAPHICS_STATE->ClipboardAtom,
-        GRAPHICS_STATE->ClipboardXID,
+        GRAPHICS_STATE->__HIDDEN_WINDOW,
         CurrentTime
     );
 }
@@ -1320,7 +1430,7 @@ GetClipboardText(Arena* MemPool)
 
     // NOTE: if we own the clipboard we can just get the data easily without
     //     : having to fight for ownership
-    if (OwnerWindow == GRAPHICS_STATE->ClipboardXID) {
+    if (OwnerWindow == GRAPHICS_STATE->__HIDDEN_WINDOW) {
         if (GRAPHICS_STATE->ClipboardBufferSize) {
             Result.Str = ArenaPushArray(
                 MemPool, 
@@ -1350,7 +1460,7 @@ GetClipboardText(Arena* MemPool)
         GRAPHICS_STATE->ClipboardAtom,
         GRAPHICS_STATE->UTF8StringAtom,
         PropertyAtom,
-        GRAPHICS_STATE->ClipboardXID,
+        GRAPHICS_STATE->__HIDDEN_WINDOW,
         CurrentTime
     );
     XFlush(GRAPHICS_STATE->Disp);
@@ -1367,7 +1477,7 @@ GetClipboardText(Arena* MemPool)
         if (
             XCheckTypedWindowEvent(
                 GRAPHICS_STATE->Disp,
-                GRAPHICS_STATE->ClipboardXID,
+                GRAPHICS_STATE->__HIDDEN_WINDOW,
                 SelectionNotify,
                 &Event
             )
@@ -1388,7 +1498,7 @@ GetClipboardText(Arena* MemPool)
 
     XGetWindowProperty(
         GRAPHICS_STATE->Disp,
-        GRAPHICS_STATE->ClipboardXID,
+        GRAPHICS_STATE->__HIDDEN_WINDOW,
         PropertyAtom,
         0,
         I32_MAX,
@@ -1614,9 +1724,26 @@ WindowClose(Handle WindowHandle)
     if (WindowHandle == EMPTY_HANDLE_VALUE)
         return;
 
-    LinuxWindow* SystemWindow = (LinuxWindow*) PTR_FROM_INT(WindowHandle.V[0]);
+    LinuxWindow* SystemWindow = (LinuxWindow*) PTR_FROM_INT(
+        WindowHandle.V[0]
+    );
 
+    WindowClearCustomBorderData(WindowHandle);
+
+    if (SystemWindow->Xic)
+        XDestroyIC(SystemWindow->Xic);
+
+    XSyncDestroyCounter(GRAPHICS_STATE->Disp, SystemWindow->CounterXID);
     XDestroyWindow(GRAPHICS_STATE->Disp, SystemWindow->Win);
+    DLL_REMOVE(
+        GRAPHICS_STATE->HeadWindow,
+        GRAPHICS_STATE->TailWindow,
+        SystemWindow
+    );
+    SLL_STACK_PUSH(
+        GRAPHICS_STATE->FreeWindow,
+        SystemWindow
+    );
 }
 
 void
@@ -1742,6 +1869,7 @@ WindowIsMaximised(Handle WindowHandle)
         return Result;
 
     LinuxWindow* SystemWindow = (LinuxWindow*) PTR_FROM_INT(WindowHandle.V[0]);
+    Atom WindowState = XInternAtom(GRAPHICS_STATE->Disp, "_NET_WM_STATE", 0);
     Atom MaximisedHorizontalAtom = XInternAtom(
         GRAPHICS_STATE->Disp,
         "_NET_WM_STATE_MAXIMIZED_HORZ",
@@ -1752,12 +1880,54 @@ WindowIsMaximised(Handle WindowHandle)
         "_NET_WM_STATE_MAXIMIZED_VERT",
         0
     );
+    unsigned long PropsCount = 0;
+    Atom* Props = NULL;
 
-    Result = X11WindowHasState(
-        SystemWindow,
-        MaximisedHorizontalAtom,
-        MaximisedVerticalAtom
-    );
+    {
+        Atom ActualType = 0;
+        int ActualFormat = 0;
+        unsigned long PostBytes = 0;
+        int __Res = XGetWindowProperty(
+            GRAPHICS_STATE->Disp,
+            SystemWindow->Win,
+            WindowState,
+            0,
+            1024,
+            0,
+            AnyPropertyType,
+            &ActualType,
+            &ActualFormat,
+            &PropsCount,
+            &PostBytes,
+            (unsigned char**) &Props
+        );
+    }
+
+    b32 IsMaximisedHorizontalSet = FALSE;
+    b32 IsMaximisedVerticalSet = FALSE;
+
+    {
+        for (
+            unsigned long Index = 0;
+            Index < PropsCount;
+            ++Index
+        ) {
+            if (Props[Index] == MaximisedHorizontalAtom)
+                IsMaximisedHorizontalSet = TRUE;
+
+            if (Props[Index] == MaximisedVerticalAtom)
+                IsMaximisedVerticalSet = TRUE;
+        }
+    }
+
+    XFree(Props);
+    Result = (IsMaximisedHorizontalSet && IsMaximisedVerticalSet);
+
+    // Result = X11WindowHasState(
+    //     SystemWindow,
+    //     MaximisedHorizontalAtom,
+    //     MaximisedVerticalAtom
+    // );
 
     return Result;
 }
@@ -1776,7 +1946,7 @@ WindowSetMaximised(Handle WindowHandle, b32 Maximised)
     );
     Atom MaximisedVerticalAtom = XInternAtom(
         GRAPHICS_STATE->Disp,
-        "_NET_WM_STATE_MAXIMIZED_HORZ",
+        "_NET_WM_STATE_MAXIMIZED_VERT",
         0
     );
 
@@ -1962,10 +2132,15 @@ WindowPushCustomTitleBarClientArea(Handle WindowHandle, r2f32 Rect)
     LinuxWindow* Win = (LinuxWindow*) PTR_FROM_INT(WindowHandle.V[0]);
     LinuxWindowClientArea* ClientArea = GRAPHICS_STATE->FreeClientArea;
 
-    if (ClientArea)
+    if (ClientArea) {
         SLL_STACK_POP(GRAPHICS_STATE->FreeClientArea);
-    else
-        ClientArea = ArenaPushArrayZero(GRAPHICS_STATE->MemPool, LinuxWindowClientArea, 1);
+    } else {
+        ClientArea = ArenaPushArrayZero(
+            GRAPHICS_STATE->MemPool, 
+            LinuxWindowClientArea, 
+            1
+        );
+    }
 
     ClientArea->Rect = Rect;
     SLL_QUEUE_PUSH(Win->HeadClientArea, Win->TailClientArea, ClientArea);
@@ -1982,7 +2157,7 @@ GetWindowRect(Handle WindowHandle)
     LinuxWindow* SystemWindow = (LinuxWindow*) PTR_FROM_INT(WindowHandle.V[0]);
 
     if (SystemWindow->ResizeDraw) {
-        Result = SystemWindow->LastSyncedRect;
+        Result = SystemWindow->PrevSyncedRect;
     } else {
         XWindowAttributes Attributes = {};
         Status Stat = XGetWindowAttributes(
@@ -2013,7 +2188,7 @@ GetWindowClientRect(Handle WindowHandle)
     LinuxWindow* SystemWindow = (LinuxWindow*) PTR_FROM_INT(WindowHandle.V[0]);
 
     if (SystemWindow->ResizeDraw) {
-        v2f32 Len = Length(SystemWindow->LastSyncedRect);
+        v2f32 Len = Length(SystemWindow->PrevSyncedRect);
 
         Result = Rng(
             0.0f,
@@ -2387,614 +2562,7 @@ SendWakeupEvent(void)
     );
 
     ASSERT(Size == sizeof(__Temp));
-
-    // XEvent Event = {};
-
-    // Event.type = ClientMessage;
-    // Event.xclient.window = GRAPHICS_STATE->ClipboardXID;
-    // Event.xclient.message_type = 0;
-    // Event.xclient.format = 32;
-    // Event.xclient.data.l[0] = 0;
-    // XSendEvent(
-    //     GRAPHICS_STATE->Disp,
-    //     GRAPHICS_STATE->ClipboardXID,
-    //     FALSE,
-    //     0,
-    //     &Event
-    // );
-    // XFlush(GRAPHICS_STATE->Disp);
 }
-
-// InputEventList 
-// GetEvents(Arena* MemPool, b32 Wait)
-// {
-//     InputEventList Result = {};
-
-//     for (
-//         ; 
-//         XPending(GRAPHICS_STATE->Disp) > 0 || (Wait && !Result.Count);
-//     ) {
-//         XEvent Event = {};
-
-//         XNextEvent(GRAPHICS_STATE->Disp, &Event);
-
-//         b32 SetMouseCursor = FALSE;
-
-//         switch (Event.type) {
-//             default: {} break;
-
-//             case KeyPress:
-//             case KeyRelease: {
-//                 InputModifierKind Modifiers = 0;
-
-//                 if (Event.xkey.state & ShiftMask)
-//                     Modifiers |= INPUT_MOD_KIND_SHIFT;
-
-//                 if (Event.xkey.state & ControlMask)
-//                     Modifiers |= INPUT_MOD_KIND_CTRL;
-
-//                 if (Event.xkey.state & Mod1Mask)
-//                     Modifiers |= INPUT_MOD_KIND_ALT;
-
-//                 LinuxWindow* SystemWindow = X11WindowToLinuxWindow(Event.xkey.window);
-//                 KeySym InputKey = 0;
-//                 u8 Text[256] = {};
-//                 u64 TextSize = Xutf8LookupString(
-//                     SystemWindow->Xic,
-//                     &Event.xkey,
-//                     (char*) Text,
-//                     sizeof(Text),
-//                     &InputKey,
-//                     NULL
-//                 );
-//                 b32 IsRightSided = FALSE;
-//                 InputKind Input = INPUT_KIND_NULL;
-
-//                 switch (InputKey) {
-//                     default: {
-//                         if (InputKey >= XK_F1 && InputKey <= XK_F24)
-//                             Input = (InputKind) (INPUT_KIND_FUNC_1 + (InputKey - XK_F1));
-//                         else if (InputKey >= '0' && InputKey <= '9')
-//                             Input = INPUT_KIND_0 + (InputKey - '0');
-//                     } break;
-
-//                     case XK_Escape: {
-//                         Input = INPUT_KIND_ESC;
-//                     } break;
-
-//                     case XK_BackSpace: {
-//                         Input = INPUT_KIND_BACKSPACE;
-//                     } break;
-
-//                     case XK_Delete: {
-//                         Input = INPUT_KIND_DELETE;
-//                     } break;
-
-//                     case XK_Return: {
-//                         Input = INPUT_KIND_RETURN;
-//                     } break;
-
-//                     case XK_Pause: {
-//                         Input = INPUT_KIND_PAUSE;
-//                     } break;
-
-//                     case XK_Tab: {
-//                         Input = INPUT_KIND_TAB;
-//                     } break;
-
-//                     case XK_Left: {
-//                         Input = INPUT_KIND_LEFT;
-//                     } break;
-
-//                     case XK_Right: {
-//                         Input = INPUT_KIND_RIGHT;
-//                     } break;
-
-//                     case XK_Up: {
-//                         Input = INPUT_KIND_UP;
-//                     } break;
-
-//                     case XK_Down: {
-//                         Input = INPUT_KIND_DOWN;
-//                     } break;
-
-//                     case XK_Home: {
-//                         Input = INPUT_KIND_HOME;
-//                     } break;
-
-//                     case XK_End: {
-//                         Input = INPUT_KIND_END;
-//                     } break;
-
-//                     case XK_Page_Up: {
-//                         Input = INPUT_KIND_PAGEUP;
-//                     } break;
-
-//                     case XK_Page_Down: {
-//                         Input = INPUT_KIND_PAGEDOWN;
-//                     } break;
-
-//                     case XK_Alt_L: {
-//                         Input = INPUT_KIND_ALT;
-//                     } break;
-
-//                     case XK_Alt_R: {
-//                         Input = INPUT_KIND_ALT;
-//                         IsRightSided = TRUE;
-//                     } break;
-
-//                     case XK_Shift_L: {
-//                         Input = INPUT_KIND_SHIFT;
-//                     } break;
-
-//                     case XK_Shift_R: {
-//                         Input = INPUT_KIND_SHIFT;
-//                         IsRightSided = TRUE;
-//                     } break;
-
-//                     case XK_Control_L: {
-//                         Input = INPUT_KIND_CTRL;
-//                     } break;
-
-//                     case XK_Control_R: {
-//                         Input = INPUT_KIND_CTRL;
-//                         IsRightSided = TRUE;
-//                     } break;
-
-//                     case '-': {
-//                         Input = INPUT_KIND_MINUS;
-//                     } break;
-
-//                     case '=': {
-//                         Input = INPUT_KIND_EQUAL;
-//                     } break;
-
-//                     case '[': {
-//                         Input = INPUT_KIND_LEFTBRACKET;
-//                     } break;
-
-//                     case ']': {
-//                         Input = INPUT_KIND_RIGHTBRACKET;
-//                     } break;
-
-//                     case ';': {
-//                         Input = INPUT_KIND_SEMICOLON;
-//                     } break;
-
-//                     case '\'': {
-//                         Input = INPUT_KIND_QUOTE;
-//                     } break;
-
-//                     case '.': {
-//                         Input = INPUT_KIND_PERIOD;
-//                     } break;
-
-//                     case ',': {
-//                         Input = INPUT_KIND_COMMA;
-//                     } break;
-
-//                     case '/': {
-//                         Input = INPUT_KIND_SLASH;
-//                     } break;
-
-//                     case '\\': {
-//                         Input = INPUT_KIND_BACKSLASH;
-//                     } break;
-
-//                     case '\t': {
-//                         Input = INPUT_KIND_TAB;
-//                     } break;
-
-//                     case 'a':
-//                     case 'A': {
-//                         Input = INPUT_KIND_A;
-//                     } break;
-
-//                     case 'b':
-//                     case 'B': {
-//                         Input = INPUT_KIND_B;
-//                     } break;
-
-//                     case 'c':
-//                     case 'C': {
-//                         Input = INPUT_KIND_C;
-//                     } break;
-
-//                     case 'd':
-//                     case 'D': {
-//                         Input = INPUT_KIND_D;
-//                     } break;
-
-//                     case 'e':
-//                     case 'E': {
-//                         Input = INPUT_KIND_E;
-//                     } break;
-
-//                     case 'f':
-//                     case 'F': {
-//                         Input = INPUT_KIND_F;
-//                     } break;
-
-//                     case 'g':
-//                     case 'G': {
-//                         Input = INPUT_KIND_G;
-//                     } break;
-
-//                     case 'h':
-//                     case 'H': {
-//                         Input = INPUT_KIND_H;
-//                     } break;
-
-//                     case 'i':
-//                     case 'I': {
-//                         Input = INPUT_KIND_I;
-//                     } break;
-
-//                     case 'j':
-//                     case 'J': {
-//                         Input = INPUT_KIND_J;
-//                     } break;
-
-//                     case 'k':
-//                     case 'K': {
-//                         Input = INPUT_KIND_K;
-//                     } break;
-
-//                     case 'l':
-//                     case 'L': {
-//                         Input = INPUT_KIND_L;
-//                     } break;
-
-//                     case 'm':
-//                     case 'M': {
-//                         Input = INPUT_KIND_M;
-//                     } break;
-
-//                     case 'n':
-//                     case 'N': {
-//                         Input = INPUT_KIND_N;
-//                     } break;
-
-//                     case 'o':
-//                     case 'O': {
-//                         Input = INPUT_KIND_O;
-//                     } break;
-
-//                     case 'p':
-//                     case 'P': {
-//                         Input = INPUT_KIND_P;
-//                     } break;
-
-//                     case 'q':
-//                     case 'Q': {
-//                         Input = INPUT_KIND_Q;
-//                     } break;
-
-//                     case 'r':
-//                     case 'R': {
-//                         Input = INPUT_KIND_R;
-//                     } break;
-
-//                     case 's':
-//                     case 'S': {
-//                         Input = INPUT_KIND_S;
-//                     } break;
-
-//                     case 't':
-//                     case 'T': {
-//                         Input = INPUT_KIND_T;
-//                     } break;
-
-//                     case 'u':
-//                     case 'U': {
-//                         Input = INPUT_KIND_U;
-//                     } break;
-
-//                     case 'v':
-//                     case 'V': {
-//                         Input = INPUT_KIND_V;
-//                     } break;
-
-//                     case 'w':
-//                     case 'W': {
-//                         Input = INPUT_KIND_W;
-//                     } break;
-
-//                     case 'x':
-//                     case 'X': {
-//                         Input = INPUT_KIND_X;
-//                     } break;
-
-//                     case 'y':
-//                     case 'Y': {
-//                         Input = INPUT_KIND_Y;
-//                     } break;
-
-//                     case 'z':
-//                     case 'Z': {
-//                         Input = INPUT_KIND_Z;
-//                     } break;
-
-//                     case ' ': {
-//                         Input = INPUT_KIND_SPACE;
-//                     } break;
-//                 }
-
-//                 if (Event.type == KeyPress && TextSize) {
-//                     for (u64 Offset = 0; Offset < TextSize; ) {
-//                         UnicodeDecode Decode = UTF8Decode(Text + Offset, TextSize - Offset);
-
-//                         if (
-//                             Decode.CodePoint &&
-//                             (
-//                                 Decode.CodePoint >= 32 ||
-//                                 Decode.CodePoint == '\t'
-//                             )
-//                         ) {
-//                             InputEvent* E = ListPush(
-//                                 MemPool,
-//                                 &Result,
-//                                 EVENT_KIND_TEXT
-//                             );
-
-//                             E->WindowHandle.V[0] = INT_FROM_PTR(SystemWindow);
-//                             E->Character = Decode.CodePoint;
-//                         }
-
-//                         if (!Decode.Inc)
-//                             break;
-
-//                         Offset += Decode.Inc;
-//                     }
-//                 }
-
-//                 {
-//                     InputEvent* E = ListPush(
-//                         MemPool,
-//                         &Result,
-//                         (Event.type == KeyPress)
-//                             ? EVENT_KIND_PRESS
-//                             : EVENT_KIND_RELEASE
-//                     );
-
-//                     E->WindowHandle.V[0] = INT_FROM_PTR(SystemWindow);
-//                     E->Modifier = Modifiers;
-//                     E->Input = Input;
-//                     E->RightSided = IsRightSided;
-//                 }
-//             } break;
-
-//             case ButtonPress:
-//             case ButtonRelease: {
-//                 InputModifierKind Modifiers = 0;
-
-//                 if (Event.xbutton.state & ShiftMask)
-//                     Modifiers |= INPUT_MOD_KIND_SHIFT;
-
-//                 if (Event.xbutton.state & ControlMask)
-//                     Modifiers |= INPUT_MOD_KIND_CTRL;
-
-//                 if (Event.xbutton.state & Mod1Mask)
-//                     Modifiers |= INPUT_MOD_KIND_ALT;
-
-//                 InputKind Input = INPUT_KIND_NULL;
-
-//                 switch (Event.xbutton.button) {
-//                     default: {} break;
-
-//                     case Button1: {
-//                         Input = INPUT_KIND_LEFT_MOUSE_BTN;
-//                     } break;
-
-//                     case Button2: {
-//                         Input = INPUT_KIND_MIDDLE_MOUSE_BTN;
-//                     } break;
-
-//                     case Button3: {
-//                         Input = INPUT_KIND_RIGHT_MOUSE_BTN;
-//                     } break;
-//                 }
-
-//                 LinuxWindow* SystemWindow = X11WindowToLinuxWindow(Event.xbutton.window);
-
-//                 if (Input != INPUT_KIND_NULL) {
-//                     InputEvent* E = ListPush(
-//                         MemPool,
-//                         &Result,
-//                         (Event.type == ButtonPress)
-//                             ? EVENT_KIND_PRESS
-//                             : EVENT_KIND_RELEASE
-//                     );
-
-//                     E->WindowHandle.V[0] = INT_FROM_PTR(SystemWindow);
-//                     E->Modifier = Modifiers;
-//                     E->Input = Input;
-//                     E->Position = Vec(
-//                         (f32) Event.xbutton.x, 
-//                         (f32) Event.xbutton.y
-//                     );
-//                 } else if (
-//                     Event.xbutton.button == Button4 ||
-//                     Event.xbutton.button == Button5
-//                 ) {
-//                     InputEvent* E = ListPush(
-//                         MemPool,
-//                         &Result,
-//                         EVENT_KIND_SCROLL
-//                     );
-
-//                     E->WindowHandle.V[0] = INT_FROM_PTR(SystemWindow);
-//                     E->Modifier = Modifiers;
-//                     E->PositionDelta = Vec(
-//                         0.0f,
-//                         (Event.xbutton.button == Button4) ? -1.0f : 1.0f
-//                     );
-//                     E->Position = Vec(
-//                         (f32) Event.xbutton.x,
-//                         (f32) Event.xbutton.y
-//                     );
-//                 }
-//             } break;
-
-//             case MotionNotify: {
-//                 LinuxWindow* SystemWindow = X11WindowToLinuxWindow(Event.xclient.window);
-//                 InputEvent* E = ListPush(
-//                     MemPool,
-//                     &Result,
-//                     EVENT_KIND_MOUSE_MOVE
-//                 );
-
-//                 E->WindowHandle.V[0] = INT_FROM_PTR(
-//                     X11WindowToLinuxWindow(Event.xclient.window)
-//                 );
-//                 E->Position.X = (f32) Event.xmotion.x;
-//                 E->Position.Y = (f32) Event.xmotion.y;
-//                 SetMouseCursor = TRUE;
-//             } break;
-
-//             case FocusIn: {} break;
-
-//             case FocusOut: {
-//                 LinuxWindow* SystemWindow = X11WindowToLinuxWindow(Event.xfocus.window);
-//                 InputEvent* E = ListPush(
-//                     MemPool,
-//                     &Result,
-//                     EVENT_KIND_WINDOW_LOSE_FOCUS
-//                 );
-
-//                 E->WindowHandle.V[0] = INT_FROM_PTR(SystemWindow);
-//             } break;
-
-//             case SelectionRequest: {
-//                 XSelectionRequestEvent* Request = &Event.xselectionrequest;
-//                 XEvent Response = {};
-
-//                 Response.type = SelectionNotify;
-//                 Response.xselection.requestor = Request->requestor;
-//                 Response.xselection.selection = Request->selection;
-//                 Response.xselection.target = Request->target;
-//                 Response.xselection.time = Request->time;
-//                 Response.xselection.property = None;
-
-//                 if (Request->target == GRAPHICS_STATE->TargetsAtom) {
-//                     Atom SupportedTargets[] = {
-//                         GRAPHICS_STATE->TargetsAtom,
-//                         GRAPHICS_STATE->UTF8StringAtom,
-//                         XA_STRING
-//                     };
-
-//                     XChangeProperty(
-//                         GRAPHICS_STATE->Disp,
-//                         Request->requestor,
-//                         Request->property,
-//                         XA_ATOM,
-//                         32,
-//                         PropModeReplace,
-//                         (u8*) SupportedTargets,
-//                         ARRAY_COUNT(SupportedTargets)
-//                     );
-//                     Response.xselection.property = Request->property;
-//                 } else if (
-//                     Request->target == GRAPHICS_STATE->UTF8StringAtom ||
-//                     Request->target == XA_STRING
-//                 ) {
-//                     if (
-//                         GRAPHICS_STATE->ClipboardBuffer && 
-//                         GRAPHICS_STATE->ClipboardBufferSize
-//                     ) {
-//                         XChangeProperty(
-//                             GRAPHICS_STATE->Disp,
-//                             Request->requestor,
-//                             Request->property,
-//                             Request->target,
-//                             8,
-//                             PropModeReplace,
-//                             GRAPHICS_STATE->ClipboardBuffer,
-//                             GRAPHICS_STATE->ClipboardBufferSize
-//                         );
-//                         Response.xselection.property = Request->property;
-//                     }
-//                 }
-
-//                 XSendEvent(
-//                     GRAPHICS_STATE->Disp,
-//                     Request->requestor,
-//                     FALSE,
-//                     0,
-//                     &Response
-//                 );
-//                 XFlush(GRAPHICS_STATE->Disp);
-//             } break;
-
-//             case ClientMessage: {
-//                 if (
-//                     (Atom) Event.xclient.data.l[0] == GRAPHICS_STATE->DeleteWindowAtom
-//                 ) {
-//                     LinuxWindow* SystemWindow = X11WindowToLinuxWindow(Event.xclient.window);
-//                     InputEvent* E = ListPush(
-//                         MemPool,
-//                         &Result,
-//                         EVENT_KIND_WINDOW_CLOSE
-//                     );
-
-//                     E->WindowHandle.V[0] = INT_FROM_PTR(SystemWindow);
-//                 } else if (
-//                     (Atom) Event.xclient.data.l[0] == GRAPHICS_STATE->SyncRequestAtom
-//                 ) {
-//                     LinuxWindow* SystemWindow = X11WindowToLinuxWindow(Event.xclient.window);
-
-//                     if (SystemWindow) {
-//                         SystemWindow->CounterValue = 0;
-//                         SystemWindow->CounterValue |= Event.xclient.data.l[2];
-//                         SystemWindow->CounterValue |= (Event.xclient.data.l[3] << 32);
-
-//                         XSyncValue Value;
-
-//                         XSyncIntToValue(&Value, SystemWindow->CounterValue);
-//                         XSyncSetCounter(
-//                             GRAPHICS_STATE->Disp, 
-//                             SystemWindow->CounterXID, 
-//                             Value
-//                         );
-//                     }
-//                 }
-//             } break;
-//         }
-
-//         if (SetMouseCursor) {
-//             Window RootWin = 0;
-//             Window ChildWindow = 0;
-//             int RootRelX = 0;
-//             int RootRelY = 0;
-//             int ChildRelX = 0;
-//             int ChildRelY = 0;
-//             unsigned int Mask = 0;
-
-//             if (
-//                 XQueryPointer(
-//                     GRAPHICS_STATE->Disp,
-//                     XDefaultRootWindow(GRAPHICS_STATE->Disp),
-//                     &RootWin,
-//                     &ChildWindow,
-//                     &RootRelX,
-//                     &RootRelY,
-//                     &ChildRelX,
-//                     &ChildRelY,
-//                     &Mask
-//                 )
-//             ) {
-//                 XDefineCursor(
-//                     GRAPHICS_STATE->Disp,
-//                     RootWin,
-//                     GRAPHICS_STATE->Cursors[GRAPHICS_STATE->LastSetCursor]
-//                 );
-//                 XFlush(GRAPHICS_STATE->Disp);
-//             }
-//         }
-//     }
-
-//     return Result;
-// }
 
 INTERNAL InputModifierKind
 InputModifierKindFromX11State(unsigned int State)
@@ -3046,6 +2614,17 @@ GetEvents(Arena* MemPool, b32 Wait)
         b32 TryAgain = FALSE;
 
         while (XPending(GRAPHICS_STATE->Disp)) {
+            if (!GRAPHICS_STATE->IsXFixesPresent) {
+                XConvertSelection(
+                    GRAPHICS_STATE->Disp,
+                    GRAPHICS_STATE->ClipboardAtom,
+                    GRAPHICS_STATE->UTF8StringAtom,
+                    GRAPHICS_STATE->ClipboardAtom,
+                    GRAPHICS_STATE->__HIDDEN_WINDOW,
+                    CurrentTime
+                );
+            }
+
             XEvent Event = {};
 
             XNextEvent(GRAPHICS_STATE->Disp, &Event);
@@ -3053,7 +2632,28 @@ GetEvents(Arena* MemPool, b32 Wait)
             b32 SetMouseCursor = FALSE;
 
             switch (Event.type) {
-                default: {} break;
+                default: {
+                    if (
+                        Event.type == GRAPHICS_STATE->XFixesSelectionEventCode &&
+                        GRAPHICS_STATE->IsXFixesPresent
+                    ) {
+                        XFixesSelectionNotifyEvent* Notification = (XFixesSelectionNotifyEvent*) &Event;
+
+                        if (
+                            Notification->subtype == XFixesSelectionNotify &&
+                            Notification->owner != GRAPHICS_STATE->__HIDDEN_WINDOW
+                        ) {
+                            XConvertSelection(
+                                GRAPHICS_STATE->Disp,
+                                GRAPHICS_STATE->ClipboardAtom,
+                                GRAPHICS_STATE->UTF8StringAtom,
+                                GRAPHICS_STATE->ClipboardAtom,
+                                GRAPHICS_STATE->__HIDDEN_WINDOW,
+                                CurrentTime
+                            );
+                        }
+                    }
+                } break;
 
                 case SelectionRequest: {
                     XSelectionRequestEvent* Request = &Event.xselectionrequest;
@@ -3110,6 +2710,52 @@ GetEvents(Arena* MemPool, b32 Wait)
                         &Response
                     );
                     XFlush(Request->display);
+                    TryAgain = TRUE;
+                } break;
+
+                case SelectionNotify: {
+                    Atom Type = 0;
+                    int Format = 0;
+                    u64 ItemsCount = 0;
+                    u64 PostBytes = 0;
+                    u8* Data = NULL;
+                    int Result = XGetWindowProperty(
+                        GRAPHICS_STATE->Disp,
+                        GRAPHICS_STATE->__HIDDEN_WINDOW,
+                        GRAPHICS_STATE->ClipboardAtom,
+                        0,
+                        MB(256),
+                        0,
+                        GRAPHICS_STATE->UTF8StringAtom,
+                        &Type,
+                        &Format,
+                        &ItemsCount,
+                        &PostBytes,
+                        &Data
+                    );
+
+                    if (Result == Success && Format == 0) {
+                        ArenaClear(GRAPHICS_STATE->ClipboardMemPool);
+                        GRAPHICS_STATE->ClipboardBufferSize = ItemsCount;
+                        GRAPHICS_STATE->ClipboardBuffer = ArenaPushArrayZero(
+                            GRAPHICS_STATE->ClipboardMemPool,
+                            u8,
+                            GRAPHICS_STATE->ClipboardBufferSize + 1
+                        );
+                        MemCpy(
+                            GRAPHICS_STATE->ClipboardBuffer,
+                            Data,
+                            GRAPHICS_STATE->ClipboardBufferSize
+                        );
+                        GRAPHICS_STATE->ClipboardBuffer[GRAPHICS_STATE->ClipboardBufferSize] = 0;
+                        XFree(Data);
+                        XDeleteProperty(
+                            GRAPHICS_STATE->Disp,
+                            GRAPHICS_STATE->__HIDDEN_WINDOW,
+                            GRAPHICS_STATE->ClipboardAtom
+                        );
+                    }
+
                     TryAgain = TRUE;
                 } break;
 
@@ -3217,34 +2863,79 @@ GetEvents(Arena* MemPool, b32 Wait)
                     );
 
                     if (!InClientArea) {
-                        XUngrabPointer(
-                            GRAPHICS_STATE->Disp, 
-                            Event.xbutton.time
-                        );
+                        if (
+                            Event.type == ButtonPress && 
+                            Event.xbutton.button == Button1
+                        ) {
+                            Time DoubleClickMSecs = (Time) (
+                                GRAPHICS_STATE->Properties.DoubleClickTime * 
+                                1000.0f
+                            );
+                            int DeltaX = Event.xbutton.x_root - GRAPHICS_STATE->PrevTitleBarPressX;
+                            int DeltaY = Event.xbutton.y_root - GRAPHICS_STATE->PrevTitleBarPressY;
+                            b32 IsDoubleClick = (
+                                MoveResizeCode == _NET_WM_MOVERESIZE_MOVE &&
+                                GRAPHICS_STATE->PrevTitleBarPressWindow == Win->Win &&
+                                GRAPHICS_STATE->PrevTitleBarPressTime &&
+                                (
+                                    Event.xbutton.time - GRAPHICS_STATE->PrevTitleBarPressTime
+                                ) <= DoubleClickMSecs &&
+                                DeltaX >= -4 &&
+                                DeltaX <= 4 &&
+                                DeltaY >= -4 &&
+                                DeltaY <= 4
+                            );
 
-                        Atom NetWMMoveResize = XInternAtom(
-                            GRAPHICS_STATE->Disp,
-                            "_NET_WM_MOVERESIZE",
-                            0
-                        );
-                        XEvent XEvt = {};
+                            if (IsDoubleClick) {
+                                Handle WindowHandle = {
+                                    INT_FROM_PTR(Win)
+                                };
 
-                        XEvt.xclient.type = ClientMessage;
-                        XEvt.xclient.display = GRAPHICS_STATE->Disp;
-                        XEvt.xclient.window = Win->Win;
-                        XEvt.xclient.message_type = NetWMMoveResize;
-                        XEvt.xclient.format = 32;
-                        XEvt.xclient.data.l[0] = Event.xbutton.x_root;
-                        XEvt.xclient.data.l[1] = Event.xbutton.y_root;
-                        XEvt.xclient.data.l[2] = MoveResizeCode;
-                        XSendEvent(
-                            GRAPHICS_STATE->Disp,
-                            DefaultRootWindow(GRAPHICS_STATE->Disp),
-                            0,
-                            SubstructureRedirectMask | SubstructureNotifyMask,
-                            &XEvt
-                        );
-                        XFlush(GRAPHICS_STATE->Disp);
+                                GRAPHICS_STATE->PrevTitleBarPressTime = 0;
+                                WindowSetMaximised(
+                                    WindowHandle,
+                                    !WindowIsMaximised(WindowHandle)
+                                );
+                            } else {
+                                if (MoveResizeCode == _NET_WM_MOVERESIZE_MOVE) {
+                                    GRAPHICS_STATE->PrevTitleBarPressWindow = Win->Win;
+                                    GRAPHICS_STATE->PrevTitleBarPressTime = Event.xbutton.time;
+                                    GRAPHICS_STATE->PrevTitleBarPressX = Event.xbutton.x_root;
+                                    GRAPHICS_STATE->PrevTitleBarPressY = Event.xbutton.y_root;
+                                }
+
+                                XUngrabPointer(
+                                    GRAPHICS_STATE->Disp,
+                                    Event.xbutton.time
+                                );
+
+                                Atom NetWMMoveResize = XInternAtom(
+                                    GRAPHICS_STATE->Disp,
+                                    "_NET_WM_MOVERESIZE",
+                                    0
+                                );
+                                XEvent XEvt = {};
+
+                                XEvt.xclient.type = ClientMessage;
+                                XEvt.xclient.display = GRAPHICS_STATE->Disp;
+                                XEvt.xclient.window = Win->Win;
+                                XEvt.xclient.message_type = NetWMMoveResize;
+                                XEvt.xclient.format = 32;
+                                XEvt.xclient.data.l[0] = Event.xbutton.x_root;
+                                XEvt.xclient.data.l[1] = Event.xbutton.y_root;
+                                XEvt.xclient.data.l[2] = MoveResizeCode;
+                                XEvt.xclient.data.l[3] = Button1;
+                                XEvt.xclient.data.l[4] = 1;
+                                XSendEvent(
+                                    GRAPHICS_STATE->Disp,
+                                    DefaultRootWindow(GRAPHICS_STATE->Disp),
+                                    0,
+                                    SubstructureRedirectMask | SubstructureNotifyMask,
+                                    &XEvt
+                                );
+                                XFlush(GRAPHICS_STATE->Disp);
+                            }
+                        }
                     } else {
                         InputModifierKind Modifiers = 0;
 
@@ -3357,22 +3048,22 @@ GetEvents(Arena* MemPool, b32 Wait)
 
                                 case _NET_WM_MOVERESIZE_SIZE_TOPLEFT:
                                 case _NET_WM_MOVERESIZE_SIZE_BOTTOMRIGHT: {
-                                    GRAPHICS_STATE->LastSetCursor = CURSOR_KIND_DOWN_RIGHT;
+                                    GRAPHICS_STATE->PrevSetCursor = CURSOR_KIND_DOWN_RIGHT;
                                 } break;
 
                                 case _NET_WM_MOVERESIZE_SIZE_TOPRIGHT:
                                 case _NET_WM_MOVERESIZE_SIZE_BOTTOMLEFT: {
-                                    GRAPHICS_STATE->LastSetCursor = CURSOR_KIND_UP_RIGHT;
+                                    GRAPHICS_STATE->PrevSetCursor = CURSOR_KIND_UP_RIGHT;
                                 } break;
 
                                 case _NET_WM_MOVERESIZE_SIZE_LEFT:
                                 case _NET_WM_MOVERESIZE_SIZE_RIGHT: {
-                                    GRAPHICS_STATE->LastSetCursor = CURSOR_KIND_LEFT_RIGHT;
+                                    GRAPHICS_STATE->PrevSetCursor = CURSOR_KIND_LEFT_RIGHT;
                                 } break;
 
                                 case _NET_WM_MOVERESIZE_SIZE_TOP:
                                 case _NET_WM_MOVERESIZE_SIZE_BOTTOM: {
-                                    GRAPHICS_STATE->LastSetCursor = CURSOR_KIND_UP_DOWN;
+                                    GRAPHICS_STATE->PrevSetCursor = CURSOR_KIND_UP_DOWN;
                                 } break;
                             }
                         }
@@ -3382,7 +3073,9 @@ GetEvents(Arena* MemPool, b32 Wait)
                 case FocusIn: {} break;
 
                 case FocusOut: {
-                    LinuxWindow* Win = X11WindowToLinuxWindow(Event.xfocus.window);
+                    LinuxWindow* Win = X11WindowToLinuxWindow(
+                        Event.xfocus.window
+                    );
 
                     if (!Win)
                         break;
@@ -3402,7 +3095,7 @@ GetEvents(Arena* MemPool, b32 Wait)
                     );
 
                     if (Win && !Win->ResizeDraw) {
-                        Win->LastSyncedRect = Rng(
+                        Win->PrevSyncedRect = Rng(
                             (f32) Event.xconfigure.x,
                             (f32) Event.xconfigure.y,
                             (f32) (Event.xconfigure.x + Event.xconfigure.width),
@@ -3496,7 +3189,7 @@ GetEvents(Arena* MemPool, b32 Wait)
                     XDefineCursor(
                         GRAPHICS_STATE->Disp,
                         RootWin,
-                        GRAPHICS_STATE->Cursors[GRAPHICS_STATE->LastSetCursor]
+                        GRAPHICS_STATE->Cursors[GRAPHICS_STATE->PrevSetCursor]
                     );
                     XFlush(GRAPHICS_STATE->Disp);
                 }
@@ -3637,7 +3330,7 @@ SetCursorKind(CursorKind Cursor)
     if (Cursor >= CURSOR_KIND_COUNT)
         return;
 
-    GRAPHICS_STATE->LastSetCursor = Cursor;
+    GRAPHICS_STATE->PrevSetCursor = Cursor;
 
     for (
         LinuxWindow* Win = GRAPHICS_STATE->HeadWindow; 
