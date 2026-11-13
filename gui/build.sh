@@ -6,7 +6,7 @@ GREEN='\033[0;32m'
 RESET='\033[0;0m'
 
 BuildMode="debug"
-GuiDefine="-DNC_GUI=1 -DNC_USE_OPENGL -DNC_USE_FREETYPE -DNC_SLOW_FLOATS"
+GuiDefine="-DNC_GUI=1 -DNC_USE_OPENGL -DNC_USE_OPENGL_EGL -DNC_USE_FREETYPE -DNC_SLOW_FLOATS"
 
 for arg in "$@"; do
     case "$(echo $arg | tr '[:upper:]' '[:lower:]')" in

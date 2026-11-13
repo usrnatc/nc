@@ -1062,10 +1062,22 @@ GraphicsInit(void)
     HMODULE Module = LoadLibraryA("user32.dll");
 
     if (Module) {
-        WinSetProcessDPIAwarenessFunc = (WinSetProcessDPIAwarenessFuncType*) GetProcAddress(Module, "SetProcessDpiAwarenessContext");
-        WinGetDPIForWindowFunc = (WinGetDPIForWindowFuncType*) GetProcAddress(Module, "GetDpiForWindow");
-        WinGetDPIForMonitorFunc = (WinGetDPIForMonitorFuncType*) GetProcAddress(Module, "GetDpiForMonitor");
-        WinGetSystemMetricsForDPIFunc = (WinGetSystemMetricsForDPIFuncType*) GetProcAddress(Module, "GetSystemMetricsForDpi");
+        WinSetProcessDPIAwarenessFunc = (WinSetProcessDPIAwarenessFuncType*) GetProcAddress(
+            Module, 
+            "SetProcessDpiAwarenessContext"
+        );
+        WinGetDPIForWindowFunc = (WinGetDPIForWindowFuncType*) GetProcAddress(
+            Module, 
+            "GetDpiForWindow"
+        );
+        WinGetDPIForMonitorFunc = (WinGetDPIForMonitorFuncType*) GetProcAddress(
+            Module, 
+            "GetDpiForMonitor"
+        );
+        WinGetSystemMetricsForDPIFunc = (WinGetSystemMetricsForDPIFuncType*) GetProcAddress(
+            Module, 
+            "GetSystemMetricsForDpi"
+        );
         FreeLibrary(Module);
     }
 
@@ -1125,7 +1137,10 @@ GraphicsInit(void)
         GRAPHICS_STATE->Properties.DefaultRefreshRate = (f32) 60.0f;
     }
 
-    LogInfo("[WIN32] :: DefaultRefreshRate = %.6f", GRAPHICS_STATE->Properties.DefaultRefreshRate);
+    LogInfo(
+        "[WIN32] :: DefaultRefreshRate = %.6f", 
+        GRAPHICS_STATE->Properties.DefaultRefreshRate
+    );
 
     SetCursorKind(CURSOR_KIND_POINTER);
 
@@ -1218,6 +1233,8 @@ GraphicsInit(void)
         for(u64 I = 0xDF, J = 0; I < 0xFF; ++I, ++J)
             GRAPHICS_STATE->InputKindFromCache[I] = (InputKind) ((u64) INPUT_KIND_EX0 + J);
     }
+
+    // TODO(nc): parse icon
 }
 
 GraphicsProperties* 

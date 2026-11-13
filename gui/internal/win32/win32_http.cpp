@@ -195,7 +195,9 @@ HTTPAsyncTick(void)
             Str8 RequestData = {};
 
             if (FreeSlotIndex) {
-                ByteRingGuard Guard = SafeByteRingOpen(WIN32_HTTP_STATE->RequestSafeRing);
+                ByteRingGuard Guard = SafeByteRingOpen(
+                    WIN32_HTTP_STATE->RequestSafeRing
+                );
 
                 SafeByteRingTryReadStruct(
                     &Guard,

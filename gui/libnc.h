@@ -128,10 +128,23 @@
     #include "dx11/dx11_render.cpp"
 #elif defined(NC_USE_OPENGL)
     #include "opengl/opengl_platform.h"
-    #include "opengl/opengl_glx_platform.h"
     #include "opengl/opengl_render.h"
-    #include "opengl/opengl_glx.cpp"
+
     #include "opengl/opengl_render.cpp"
+
+    #if defined(NC_USE_OPENGL_GLX)
+        #include "opengl/opengl_glx_platform.h"
+        #include "opengl/opengl_glx.h"
+
+        #include "opengl/opengl_glx.cpp"
+    #elif defined(NC_USE_OPENGL_EGL)
+        #include "opengl/opengl_egl_platform.h"
+        #include "opengl/opengl_egl.h"
+
+        #include "opengl/opengl_egl.cpp"
+    #else
+        #error Need to specify backend of OpenGL to use [GLX | EGL]
+    #endif
 #elif defined(NC_USE_VULKAN)
     #error NC_USE_VULKAN defined but no vulkan backend defined
 #elif defined(NC_OS_MAC) && defined(NC_USE_METAL)

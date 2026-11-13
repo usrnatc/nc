@@ -43,6 +43,7 @@
 #include "Xrandr.h"
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
+#include <X11/Xutil.h>
 #include <poll.h>                   // NOTE: need to poll for clipboard selection event
 
 // // @defines____________________________________________________________________

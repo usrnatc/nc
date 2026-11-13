@@ -4,7 +4,7 @@
 #include "../../nc_window.h"
 
 #include "opengl_platform.h"
-#include "opengl_glx_platform.h"
+#include "opengl_render.h"
 
 OGLState* OGL_STATE = NULL;
 

@@ -1250,23 +1250,6 @@ GraphicsInit(void)
         NULL,
         NULL
     );
-
-    // NOTE: For some ungodly reason, if a window has stored some selection
-    //     : in the clipboard, and that window is closed, the clipboard is
-    //     : cleared and the data is lost (why???). This window will be hidden,
-    //     : but lives for the lifetime of the application so that the clipboard
-    //     : is persistent throughout the program's run as expected.
-    // GRAPHICS_STATE->ClipboardXID = XCreateSimpleWindow(
-    //     GRAPHICS_STATE->Disp,
-    //     XDefaultRootWindow(GRAPHICS_STATE->Disp),
-    //     -10,
-    //     -10,
-    //     1,
-    //     1,
-    //     0,
-    //     0,
-    //     0
-    // );
     GRAPHICS_STATE->Properties.DoubleClickTime = 0.5f;
     GRAPHICS_STATE->Properties.CaretBlinkTime = 0.5f;
     GRAPHICS_STATE->Properties.DefaultRefreshRate = 60.0f;
@@ -1382,6 +1365,8 @@ GraphicsInit(void)
             );
         }
     }
+
+    // TODO(nc): parse icon
 
     GRAPHICS_STATE->WakeupFD = eventfd(0, EFD_CLOEXEC);
 }

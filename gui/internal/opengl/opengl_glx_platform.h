@@ -1,9 +1,7 @@
 #if !defined(__OPENGL_GLX_PLATFORM_H__)
 #define __OPENGL_GLX_PLATFORM_H__
 
-#include "../../nc_types.h"
-#include "../../nc_cli.h"
-#include "../../nc_render.h"
+
 
 // @defines_____________________________________________________________________
 #define glTexImage3D    glTexImage3D__static
@@ -29,14 +27,9 @@ typedef GLXContext (*GLXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXC
 
 
 // @runtime____________________________________________________________________
-extern GLXContext OGLContext;
+
 
 // @functions__________________________________________________________________
-vproc* OGLLoadProcedure(char* Name);
-void OGLInit(CommandLine* CLI);
-RendHandle OGLEquipWindow(Handle WindowHandle);
-void OGLUnequipWindow(Handle WindowHandle, RendHandle Renderer);
-void OGLSelectWindow(Handle WindowHandle, RendHandle Renderer);
-void OGLSwapWindow(Handle WindowHandle, RendHandle Renderer);
+
 
 #endif // __OPENGL_GLX_PLATFORM_H__
